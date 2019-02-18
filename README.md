@@ -1,4 +1,4 @@
-# BetterNPCSheet5e
+# Better NPC Sheet 5e
 This module overwrites the default NPC sheet that comes shiped with the dnd5e system and brings it closer to the well known official template.
 
 ![example](https://i.imgur.com/bbeCcab.png)
