@@ -1,5 +1,6 @@
 # Better NPC Sheet 5e
 This module overwrites the default NPC sheet that comes shiped with the dnd5e system and brings it closer to the well known official template.
+#### WARNING: this module seems to have issues with FVTT Enhancement Suite (dnd5e) by Sillvva, so both might not work correctly until patched
 
 ![example](https://i.imgur.com/bbeCcab.png)
 
