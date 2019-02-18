@@ -1,0 +1,141 @@
+.npc-sheet {
+    background-image: url('background.jpg');
+    background-repeat: repeat;
+    padding: 3px;
+    height:auto;
+}
+
+.npc-header {
+    height: 105px !important;
+}
+
+.header-left, .header-right {
+    display: inline-block;
+}
+.header-left {
+    max-width: 110px;
+}
+
+.npc-body {
+    overflow:visible !important;
+    flex-wrap:wrap !important;
+    flex-direction: row !important;
+    /*display:grid!important;
+    grid-template-columns: repeat(3,300px);
+    grid-auto-rows: 300px;
+    grid-auto-flow: row;*/
+}
+
+.body-tile {
+    display:inline-block;
+    width: 33.3%;
+    /*height: auto;
+    grid-column: auto / span auto;
+    grid-row: auto / span auto;*/
+}
+
+.body-tile h3 {
+    margin:0 0 -3px 0;
+}
+
+.sheet-divider, .sheet-divider-left {
+    display:inline-block;
+    width:140px;
+    border-bottom:2px solid transparent;
+    border-top:2px solid transparent;
+    margin:0 0;
+}
+.sheet-divider {border-right: 140px solid #922610;}
+.sheet-divider-left {border-left: 140px solid #922610; }
+
+.npc-textinput, .npc-textinput-small {
+    font-family: "Nodesto", "Signika", "Palatino Linotype", serif !important;
+    color: #444 !important;
+}
+.npc-textinput {
+    font-size: 20px !important;    
+}
+.npc-textinput-small {
+    font-weight:normal;
+    font-size: 15px;
+}
+
+.flex-line{
+    display: flex;
+}
+.flex-line label {
+    font-weight: bold;
+    font-size: 15px;
+    margin-right: 5px;
+    font-family: "Nodesto", "Signika", "Palatino Linotype", serif !important;
+}
+.flex-line span {
+    display: inline !important;
+}
+
+.ability, .save, .skill {
+    display:inline-blocK;
+    text-align:center;
+}
+
+.ability h4 {
+    text-transform: capitalize;
+}
+
+.editBtn {
+    display: block;
+    position:absolute;
+    margin: 4px 10px;
+    right:0;
+    font-size: 30px;
+}
+
+.npc-item-header {
+    margin-top:2px;
+    margin-bottom:0px;
+}
+.noc-item-header img {
+    
+    vertical-align: middle;
+}
+
+.npc-item-name {
+    font-weight:bold;
+    display:inline !important;
+    width: 100%;
+}
+
+.npc-item-create {
+    margin:0 1ch;
+}
+
+.npc-bold {
+    font-weight:bold;
+}
+
+.npc-small {
+    text-transform: capitalize;
+}
+
+.npc-small + .npc-small :before {
+    content:', ';
+}
+
+.npc-small:before {
+    content: ", ";
+}
+
+.npc-small:nth-child(1):before {
+    content:'';
+}
+
+.spellcasting-ability {
+    margin-bottom:0;
+}
+
+.spellcasting-ability select {    
+    background-image: url('background.jpg');
+    height: 1.5em;
+    margin-right: 5px;
+    padding:0;
+}

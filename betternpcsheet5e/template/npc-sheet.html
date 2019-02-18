@@ -1,0 +1,328 @@
+<form class="npc-sheet {{cssClass}}" autocomplete="off">
+
+    <!-- HEADER -->
+    <header class="sheet-header npc-header">
+        <div class="header-left">
+            <!-- IMAGE -->
+            <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="100" width="100" data-edit="img"/>
+        </div>
+        <div class="header-right">            
+            <!-- NAME -->
+            <h1 class="charname">
+                <input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/>
+            </h1>
+
+            <!-- DETAILS -->
+            <div class="">
+                <input class="npc-textinput" name="data.traits.size.value" type="text" data-dtype="{{data.traits.size.type}}" value="{{data.traits.size.value}}" placeholder="Medium"/>
+                <input class="npc-textinput" name="data.details.type.value" type="text" value="{{data.details.type.value}}" placeholder="Type"/>
+                <input class="npc-textinput" name="data.details.alignment.value" type="text" value="{{data.details.alignment.value}}" placeholder="Alignment"/> <br>
+                <input class="npc-textinput" name="data.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="Source"/>
+            </div>
+        </div> 
+        
+        
+        <a class='editBtn' title='Edit'><i class="fas fa-cog"></i></a>      
+    </header>
+
+    <!-- BODY -->
+    <section class="sheet-body npc-body">
+            
+        <!-- PRIMARY ATTRIBUTES -->        
+        <div class="body-tile">
+            <div>        
+                <div class="flex-line">
+                    <label>Armor Class </label>
+                    <input class="npc-textinput-small flex" name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
+                                   data-dtype="{{data.attributes.ac.type}}" placeholder="10"/>
+                </div>        
+                <div class="flex-line">
+                    <label>Initative</label>
+                    <input class="npc-textinput-small flex" name="data.attributes.init.value" type="text" placeholder="0"
+                                   data-dtype="{{data.attributes.init.type}}"
+                                   value="{{numberFormat data.attributes.init.value decimals=0 sign=true}}"/>
+                </div>
+                <div class="flex-line">
+                    <label class="flex">Hit Points </label>
+                    <input class="npc-textinput-small flex" name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
+                                           data-dtype="{{data.attributes.hp.type}}" placeholder="10"/>
+                    <span class="flex0">(</span>
+                    <input class="npc-textinput-small flex" name="data.attributes.hp.formula" class="hpformula" type="text" placeholder="Forumla"
+                                           value="{{data.attributes.hp.formula}}"/>
+                    <span class="flex0">)</span>        
+                </div>
+                <div class="flex-line">
+                    <label class="flex">Speed </label>
+                    <input class="npc-textinput-small flex" name="data.attributes.speed.value" type="text" value="{{data.attributes.speed.value}}"
+                               data-dtype="{{data.attributes.speed.type}}" placeholder="0"/>
+                </div>
+            </div>
+            <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+
+            <!-- ABILITY SCORES -->
+            <div>
+                {{#each data.abilities as |ability id|}}
+                    <div class="ability" data-ability="{{id}}">
+                        <h4 class="ability-name rollable">{{id}}</h4>
+                        <div class="flex-line">
+                            <input class="npc-textinput-small flex" name="data.abilities.{{id}}.value" type="text" value="{{ability.value}}" placeholder="10"/>
+                            <span class="flex0">(</span>
+                            <span class="ability-mod" title="Modifier">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+                            <span class="flex0">)</span>    
+                        </div>
+                    </div>
+                {{/each}}
+            </div>        
+            <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+
+            <!-- SAVING THROWS -->
+            <div>
+                <span style="font-weight:bold;">Saving Throws</span>
+                {{#each data.abilities as |ability id|}}
+                    <div class="save flex-line hidable" data-hidable-attr="{{ability.proficient}}" data-ability="{{id}}">
+                        <a class="ability-proficiency show-on-edit flex" title="{{ability.hover}}">{{{ability.icon}}}</a>
+                        <a class="ability-name rollable flex">{{id}}</a>
+                        <span class="ability-save flex" title="Saving Throw">{{numberFormat ability.save decimals=0 sign=true}}</span>
+                        <input class='hidable-attr' type="hidden" name="data.abilities.{{id}}.proficient" value="{{ability.proficient}}"/>
+                    </div>
+                {{/each}}
+            </div>
+
+            <!-- SKILLS -->
+            <div>
+                <span style="font-weight:bold;">Skills</span>
+                {{#each data.skills as |skill s|}}
+                    <div class="skill flex-line hidable" data-hidable-attr="{{skill.value}}" data-skill="{{s}}">
+                        <a class="skill-proficiency show-on-edit flex" title="{{skill.hover}}">{{{skill.icon}}}</a>
+                        <a class="skill-name rollable flex">{{skill.label}}</a>
+                        <span class="skill-mod flex">{{numberFormat skill.mod decimals=0 sign=true}}</span>
+                        <span class="skill-ability flex">({{skill.ability}})</span>
+                        <input class='hidable-attr' type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number"/>
+                    </div>
+                {{/each}}
+            </div>
+            
+            <!-- IMMUNITYS -->
+            <div class="flex-line hidable" data-hidable-attr="{{data.traits.di.value}}">
+                <label>{{data.traits.di.label}}</label>
+                <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.di.value" data-dtype="{{data.traits.di.type}}"
+                       value="{{data.traits.di.value}}" placeholder="None"/>
+            </div>
+            
+            <div class="flex-line hidable" data-hidable-attr="{{data.traits.dr.value}}">
+                <label>{{data.traits.dr.label}}</label>
+                <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.dr.value" data-dtype="{{data.traits.dr.type}}"
+                       value="{{data.traits.dr.value}}" placeholder="None"/>
+            </div>
+            
+            <div class="flex-line hidable" data-hidable-attr="{{data.traits.dv.value}}">
+                <label>{{data.traits.dv.label}}</label>
+                <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.dv.value" data-dtype="{{data.traits.dv.type}}"
+                       value="{{data.traits.dv.value}}" placeholder="None"/>
+            </div>
+            
+            <div class="flex-line hidable" data-hidable-attr="{{data.traits.ci.value}}">
+                <label>{{data.traits.ci.label}}</label>
+                <input class="npc-textinput-small hidable-attr-attr" type="text" name="data.traits.ci.value" data-dtype="{{data.traits.ci.type}}"
+                       value="{{data.traits.ci.value}}" placeholder="None"/>
+            </div>
+            
+            <!-- OTHER ATTRIBUTES -->
+            <div class="flex-line hidable" data-hidable-attr="{{data.traits.senses.value}}">
+                    <label>{{data.traits.senses.label}} </label>
+                    <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
+                       value="{{data.traits.senses.value}}" placeholder="None"/>
+            </div>
+            <div class="flex-line hidable" data-hidable-attr="{{data.traits.perception.value}}">
+                    <label>{{data.traits.perception.label}} </label>
+                    <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.perception.value" data-dtype="{{data.traits.perception.type}}"
+                       value="{{data.traits.perception.value}}" placeholder="Value"/>
+            </div>
+            <div class="flex-line hidable" data-hidable-attr="{{data.traits.languages.value}}">
+                    <label>{{data.traits.languages.label}} </label>
+                    <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.languages.value" data-dtype="{{data.traits.languages.type}}"
+                       value="{{data.traits.languages.value}}" placeholder="Common"/>
+            </div>
+            <div class="flex-line">
+                    <label>Challenge Rating </label>
+                    <input class="npc-textinput-small" name="data.details.cr.value" type="text" value="{{data.details.cr.str}}" data-dtype="Number" placeholder="1"/>
+                    <span>({{data.details.xp.value}} XP)</span>
+            </div>
+            <div class="flex-line">
+                    <label>Proficiency Bonus</label>
+                    <span>{{numberFormat data.attributes.prof.value decimals=0 sign=true}}</span>
+            </div>
+            
+            <div class="flex-line hidable" data-hidable-attr="{{data.resources.legact.max}}">
+                <label>{{data.resources.legact.label}}</label>
+                <input class="npc-textinput-small hidable-attr" type="text" name="data.resources.legact.value" data-dtype="{{data.resources.legact.type}}"
+                       value="{{data.resources.legact.max}}" placeholder="0"/>
+                <span class="flex0">/</span> 
+                <input class="npc-textinput-small hidable-attr" type="text" name="data.resources.legact.max" data-dtype="{{data.resources.legact.type}}"
+                       value="{{data.resources.legact.max}}" placeholder="0"/>
+            </div>            
+            <div class="flex-line hidable" data-hidable-attr="{{data.resources.legres.max}}">
+                <label>{{data.resources.legact.label}}</label>
+                <input class="npc-textinput-small hidable-attr" type="text" name="data.resources.legres.value" data-dtype="{{data.resources.legres.type}}"
+                       value="{{data.resources.legres.max}}" placeholder="0"/>
+                <span class="flex0">/</span> 
+                <input class="npc-textinput-small hidable-attr" type="text" name="data.resources.legres.max" data-dtype="{{data.resources.legres.type}}"
+                       value="{{data.resources.legres.max}}" placeholder="0"/>
+            </div>
+        </div>
+        
+        <!-- FEATURES -->
+        <div class="body-tile" data-tile="features">
+            <div class="feature-list">     
+            <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                <h3>
+                    <a class="item-control item-create npc-item-create" title="Create Item" data-item-type="feat"><i class="fas fa-plus-circle"></i></a>
+                    <a class="body-tile-name" data-tile="features"> Features</a>
+                </h3>
+                <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                {{#each actor.features as |feature sid|}}
+                <div class="item" data-item-id="{{feature.id}}">
+                    <h4 class='npc-item-header'>                        
+                        {{#if ../useWeaponIcons}}
+                            <img class="rollable" src="{{feature.img}}" title="{{feature.name}}" width="20" height="20"/>
+                        {{else}}
+                            <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
+                        {{/if}}
+                        <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        <a class='npc-item-name' data-item-id="{{feature.id}}">{{feature.name}}</a>
+                    </h4>
+                    <div class='item-description' {{#equals feature.name "Spellcasting"}}style="display:none;"{{/equals}}>
+                        <p>{{{feature.data.description.value}}}</p>
+                        <p>{{#unequals feature.data.featType.value "passive"}}
+                                {{#if feature.data.requirements.value}}<small class="npc-small">{{feature.data.requirements.label}}: {{feature.data.requirements.value}}</small>{{/if}}
+                                {{#if feature.data.ability.value}}<small class="npc-small">{{feature.data.ability.label}}: {{feature.data.ability.value}}</small>{{/if}}
+                                {{#if feature.data.target.value}}<small class="npc-small">{{feature.data.target.label}}: {{feature.data.target.value}}</small>{{/if}}
+                                {{#if feature.data.range.value}}<small class="npc-small">{{feature.data.range.label}}: {{feature.data.range.value}}</small>{{/if}}
+                                {{#if feature.data.time.value}}<small class="npc-small">{{feature.data.time.label}}: {{feature.data.time.value}}</small>{{/if}}
+                                {{#if feature.data.duration.value}}<small class="npc-small">{{feature.data.duration.label}}: {{feature.data.duration.value}}</small>{{/if}}
+                                {{#if feature.data.damage.value}}<small class="npc-small">{{feature.data.damage.label}}: {{feature.data.damage.value}} {{feature.data.damageType.value}}</small>{{/if}}
+                                {{#if feature.data.save.value}}<small class="npc-small">{{feature.data.save.label}}: {{feature.data.save.value}}</small>{{/if}}
+                            {{else}}
+                            {{/unequals}}</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        
+        <!-- WEAPONS -->
+        <div class="body-tile" data-tile="weapons">
+            <div class="weapon-list">
+            <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                <h3>
+                    <a class="item-control item-create npc-item-create" title="Create Item" data-item-type="weapon"><i class="fas fa-plus-circle"></i></a>
+                    <a class="body-tile-name" data-tile="weapons"> Weapons</a>
+                </h3>
+                <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                {{#each actor.weapons as |weapon sid|}}
+                <div class="item" data-item-id="{{weapon.id}}">
+                    <h4 class='npc-item-header'>                        
+                        {{#if ../useWeaponIcons}}
+                            <img class="rollable" src="{{weapon.img}}" title="{{weapon.name}}" width="20" height="20"/>
+                        {{else}}
+                            <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
+                        {{/if}}
+                        <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        <a class='npc-item-name' data-item-id="{{weapon.id}}">{{weapon.name}}</a>
+                    </h4>
+                    <div class='item-description'>
+                        <p>{{{weapon.data.description.value}}}</p>
+                        <p>{{#unequals weapon.data.featType.value "passive"}}
+                                {{#if weapon.data.requirements.value}}<small class="npc-small">{{weapon.data.requirements.label}}: {{weapon.data.requirements.value}}</small>{{/if}}
+                                {{#if weapon.data.ability.value}}<small class="npc-small">{{weapon.data.ability.label}}: {{weapon.data.ability.value}}</small>{{/if}}
+                                {{#if weapon.data.target.value}}<small class="npc-small">{{weapon.data.target.label}}: {{weapon.data.target.value}}</small>{{/if}}
+                                {{#if weapon.data.range.value}}<small class="npc-small">{{weapon.data.range.label}}: {{weapon.data.range.value}}</small>{{/if}}
+                                {{#if weapon.data.time.value}}<small class="npc-small">{{weapon.data.time.label}}: {{weapon.data.time.value}}</small>{{/if}}
+                                {{#if weapon.data.duration.value}}<small class="npc-small">{{weapon.data.duration.label}}: {{weapon.data.duration.value}}</small>{{/if}}
+                                {{#if weapon.data.damage.value}}<small class="npc-small">{{weapon.data.damage.label}}: {{weapon.data.damage.value}} {{weapon.data.damageType.value}}</small>{{/if}}
+                                {{#if weapon.data.damage2.value}}<small class="npc-small">{{weapon.data.damage2.label}}: {{weapon.data.damage2.value}} {{weapon.data.damage2Type.value}}</small>{{/if}}
+                                {{#if weapon.data.save.value}}<small class="npc-small">{{weapon.data.save.label}}: {{weapon.data.save.value}}</small>{{/if}}
+                            {{else}}
+                            {{/unequals}}</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        
+        <!-- SPELLS -->
+        <div class="body-tile" data-tile="spell0">      
+            <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+            <h3>
+                <a class="item-control item-create npc-item-create" title="Create Spell" data-item-type="spell" data-spell-level="0"><i class="fas fa-plus-circle"></i></a>
+                <a  class="body-tile-name" data-tile="spell0" data-target="collapsable"> Spellbook</a>
+            </h3>
+            <div class="form-group spellcasting-ability collapsable">
+                <label><h4>Spellcasting Ability</h4></label>
+                <select name="data.attributes.spellcasting.value" data-type="String">
+                    {{#select data.attributes.spellcasting.value}}
+                    <option value="">None</option>
+                    {{#each data.abilities as |abl a|}}
+                    <option value="{{a}}">{{abl.label}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        
+        {{#each actor.spellbook as |section lvl|}}
+            {{#unless section.isCantrip}}
+            <div class="body-tile spell-section" data-tile="spell{{lvl}}">
+            {{/unless}}
+                {{#if section.isCantrip}}<div class="collapsable">{{/if}}
+                <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                <h3 class="flex-line">
+                <a class="item-control item-create npc-item-create" title="Create Spell" data-item-type="spell" data-spell-level="{{lvl}}"><i class="fas fa-plus-circle"></i></a>
+                    <a class="body-tile-name" data-tile="spell{{lvl}}">{{section.label}}</a>
+                    {{#unless section.isCantrip}}
+                         - Spellslots:
+                        <span class="spell-slots">
+                            <input class="npc-textinput-small" type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
+                        </span>
+                        <span class="flex0"> / </span>
+                        <span class="spell-max">
+                            <input class="npc-textinput-small" type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                        </span>
+                    {{else}}
+                    {{/unless}}
+                </h3>
+                <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                {{#each section.spells as |spell i|}}
+                <div class="item" data-item-id="{{spell.id}}">
+                    <h4 class='npc-item-header'>
+                        {{#if ../../useSpellIcons}}
+                            <img class="rollable" src="{{spell.img}}" title="{{spell.name}}" width="20" height="20"/>
+                        {{else}}
+                            <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
+                        {{/if}}
+                        <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        <a class='npc-item-name' data-item-id="{{spell.id}}">{{spell.name}}</a>
+                    </h4>
+                    <div class='item-description spell-description'>
+                        <p>{{{spell.data.description.value}}}</p>
+                        <p>                                
+                            {{#if spell.data.ritual.value}}<small class="npc-small npc-bold">Ritual</small>{{/if}}
+                            {{#if spell.data.concentration.value}}<small class="npc-small npc-bold">Concentration</small>{{/if}}
+                            {{#if spell.data.school.value}}<small class="npc-small">{{spell.data.school.str}}</small>{{/if}}
+                            {{#if spell.data.components.value}}<small class="npc-small">{{spell.data.components.label}}: {{spell.data.components.value}}</small>{{/if}}
+                            {{#if spell.data.range.value}}<small class="npc-small">{{spell.data.range.label}}: {{spell.data.range.value}}</small>{{/if}}
+                            {{#if spell.data.time.value}}<small class="npc-small">{{spell.data.time.label}}: {{spell.data.time.value}}</small>{{/if}}
+                            {{#if spell.data.duration.value}}<small class="npc-small">{{spell.data.duration.label}}: {{spell.data.duration.value}}</small>{{/if}}
+                            {{#if spell.data.damage.value}}<small class="npc-small">{{spell.data.damage.label}}: {{spell.data.damage.value}} {{spell.data.damageType.value}}</small>{{/if}}
+                            {{#if spell.data.save.value}}<small class="npc-small">{{spell.data.save.label}}: {{spell.data.save.value}}</small>{{/if}}
+                         </p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>        
+                {{#if section.isCantrip}}</div>{{/if}}
+                {{/each}}
+    </section>
+</form>
