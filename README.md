@@ -12,3 +12,9 @@ Since clicking the name of an item now toggles the item details, you have to use
 Keep in mind that this module does not change anything on the rolling behaviour of Foundry VTT, you'll still get the popup to confirm normal rolls, advantage etc.
 
 To save some space, any NPC that doesn't have any noncantrip spells will appear slimmer, but if you add a 1st level spell (or higher) the sheet will automaticly expand to full size to have enough space for spells.
+
+If you have any suggestions or problems concerning this module, feel free to contact me in discord (Felix#6196) or per email (syl3r31@gmail.com).
+
+Shoutout to DestinyGrey#2890 who incentivized the creation of this module.
+
+If you feel like supporting my work, feel free to leave a tip at my paypal felix.mueller.86@web.de
