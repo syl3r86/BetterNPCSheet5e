@@ -76,8 +76,8 @@
             <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
 
             <!-- SAVING THROWS -->
-            <div>
-                <span style="font-weight:bold;">Saving Throws</span>
+            <div class='saves-div'>
+                <label style="font-weight:bold;">Saving Throws</label>
                 {{#each data.abilities as |ability id|}}
                     <div class="save flex-line hidable" data-hidable-attr="{{ability.proficient}}" data-ability="{{id}}">
                         <a class="ability-proficiency show-on-edit flex" title="{{ability.hover}}">{{{ability.icon}}}</a>
@@ -89,8 +89,8 @@
             </div>
 
             <!-- SKILLS -->
-            <div>
-                <span style="font-weight:bold;">Skills</span>
+            <div class='skills-div'>
+                <label style="font-weight:bold;">Skills</label>
                 {{#each data.skills as |skill s|}}
                     <div class="skill flex-line hidable" data-hidable-attr="{{skill.value}}" data-skill="{{s}}">
                         <a class="skill-proficiency show-on-edit flex" title="{{skill.hover}}">{{{skill.icon}}}</a>

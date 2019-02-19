@@ -22,18 +22,12 @@
     flex-direction: row !important;
     height:calc(100% - 104px)!important;
     display:block!important;
-    /*display:grid!important;
-    grid-template-columns: repeat(3,300px);
-    grid-auto-rows: 300px;
-    grid-auto-flow: row;*/
+    font-size:12px;
 }
 
 .body-tile {
     display:inline-table;
     height:auto;
-    /*height: auto;
-    grid-column: auto / span auto;
-    grid-row: auto / span auto;*/
 }
 .base-attribs {
     float: left;
@@ -53,16 +47,16 @@
 .sheet-divider {border-right: 140px solid #922610;}
 .sheet-divider-left {border-left: 140px solid #922610; }
 
-.npc-textinput, .npc-textinput-small {
+.npc-textinput{
     font-family: "Nodesto", "Signika", "Palatino Linotype", serif !important;
-    color: #444 !important;
+    color: #222 !important;
 }
 .npc-textinput {
     font-size: 20px !important;    
 }
 .npc-textinput-small {
     font-weight:normal;
-    font-size: 15px;
+    font-size: 12px!important;
 }
 
 .flex-line{
@@ -72,7 +66,7 @@
     font-weight: bold;
     font-size: 15px;
     margin-right: 5px;
-    font-family: "Nodesto", "Signika", "Palatino Linotype", serif !important;
+    font-size: 12px;
 }
 .flex-line span {
     display: inline !important;

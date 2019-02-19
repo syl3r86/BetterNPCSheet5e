@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.2
+ * @version 0.2.1
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
@@ -54,7 +54,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             return;
         }
 
-        // hide elements that are part of the edit mode
+        // hide elements that are part of the edit mode or empty
         if (this.editMode == false) {
             let hidable = html.find('.hidable');
             for (let obj of hidable) {
@@ -64,6 +64,12 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
                 }
             }
             html.find('.show-on-edit').hide();
+            if (html.find('.saves-div .hidable[data-hidable-attr="1"]').length == 0) {
+                html.find('.saves-div').hide();
+            }
+            if (html.find('.skills-div .hidable[data-hidable-attr="1"]').length == 0) {
+                html.find('.skills-div').hide();
+            }
         }
 
         // toggle edit mode button event
@@ -84,9 +90,17 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             if (this.editMode) {
                 html.find('.show-on-edit').show();
                 html.find('input').css('background', 'white');
+                html.find('.saves-div').show();
+                html.find('.skills-div').show();
             } else {
                 html.find('.show-on-edit').hide();
                 html.find('input').css('background', 'none');
+                if (html.find('.saves-div .hidable[data-hidable-attr="1"]').length == 0) {
+                    html.find('.saves-div').hide();
+                }
+                if (html.find('.skills-div .hidable[data-hidable-attr="1"]').length == 0) {
+                    html.find('.skills-div').hide();
+                }
             }
         });
 
