@@ -17,6 +17,8 @@
 }
 
 .npc-body {
+    background-image: url('background.jpg');
+    background-repeat: repeat;
     overflow:visible !important;
     flex-wrap:wrap !important;
     flex-direction: row !important;
