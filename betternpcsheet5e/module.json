@@ -2,7 +2,7 @@
 	"name": "betternpcsheet5e",
 	"title": "Better NPC Sheet 5e",
 	"description": "This module will replace the default 5e NPC sheet with an improved version. No change to the underlying data is made.",
-	"version": "0.1",
+	"version": "0.2",
 	"author": "Felix aka syl3r86",
 	"systems": ["dnd5e"],
 	"scripts": ["./betternpcsheet.js"],

@@ -29,7 +29,7 @@
     <section class="sheet-body npc-body">
             
         <!-- PRIMARY ATTRIBUTES -->        
-        <div class="body-tile">
+        <div class="body-tile base-attribs">
             <div>        
                 <div class="flex-line">
                     <label>Armor Class </label>
@@ -156,15 +156,15 @@
             <div class="flex-line hidable" data-hidable-attr="{{data.resources.legact.max}}">
                 <label>{{data.resources.legact.label}}</label>
                 <input class="npc-textinput-small hidable-attr" type="text" name="data.resources.legact.value" data-dtype="{{data.resources.legact.type}}"
-                       value="{{data.resources.legact.max}}" placeholder="0"/>
+                       value="{{data.resources.legact.value}}" placeholder="0"/>
                 <span class="flex0">/</span> 
                 <input class="npc-textinput-small hidable-attr" type="text" name="data.resources.legact.max" data-dtype="{{data.resources.legact.type}}"
                        value="{{data.resources.legact.max}}" placeholder="0"/>
             </div>            
             <div class="flex-line hidable" data-hidable-attr="{{data.resources.legres.max}}">
-                <label>{{data.resources.legact.label}}</label>
+                <label>{{data.resources.legres.label}}</label>
                 <input class="npc-textinput-small hidable-attr" type="text" name="data.resources.legres.value" data-dtype="{{data.resources.legres.type}}"
-                       value="{{data.resources.legres.max}}" placeholder="0"/>
+                       value="{{data.resources.legres.value}}" placeholder="0"/>
                 <span class="flex0">/</span> 
                 <input class="npc-textinput-small hidable-attr" type="text" name="data.resources.legres.max" data-dtype="{{data.resources.legres.type}}"
                        value="{{data.resources.legres.max}}" placeholder="0"/>

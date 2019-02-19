@@ -20,6 +20,8 @@
     overflow:visible !important;
     flex-wrap:wrap !important;
     flex-direction: row !important;
+    height:calc(100% - 104px)!important;
+    display:block!important;
     /*display:grid!important;
     grid-template-columns: repeat(3,300px);
     grid-auto-rows: 300px;
@@ -27,11 +29,14 @@
 }
 
 .body-tile {
-    display:inline-block;
-    width: 33.3%;
+    display:inline-table;
+    height:auto;
     /*height: auto;
     grid-column: auto / span auto;
     grid-row: auto / span auto;*/
+}
+.base-attribs {
+    float: left;
 }
 
 .body-tile h3 {

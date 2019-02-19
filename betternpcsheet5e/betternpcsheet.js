@@ -1,12 +1,14 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.1
+ * @version 0.2
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
     constructor(app) {
         super(app);
-
+        Hooks.on('renderBetterNPCActor5eSheet', (app, html, data) => {
+            Hooks.call('renderActor5eSheet', app, html, data);
+        });
         // setting to display either the Icon of the item (true) or a generic d20 icon (false)
         this.useFeatIcons = false;
         this.useWeaponIcons = false;
@@ -32,6 +34,12 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         else throw "Unrecognized Actor type " + this.actor.data.type;
     }
 
+    static get defaultOptions() {
+        const options = super.defaultOptions;
+        options.height = "auto";
+        return options;
+    }
+
     getData() {
         let data = super.getData();
         data['useFeatIcons'] = this.useFeatIcons;
@@ -44,25 +52,6 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         super.activateListeners(html);
         if (this.actor.data.type === "character") {
             return;
-        }
-
-        // setting npcsheet width (depending on spells)
-        let hasSpells = false;
-        for (let item of this.actor.data.items) {
-            if (item.type == 'spell' && item.data.level.value > 0) {
-                hasSpells = true;
-                break;
-            }
-        }
-        let columnWidth = 290;
-        if (hasSpells) {
-            html.parent().parent().css('width', columnWidth*3).css('height', 'auto');
-            html.find('.npc-sheet').css('width', columnWidth * 3);
-            html.find('.body-tile').css('width', '33.3%');
-        } else {
-            html.parent().parent().css('width', columnWidth * 2).css('height', 'auto');
-            html.find('.npc-sheet').css('width', columnWidth * 2);
-            html.find('.body-tile').css('width', '50%');
         }
 
         // hide elements that are part of the edit mode
@@ -139,6 +128,22 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
 
         // remove window padding
         $('.npc-sheet').parent().css('padding', '0');
+
+        // setting npcsheet width & height (here in case it gets overwritten in another modules css *cough sillvva cough*)
+        let columnWidth = 290;
+        let minHeight = parseInt(html.find('.base-attribs').css('height'));
+        if (true) {
+            let windowPadding = parseInt(html.parent().parent().css('padding-left')) + parseInt(html.parent().parent().css('padding-right'));
+            let windowWidth = windowPadding + (columnWidth * 3) + 20;
+            let style = 'min-width:' + windowWidth + 'px !important; min-height:' + minHeight + 'px !important';
+            html.parent().parent().attr('style', (i, s) => { return s + style });
+            html.find('.npc-sheet').css('min-width', columnWidth * 3);
+            html.find('.body-tile').css('width', columnWidth);
+        } else {
+            html.parent().parent().css('min-width', columnWidth * 2).css('height', 'auto');
+            html.find('.npc-sheet').css('min-width', columnWidth * 2);
+            html.find('.body-tile').css('width', columnWidth);
+        }
     }
 
     /**
