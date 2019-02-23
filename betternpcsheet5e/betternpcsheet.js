@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.2.1
+ * @version 0.2.2
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
@@ -148,7 +148,8 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         let minHeight = parseInt(html.find('.base-attribs').css('height'));
         if (true) {
             let windowPadding = parseInt(html.parent().parent().css('padding-left')) + parseInt(html.parent().parent().css('padding-right'));
-            let windowWidth = windowPadding + (columnWidth * 3) + 20;
+            let tilePadding = 18;
+            let windowWidth = windowPadding + (columnWidth * 3) + tilePadding + 20;
             let style = 'min-width:' + windowWidth + 'px !important; min-height:' + minHeight + 'px !important';
             html.parent().parent().attr('style', (i, s) => { return s + style });
             html.find('.npc-sheet').css('min-width', columnWidth * 3);
@@ -214,6 +215,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
                 }
             }
             html.find('.show-on-edit').hide(100);
+            html.find('.hide-on-edit').show(100);
             this.editMode = false;
         } else {
             for (let obj of html.find('.hidable')) {
@@ -223,6 +225,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
                 }
             }
             html.find('.show-on-edit').show(100);
+            html.find('.hide-on-edit').hide(100);
             this.editMode = true;
         }
     }

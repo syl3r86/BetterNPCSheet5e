@@ -30,6 +30,7 @@
 .body-tile {
     display:inline-table;
     height:auto;
+    padding: 0 3px;
 }
 .base-attribs {
     float: left;
@@ -59,6 +60,7 @@
 .npc-textinput-small {
     font-weight:normal;
     font-size: 12px!important;
+    max-width: 290px!important;
 }
 
 .flex-line{
