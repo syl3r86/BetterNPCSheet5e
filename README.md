@@ -1,5 +1,5 @@
 # Better NPC Sheet 5e
-This module overwrites the default NPC sheet that comes shiped with the dnd5e system and brings it closer to the well known official template.
+This module overwrites the default NPC sheet that comes shiped with the dnd5e system and brings it closer to the well known official template. To install it just download the .zip file and copy the contained folder into the public/modules folder of Foundry. After a restart of Foundry you'll have access to your npcs using this new sheet.
 
 ![example](preview.jpg)
 
