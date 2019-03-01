@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.2.2
+ * @version 0.2.3
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
@@ -29,15 +29,12 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
 
     get template() {
         const path = "public/systems/dnd5e/templates/actors/";
-        if ( this.actor.data.type === "character" ) return path + "actor-sheet.html";
-        else if (this.actor.data.type === "npc") return "public/modules/betternpcsheet5e/template/npc-sheet.html";
+        if (this.actor.data.type === "character") {
+            return path + "actor-sheet.html";
+        } else if (this.actor.data.type === "npc") {
+            return "public/modules/betternpcsheet5e/template/npc-sheet.html";
+        }
         else throw "Unrecognized Actor type " + this.actor.data.type;
-    }
-
-    static get defaultOptions() {
-        const options = super.defaultOptions;
-        options.height = "auto";
-        return options;
     }
 
     getData() {
@@ -151,7 +148,8 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             let tilePadding = 18;
             let windowWidth = windowPadding + (columnWidth * 3) + tilePadding + 20;
             let style = 'min-width:' + windowWidth + 'px !important; min-height:' + minHeight + 'px !important';
-            html.parent().parent().attr('style', (i, s) => { return s + style });
+            let newStyle = html.parent().parent().attr('style').replace('height: 720px','height:auto') + style; // also setting height to auto
+            html.parent().parent().attr('style', newStyle); 
             html.find('.npc-sheet').css('min-width', columnWidth * 3);
             html.find('.body-tile').css('width', columnWidth);
         } else {

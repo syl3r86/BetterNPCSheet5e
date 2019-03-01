@@ -142,17 +142,3 @@
     margin-right: 5px;
     padding:0;
 }
-
-/* temporary fix until i find a better solution*/
-/* If you're using sillvva's enhancement suit, removing everything after this line will restore proper resizing of the tabs*/
-.dnd5e.sheet .spellbook .directory-list {
-   height: 356px!important;
-}
-
-.dnd5e.sheet .inventory .inventory-list {
-    height:339px!important;
-}
-
-.dnd5e.sheet .feats .directory-list {
-    height:380px!important;
-}
