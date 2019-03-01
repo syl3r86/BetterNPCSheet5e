@@ -1,5 +1,4 @@
 # Better NPC Sheet 5e
-### There is currently a small bug that affects resizing of the players inventory, spellbook and feat sections. I added a temporary fix for that until i found the actual source of the problem. If you are using Sillvva's Enhancement suit you don't need this. You can either edit the .css included in the regular version or just download the version that doesn't include the fix.
 
 This module overwrites the default NPC sheet that comes shiped with the dnd5e system and brings it closer to the well known official template. To install it just download the .zip file and copy the contained folder into the public/modules folder of Foundry. After a restart of Foundry you'll have access to your npcs using this new sheet.
 
