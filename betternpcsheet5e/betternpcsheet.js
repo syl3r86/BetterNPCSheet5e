@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.2.4
+ * @version 0.2.5
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {

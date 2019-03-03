@@ -186,7 +186,7 @@
             <div class="feature-list">     
             <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <h3>
-                    <a class="item-control item-create npc-item-create" title="Create Item" data-item-type="feat"><i class="fas fa-plus-circle"></i></a>
+                    <a class="item-control item-create npc-item-create" title="Create Item" data-type="feat"><i class="fas fa-plus-circle"></i></a>
                     <a class="body-tile-name" data-tile="features"> Features</a>
                 </h3>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
@@ -226,7 +226,7 @@
             <div class="weapon-list">
             <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <h3>
-                    <a class="item-control item-create npc-item-create" title="Create Item" data-item-type="weapon"><i class="fas fa-plus-circle"></i></a>
+                    <a class="item-control item-create npc-item-create" title="Create Item" data-type="weapon"><i class="fas fa-plus-circle"></i></a>
                     <a class="body-tile-name" data-tile="weapons"> Weapons</a>
                 </h3>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
@@ -266,7 +266,7 @@
         <div class="body-tile" data-tile="spell0">      
             <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
             <h3>
-                <a class="item-control item-create npc-item-create" title="Create Spell" data-item-type="spell" data-spell-level="0"><i class="fas fa-plus-circle"></i></a>
+                <a class="item-control item-create npc-item-create" title="Create Spell" data-type="spell" data-level="0"><i class="fas fa-plus-circle"></i></a>
                 <a  class="body-tile-name" data-tile="spell0" data-target="collapsable"> Spellbook</a>
             </h3>
             <div class="form-group spellcasting-ability collapsable">
@@ -288,7 +288,7 @@
                 {{#if section.isCantrip}}<div class="collapsable">{{/if}}
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <h3 class="flex-line">
-                <a class="item-control item-create npc-item-create" title="Create Spell" data-item-type="spell" data-spell-level="{{lvl}}"><i class="fas fa-plus-circle"></i></a>
+                <a class="item-control item-create npc-item-create" title="Create Spell" data-type="spell" data-level="{{lvl}}"><i class="fas fa-plus-circle"></i></a>
                     <a class="body-tile-name" data-tile="spell{{lvl}}">{{section.label}}</a>
                     {{#unless section.isCantrip}}
                          - Spellslots:
