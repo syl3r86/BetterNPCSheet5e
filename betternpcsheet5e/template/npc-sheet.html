@@ -49,13 +49,17 @@
                                data-dtype="{{data.attributes.init.type}}"
                                value="{{numberFormat data.attributes.init.value decimals=0 sign=true}}" />
                     </div>
-                    <div class="flex-line">
+                    <div class="flex-line"">
                         <label class="flex">Hit Points </label>
+                        <input class="npc-textinput-small flex" name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
+                               data-dtype="{{data.attributes.hp.type}}" placeholder="10" />
+                        <span class="flex0">/</span>
                         <input class="npc-textinput-small flex" name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
                                data-dtype="{{data.attributes.hp.type}}" placeholder="10" />
                         <span class="flex0">(</span>
                         <input class="npc-textinput-small flex" name="data.attributes.hp.formula" class="hpformula" type="text" placeholder="Forumla"
                                value="{{data.attributes.hp.formula}}" />
+                        <a class="npc-roll-hp" title="Roll HP Formula"><i class="fas fa-dice-d20"></i></a>
                         <span class="flex0">)</span>
                     </div>
                     <div class="flex-line">
