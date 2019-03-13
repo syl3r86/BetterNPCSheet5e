@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.2.5
+ * @version 0.3
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
@@ -13,6 +13,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         this.useFeatIcons = false;
         this.useWeaponIcons = false;
         this.useSpellIcons = false;
+
 
         // setting to determine the default state for the sheet
         this.editMode = false;
@@ -50,6 +51,46 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         if (this.actor.data.type === "character") {
             return;
         }
+
+        // register settings
+        game.settings.register("BetterNPCSheet", this.object.data._id, {
+            name: "Settings specific to NPC display",
+            hint: "Settings to exclude packs from loading",
+            default: "",
+            type: String,
+            scope: 'user',
+            onChange: settings => {
+                this.settings = JSON.parse(settings);
+            }
+        });
+        // load settings from container
+        let settings = game.settings.get("BetterNPCSheet", this.object.data._id);
+        if (settings == '') { // if settings are empty create the settings data
+            console.log("NPC Settings | Creating settings");
+            settings = {};
+            for (let item of this.object.data.items) {
+                if (item.type == 'spell') {
+                    let target = `.item[data-item-id=${item.id}] .item-description`;
+                    settings[target] = false;
+                }
+            }
+            game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(settings));
+        } else {
+            settings = JSON.parse(settings);
+        }
+        // apply them
+        console.log("NPC Settings | Loading settings");
+        for (let key in settings) {
+            let target = html.find(key);
+            if (settings[key] == true) {
+                target.show();
+            } else {
+                target.hide();
+            }
+        }
+        this.settings = settings;
+
+
 
         // hide elements that are part of the edit mode or empty
         if (this.editMode == false) {
@@ -122,20 +163,33 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         // adding toggle for item detail
         html.find('.npc-item-name').click(e => {
             let itemId = e.target.getAttribute('data-item-id');
-            let targetDesc = html.find('.item[data-item-id=' + itemId + '] .item-description');
-            targetDesc.toggle(100);
+            let targetDesc = `.item[data-item-id=${itemId}] .item-description`;
+            let hidden = ($(html.find(targetDesc)).css('display') === 'none');
+            if (hidden === false) {
+                html.find(targetDesc).hide(100);
+                this.settings[targetDesc] = false;
+            }
+            else {
+                html.find(targetDesc).show(100);
+                this.settings[targetDesc] = true;
+            }
+            game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(this.settings));
         });
 
         html.find('.body-tile-name').click(e => {
             let target = e.target.getAttribute('data-tile');
             let collapsTarget = e.target.getAttribute('data-target') || 'item';
-            let targetTile = html.find('.body-tile[data-tile=' + target + '] .' + collapsTarget);
-            targetTile.toggle(100);
+            let targetTile = `.body-tile[data-tile=${target}] .${collapsTarget}`;
+            if (this.settings[targetTile] === undefined || this.settings[targetTile] === true) {
+                html.find(targetTile).hide(100);
+                this.settings[targetTile] = false;
+            } else {
+                html.find(targetTile).show(100);
+                this.settings[targetTile] = true;
+            }
+            game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(this.settings));
         });
 
-
-        // hide spell details by default
-        html.find('.spell-description').toggle();
 
         // remove window padding
         $('.npc-sheet').parent().css('padding', '0');
@@ -147,7 +201,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             let windowPadding = parseInt(html.parent().parent().css('padding-left')) + parseInt(html.parent().parent().css('padding-right'));
             let tilePadding = 18;
             let windowWidth = windowPadding + (columnWidth * 3) + tilePadding + 20;
-            let style = 'min-width:' + windowWidth + 'px !important; min-height:' + minHeight + 'px !important';
+            let style = `min-width: ${windowWidth}px !important; min-height:${minHeight}px !important; max-height:80%;`;
             let newStyle = html.parent().parent().attr('style').replace('height: 720px','height:auto') + style; // also setting height to auto
             html.parent().parent().attr('style', newStyle); 
             html.find('.npc-sheet').css('min-width', columnWidth * 3);

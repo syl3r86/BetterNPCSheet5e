@@ -93,6 +93,22 @@
     font-size: 30px;
 }
 
+.npc-header .tabs {
+    display:block;
+    position:relative;
+    right:4px;
+    top:57px;
+    max-width:65px;
+    text-align:right;
+}
+.npc-header .tabs a {
+    margin:3px;
+    width:100%;
+    border: 1px solid black;
+    border-radius: 3px;
+    display:block;
+}
+
 .npc-item-header {
     margin-top:2px;
     margin-bottom:0px;
@@ -141,4 +157,9 @@
     height: 1.5em;
     margin-right: 5px;
     padding:0;
+}
+
+.npc-sheet .editor {
+    height:600px;
+    overflow:auto;
 }
