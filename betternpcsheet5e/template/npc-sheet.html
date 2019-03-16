@@ -271,9 +271,7 @@
             </div>
 
             <!-- SPELLS -->
-            {{#each actor.spellbook as |section lvl|}}
             <div class="body-tile spell-section" data-tile="spell{{lvl}}">
-                {{#if section.isCantrip}}
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <h3>
                     <a class="item-control item-create npc-item-create" title="Create Spell" data-type="spell" data-level="0"><i class="fas fa-plus-circle"></i></a>
@@ -290,7 +288,10 @@
                         {{/select}}
                     </select>
                 </div>
-                {{/if}}
+            </div>
+            
+            {{#each actor.spellbook as |section lvl|}}
+            <div class="body-tile spell-section" data-tile="spell{{lvl}}">
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <h3 class="flex-line">
                     <a class="item-control item-create npc-item-create" title="Create Spell" data-type="spell" data-level="{{lvl}}"><i class="fas fa-plus-circle"></i></a>
