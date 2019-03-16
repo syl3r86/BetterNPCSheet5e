@@ -49,7 +49,7 @@
                                data-dtype="{{data.attributes.init.type}}"
                                value="{{numberFormat data.attributes.init.value decimals=0 sign=true}}" />
                     </div>
-                    <div class="flex-line"">
+                    <div class="flex-line">
                         <label class="flex">Hit Points </label>
                         <input class="npc-textinput-small flex" name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
                                data-dtype="{{data.attributes.hp.type}}" placeholder="10" />
@@ -282,9 +282,9 @@
                 <div class="form-group spellcasting-ability collapsable">
                     <label><h4>Spellcasting Ability</h4></label>
                     <select name="data.attributes.spellcasting.value" data-type="String">
-                        {{#select data.attributes.spellcasting.value}}
+                        {{#select ../data.attributes.spellcasting.value}}
                         <option value="">None</option>
-                        {{#each data.abilities as |abl a|}}
+                        {{#each ../data.abilities as |abl a|}}
                         <option value="{{a}}">{{abl.label}}</option>
                         {{/each}}
                         {{/select}}
