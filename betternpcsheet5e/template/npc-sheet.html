@@ -295,16 +295,18 @@
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <h3 class="flex-line">
                     <a class="item-control item-create npc-item-create" title="Create Spell" data-type="spell" data-level="{{lvl}}"><i class="fas fa-plus-circle"></i></a>
-                    <a class="body-tile-name" data-tile="spell{{lvl}}">{{section.label}}</a>
+                    <a class="body-tile-name" data-tile="spell{{lvl}}">{{section.label}} </a>
                     {{#unless section.isCantrip}}
-                        - Spellslots:
+                        <span>&nbsp;- Spellslots:</span>
                         <span class="spell-slots">
-                            <input class="npc-textinput-small" type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0" />
+                            <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0" />
                         </span>
                         <span class="flex0"> / </span>
                         <span class="spell-max">
-                            <input class="npc-textinput-small" type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0" />
+                            <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0" />
                         </span>
+                        <a class="spellslot-mod" data-mod="+" data-level="{{lvl}}" title="Add a spellslot">&#9650;</i></a>
+                        <a class="spellslot-mod" data-mod="-" data-level="{{lvl}}" title="Substract a spellslot">&#9660;</a>
                     {{/unless}}
                 </h3>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>

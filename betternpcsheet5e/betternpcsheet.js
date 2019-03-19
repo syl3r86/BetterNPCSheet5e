@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.3
+ * @version 0.3.3
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
@@ -211,6 +211,17 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             html.find('.npc-sheet').css('min-width', columnWidth * 2);
             html.find('.body-tile').css('width', columnWidth);
         }
+
+
+        // spellslot control buttons
+        html.find('.spellslot-mod').click(ev => {
+            let mod = event.target.getAttribute("data-mod");
+            let level = event.target.getAttribute("data-level");
+            let slotElement = $(html.find(`input[name="data.spells.spell${level}.value"]`));
+            let newValue = mod == '+' ? Number(slotElement.val()) + 1 : Number(slotElement.val()) - 1;
+            slotElement.val(newValue >= 0 ? newValue : 0);
+            slotElement.trigger('submit');
+        });
     }
 
     /**

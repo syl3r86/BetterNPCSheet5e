@@ -3,6 +3,7 @@
     background-repeat: repeat;
     padding: 3px;
     height:auto;
+    overflow:auto!important;
 }
 
 .npc-header {
@@ -162,4 +163,22 @@
 .npc-sheet .editor {
     height:600px;
     overflow:auto;
+}
+
+.npc-sheet .spell-slots {
+    margin-left:5px;
+}
+.npc-sheet .spellslot-mod {
+    margin:0 2px;
+    opacity:0.3;
+}
+.npc-sheet .spellslot-mod:hover {
+    opacity:1;
+}
+
+.npc-sheet .spellslot-input{
+    font-size: 13px!important;
+    width:16px!important;
+    min-width:16px;
+    text-align:center;
 }
