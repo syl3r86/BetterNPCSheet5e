@@ -1,23 +1,11 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.3.3
+ * @version 0.3.4
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
-    constructor(app) {
-        super(app);
-        Hooks.on('renderBetterNPCActor5eSheet', (app, html, data) => {
-            Hooks.call('renderActor5eSheet', app, html, data);
-        });
-        // setting to display either the Icon of the item (true) or a generic d20 icon (false)
-        this.useFeatIcons = false;
-        this.useWeaponIcons = false;
-        this.useSpellIcons = false;
-
-
-        // setting to determine the default state for the sheet
-        this.editMode = false;
-
+            
+    get template() {
         // adding the #equals and #unequals handlebars helper
         Handlebars.registerHelper('equals', function (arg1, arg2, options) {
             return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
@@ -26,9 +14,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         Handlebars.registerHelper('unequals', function (arg1, arg2, options) {
             return (arg1 != arg2) ? options.fn(this) : options.inverse(this);
         });
-    }
 
-    get template() {
         const path = "public/systems/dnd5e/templates/actors/";
         if (this.actor.data.type === "character") {
             return path + "actor-sheet.html";
@@ -37,20 +23,31 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         }
         else throw "Unrecognized Actor type " + this.actor.data.type;
     }
-
+    
     getData() {
-        let data = super.getData();
+        const data = super.getData();
         data['useFeatIcons'] = this.useFeatIcons;
         data['useWeaponIcons'] = this.useWeaponIcons;
         data['useSpellIcons'] = this.useSpellIcons;
         return data;
     }
-
+    
     activateListeners(html) {
         super.activateListeners(html);
+
+        // only do stuff if its for npcs
         if (this.actor.data.type === "character") {
             return;
         }
+               
+        // setting to display either the Icon of the item (true) or a generic d20 icon (false)
+        this.useFeatIcons = false;
+        this.useWeaponIcons = false;
+        this.useSpellIcons = false;
+
+
+        // setting to determine the default state for the sheet
+        this.editMode = false;
 
         // register settings
         game.settings.register("BetterNPCSheet", this.object.data._id, {
@@ -223,7 +220,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             slotElement.trigger('submit');
         });
     }
-
+    
     /**
     * Organize and classify Items for NPC sheets
     * @private
