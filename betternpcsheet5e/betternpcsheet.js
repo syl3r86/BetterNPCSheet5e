@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.3.4
+ * @version 0.3.5
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
@@ -189,25 +189,21 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
 
 
         // remove window padding
-        $('.npc-sheet').parent().css('padding', '0');
+        $('.better-npc-sheet').parent().css('padding', '0');
 
         // setting npcsheet width & height (here in case it gets overwritten in another modules css *cough sillvva cough*)
         let columnWidth = 290;
-        let minHeight = parseInt(html.find('.base-attribs').css('height'));
-        if (true) {
-            let windowPadding = parseInt(html.parent().parent().css('padding-left')) + parseInt(html.parent().parent().css('padding-right'));
-            let tilePadding = 18;
-            let windowWidth = windowPadding + (columnWidth * 3) + tilePadding + 20;
-            let style = `min-width: ${windowWidth}px !important; min-height:${minHeight}px !important; max-height:80%;`;
-            let newStyle = html.parent().parent().attr('style').replace('height: 720px','height:auto') + style; // also setting height to auto
-            html.parent().parent().attr('style', newStyle); 
-            html.find('.npc-sheet').css('min-width', columnWidth * 3);
-            html.find('.body-tile').css('width', columnWidth);
-        } else {
-            html.parent().parent().css('min-width', columnWidth * 2).css('height', 'auto');
-            html.find('.npc-sheet').css('min-width', columnWidth * 2);
-            html.find('.body-tile').css('width', columnWidth);
-        }
+        let windowPadding = parseInt(html.parent().parent().css('padding-left')) + parseInt(html.parent().parent().css('padding-right'));
+        let tilePadding = 18;
+        let windowWidth = windowPadding + (columnWidth * 3) + tilePadding + 20;
+        this.options.width = windowWidth;
+        this.options.height = 'auto';
+        let style = `width: ${windowWidth}px !important; max-height:80%;`;
+        let newStyle = html.parent().parent().attr('style').replace('height: 720px','height:auto') + style; // also setting height to auto
+        html.parent().parent().attr('style', newStyle); 
+        //html.find('.npc-sheet').css('min-width', columnWidth * 3);
+        html.find('.body-tile').css('width', columnWidth);
+        
 
 
         // spellslot control buttons
