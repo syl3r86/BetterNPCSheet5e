@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.3.5
+ * @version 0.3.6
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
@@ -29,6 +29,8 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         data['useFeatIcons'] = this.useFeatIcons;
         data['useWeaponIcons'] = this.useWeaponIcons;
         data['useSpellIcons'] = this.useSpellIcons;
+
+
         return data;
     }
     
@@ -39,15 +41,13 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         if (this.actor.data.type === "character") {
             return;
         }
-               
+        
+
         // setting to display either the Icon of the item (true) or a generic d20 icon (false)
         this.useFeatIcons = false;
         this.useWeaponIcons = false;
         this.useSpellIcons = false;
 
-
-        // setting to determine the default state for the sheet
-        this.editMode = false;
 
         // register settings
         game.settings.register("BetterNPCSheet", this.object.data._id, {
@@ -71,6 +71,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
                     settings[target] = false;
                 }
             }
+            settings.editMode = false;
             game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(settings));
         } else {
             settings = JSON.parse(settings);
@@ -90,31 +91,19 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
 
 
         // hide elements that are part of the edit mode or empty
-        if (this.editMode == false) {
-            let hidable = html.find('.hidable');
-            for (let obj of hidable) {
-                let data = obj.getAttribute('data-hidable-attr');
-                if (data == '' || data == 0) {
-                    obj.style.display = 'none';
-                }
-            }
-            html.find('.show-on-edit').hide();
-            if (html.find('.saves-div .hidable[data-hidable-attr="1"]').length == 0) {
-                html.find('.saves-div').hide();
-            }
-            if (html.find('.skills-div .hidable[data-hidable-attr="1"]').length == 0) {
-                html.find('.skills-div').hide();
-            }
-        }
+        this._applySettingsMode(this.settings.editMode, html);
 
         // toggle edit mode button event
         html.find('.editBtn').click(e => {
-            this.editMode = !this.editMode;
+            this.settings.editMode = !this.settings.editMode;
+            game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(this.settings));
+            this._applySettingsMode(this.settings.editMode, html);
+            /*
             let hidable = html.find('.hidable');
             for (let obj of hidable) {
                 let data = obj.getAttribute('data-hidable-attr');
                 if (data == '' || data == 0) {
-                    if (this.editMode == false) {
+                    if (this.settings.editMode == false) {
                         obj.style.display = 'none';
                     } else {
                         obj.style.display = '';
@@ -122,7 +111,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
                 }
                 //let hidableAttr = obj.getElementsByClassName('.hidable-attr');
             }
-            if (this.editMode) {
+            if (this.settings.editMode) {
                 html.find('.show-on-edit').show();
                 html.find('input').css('background', 'white');
                 html.find('.saves-div').show();
@@ -136,7 +125,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
                 if (html.find('.skills-div .hidable[data-hidable-attr="1"]').length == 0) {
                     html.find('.skills-div').hide();
                 }
-            }
+            }*/
         });
 
         // set dynamic input width
@@ -215,6 +204,38 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             slotElement.val(newValue >= 0 ? newValue : 0);
             slotElement.trigger('submit');
         });
+    }
+
+    _applySettingsMode(editMode, html) {
+        let hidable = html.find('.hidable');
+        for (let obj of hidable) {
+            let data = obj.getAttribute('data-hidable-attr');
+            if (data == '' || data == 0) {
+                if (editMode == false) {
+                    obj.style.display = 'none';
+                } else {
+                    obj.style.display = '';
+                }
+            }
+            //let hidableAttr = obj.getElementsByClassName('.hidable-attr');
+        }
+        if (editMode) {
+            html.find('.show-on-edit').show();
+            html.find('.hide-on-edit').hide();
+            html.find('input').css('background', 'white');
+            html.find('.saves-div').show();
+            html.find('.skills-div').show();
+        } else {
+            html.find('.show-on-edit').hide();
+            html.find('.hide-on-edit').show();
+            html.find('input').css('background', 'none');
+            if (html.find('.saves-div .hidable[data-hidable-attr="1"]').length == 0) {
+                html.find('.saves-div').hide();
+            }
+            if (html.find('.skills-div .hidable[data-hidable-attr="1"]').length == 0) {
+                html.find('.skills-div').hide();
+            }
+        }
     }
     
     /**
