@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.3.6
+ * @version 0.3.7
  */
 
 class BetterNPCActor5eSheet extends Actor5eSheet {
@@ -41,7 +41,9 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         if (this.actor.data.type === "character") {
             return;
         }
-        
+
+        // rebind roll function
+        html.find('.item .rollable').click(event => this._onItemRoll(event));
 
         // setting to display either the Icon of the item (true) or a generic d20 icon (false)
         this.useFeatIcons = false;
@@ -98,34 +100,6 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             this.settings.editMode = !this.settings.editMode;
             game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(this.settings));
             this._applySettingsMode(this.settings.editMode, html);
-            /*
-            let hidable = html.find('.hidable');
-            for (let obj of hidable) {
-                let data = obj.getAttribute('data-hidable-attr');
-                if (data == '' || data == 0) {
-                    if (this.settings.editMode == false) {
-                        obj.style.display = 'none';
-                    } else {
-                        obj.style.display = '';
-                    }
-                }
-                //let hidableAttr = obj.getElementsByClassName('.hidable-attr');
-            }
-            if (this.settings.editMode) {
-                html.find('.show-on-edit').show();
-                html.find('input').css('background', 'white');
-                html.find('.saves-div').show();
-                html.find('.skills-div').show();
-            } else {
-                html.find('.show-on-edit').hide();
-                html.find('input').css('background', 'none');
-                if (html.find('.saves-div .hidable[data-hidable-attr="1"]').length == 0) {
-                    html.find('.saves-div').hide();
-                }
-                if (html.find('.skills-div .hidable[data-hidable-attr="1"]').length == 0) {
-                    html.find('.skills-div').hide();
-                }
-            }*/
         });
 
         // set dynamic input width

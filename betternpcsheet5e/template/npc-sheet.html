@@ -12,7 +12,13 @@
             </h1>
             <!-- DETAILS -->
             <div class="">
-                <input class="npc-textinput" name="data.traits.size.value" type="text" data-dtype="{{data.traits.size.type}}" value="{{data.traits.size.value}}" placeholder="Medium" />
+                <select class="size-selector" name="data.traits.size.value" data-dtype="{{data.traits.size.type}}" title="Size">
+                    {{#select data.traits.size.value}}
+                    {{#each actorSizes as |label size|}}
+                        <option value="{{size}}">{{label}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
                 <input class="npc-textinput" name="data.details.type.value" type="text" value="{{data.details.type.value}}" placeholder="Type" />
                 <input class="npc-textinput" name="data.details.alignment.value" type="text" value="{{data.details.alignment.value}}" placeholder="Alignment" /> <br>
                 <input class="npc-textinput" name="data.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="Source" />
@@ -110,52 +116,74 @@
                     {{/each}}
                 </div>
 
-                <!-- IMMUNITYS -->
-                <div class="hidable" data-hidable-attr="{{data.traits.di.value}}">
-                    <label><b>{{data.traits.di.label}}</b></label>
-                    <span class="hide-on-edit">{{data.traits.di.value}}</span>
-                    <input class="npc-textinput-small show-on-edit" type="text" name="data.traits.di.value" data-dtype="{{data.traits.di.type}}"
-                           value="{{data.traits.di.value}}" placeholder="None" />
+                <!-- IMMUNITYS -->               
+
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.di.value}}">
+                    <label for="data.traits.di">                        
+                        <a class="trait-selector" data-options="damageTypes">{{data.traits.di.label}}</a>
+                    </label>
+                    <ul class="traits-list">
+                    {{#each data.traits.di.selected as |v k|}}
+                        <li class="tag {{k}}">{{v}}</li>
+                    {{/each}}
+                    </ul>
                 </div>
 
-                <div class="hidable" data-hidable-attr="{{data.traits.dr.value}}">
-                    <label><b>{{data.traits.dr.label}}</b></label>
-                    <span class="hide-on-edit">{{data.traits.dr.value}}</span>
-                    <input class="npc-textinput-small show-on-edit" type="text" name="data.traits.dr.value" data-dtype="{{data.traits.dr.type}}"
-                           value="{{data.traits.dr.value}}" placeholder="None" />
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dr.value}}">
+                    <label for="data.traits.dr">                        
+                        <a class="trait-selector" data-options="damageTypes">{{data.traits.dr.label}}</a>
+                    </label>
+                    <ul class="traits-list">
+                    {{#each data.traits.dr.selected as |v k|}}
+                        <li class="tag {{k}}">{{v}}</li>
+                    {{/each}}
+                    </ul>
                 </div>
 
-                <div class="hidable" data-hidable-attr="{{data.traits.dv.value}}">
-                    <label><b>{{data.traits.dv.label}}</b></label>
-                    <span class="hide-on-edit">{{data.traits.dv.value}}</span>
-                    <input class="npc-textinput-small show-on-edit" type="text" name="data.traits.dv.value" data-dtype="{{data.traits.dv.type}}"
-                           value="{{data.traits.dv.value}}" placeholder="None" />
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dv.value}}">
+                    <label for="data.traits.dv">                        
+                        <a class="trait-selector" data-options="damageTypes">{{data.traits.dv.label}}</a>
+                    </label>
+                    <ul class="traits-list">
+                    {{#each data.traits.dv.selected as |v k|}}
+                        <li class="tag {{k}}">{{v}}</li>
+                    {{/each}}
+                    </ul>
                 </div>
 
-                <div class="hidable" data-hidable-attr="{{data.traits.ci.value}}">
-                    <label><b>{{data.traits.ci.label}}</b></label>
-                    <span class="hide-on-edit">{{data.traits.ci.value}}</span>
-                    <input class="npc-textinput-small show-on-edit" type="text" name="data.traits.ci.value" data-dtype="{{data.traits.ci.type}}"
-                           value="{{data.traits.ci.value}}" placeholder="None" />
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.ci.value}}">
+                    <label for="data.traits.ci">                        
+                        <a class="trait-selector" data-options="conditionTypes">{{data.traits.ci.label}}</a>
+                    </label>
+                    <ul class="traits-list">
+                    {{#each data.traits.ci.selected as |v k|}}
+                        <li class="tag {{k}}">{{v}}</li>
+                    {{/each}}
+                    </ul>
                 </div>
-
-                <!-- OTHER ATTRIBUTES -->
-                <div class="hidable" data-hidable-attr="{{data.traits.senses.value}}">
-                    <label><b>{{data.traits.senses.label}} </b></label>
-                    <span class="hide-on-edit">{{data.traits.senses.value}}</span>
-                    <input class="npc-textinput-small show-on-edit" type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
-                           value="{{data.traits.senses.value}}" placeholder="None" />
-                </div>
+                
+                
+                <!-- Others -->
                 <div class="flex-line hidable" data-hidable-attr="{{data.traits.perception.value}}">
                     <label>{{data.traits.perception.label}} </label>
                     <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.perception.value" data-dtype="{{data.traits.perception.type}}"
                            value="{{data.traits.perception.value}}" placeholder="Value" />
                 </div>
-                <div class="hidable" data-hidable-attr="{{data.traits.languages.value}}">
-                    <label><b>{{data.traits.languages.label}} </b></label>
-                    <span class="hide-on-edit">{{data.traits.languages.value}}</span>
-                    <input class="npc-textinput-small show-on-edit" type="text" name="data.traits.languages.value" data-dtype="{{data.traits.languages.type}}"
-                           value="{{data.traits.languages.value}}" placeholder="Common" />
+                <div class="flex-line hidable" data-hidable-attr="{{data.traits.senses.value}}">
+                    <label><b>{{data.traits.senses.label}} </b></label>
+                    <span class="hide-on-edit">{{data.traits.senses.value}}</span>
+                    <input class="npc-textinput-small show-on-edit" type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
+                           value="{{data.traits.senses.value}}" placeholder="None" />
+                </div>
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.languages.value}}">
+                    <label for="data.traits.languages">                        
+                        <a class="trait-selector" data-options="languages">{{data.traits.languages.label}}</a>
+                    </label>
+                    <ul class="traits-list">
+                    {{#each data.traits.languages.selected as |v k|}}
+                        <li class="tag {{k}}">{{v}}</li>
+                    {{/each}}
+                    </ul>
                 </div>
                 <div class="flex-line">
                     <label>Challenge Rating </label>
