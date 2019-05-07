@@ -1,9 +1,10 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.3.7
+ * @version 0.4
  */
 
-class BetterNPCActor5eSheet extends Actor5eSheet {
+//let Actor5eSheet = CONFIG.Actor.sheetClass;
+class BetterNPCActor5eSheet extends CONFIG.Actor.sheetClass {
             
     get template() {
         // adding the #equals and #unequals handlebars helper
@@ -26,10 +27,14 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
     
     getData() {
         const data = super.getData();
+        // setting to display either the Icon of the item (true) or a generic d20 icon (false)
+        this.useFeatIcons = false;
+        this.useWeaponIcons = false;
+        this.useSpellIcons = false;
+
         data['useFeatIcons'] = this.useFeatIcons;
         data['useWeaponIcons'] = this.useWeaponIcons;
         data['useSpellIcons'] = this.useSpellIcons;
-
 
         return data;
     }
@@ -44,11 +49,6 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
 
         // rebind roll function
         html.find('.item .rollable').click(event => this._onItemRoll(event));
-
-        // setting to display either the Icon of the item (true) or a generic d20 icon (false)
-        this.useFeatIcons = false;
-        this.useWeaponIcons = false;
-        this.useSpellIcons = false;
 
 
         // register settings
@@ -121,20 +121,8 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         inputs.trigger('change');
 
         // adding toggle for item detail
-        html.find('.npc-item-name').click(e => {
-            let itemId = e.target.getAttribute('data-item-id');
-            let targetDesc = `.item[data-item-id=${itemId}] .item-description`;
-            let hidden = ($(html.find(targetDesc)).css('display') === 'none');
-            if (hidden === false) {
-                html.find(targetDesc).hide(100);
-                this.settings[targetDesc] = false;
-            }
-            else {
-                html.find(targetDesc).show(100);
-                this.settings[targetDesc] = true;
-            }
-            game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(this.settings));
-        });
+        html.find('.npc-item-name').click(event => this._onItemSummary(event));
+
 
         html.find('.body-tile-name').click(e => {
             let target = e.target.getAttribute('data-tile');
@@ -150,7 +138,6 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(this.settings));
         });
 
-
         // remove window padding
         $('.better-npc-sheet').parent().css('padding', '0');
 
@@ -162,11 +149,11 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         this.options.width = windowWidth;
         this.options.height = 'auto';
         let style = `width: ${windowWidth}px !important; max-height:80%;`;
-        let newStyle = html.parent().parent().attr('style').replace('height: 720px','height:auto') + style; // also setting height to auto
-        html.parent().parent().attr('style', newStyle); 
+        let newStyle = html.parent().parent().attr('style').replace('height: 720px', 'height:auto') + style; // also setting height to auto
+        html.parent().parent().attr('style', newStyle);
         //html.find('.npc-sheet').css('min-width', columnWidth * 3);
         html.find('.body-tile').css('width', columnWidth);
-        
+
 
 
         // spellslot control buttons
@@ -177,6 +164,27 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             let newValue = mod == '+' ? Number(slotElement.val()) + 1 : Number(slotElement.val()) - 1;
             slotElement.val(newValue >= 0 ? newValue : 0);
             slotElement.trigger('submit');
+        });
+
+        // list chaning logic:
+        html.find('.item-change-list').click(ev => {
+            let target = $(ev.target).parents('.item').find('.type-list');
+            target.toggle(200);
+        });
+        html.find('.npc-item-name').contextmenu(ev => {
+            let target = $(ev.target).parents('.item').find('.type-list');
+            target.toggle(200);
+        });
+
+        html.find('.type-list a').click(ev => {
+            let targetList = ev.target.dataset.value
+            let itemId = Number($(ev.target).parents('.item').attr('data-item-id'));
+            let item = this.actor.items.find(i => { return i.id === itemId });
+            if (!item.flags) item.flags = {};
+            if (!item.flags.adnd5e) item.flags.adnd5e = {};
+            if (!item.flags.adnd5e.itemInfo) item.flags.adnd5e.itemInfo = {};
+            item.flags.adnd5e.itemInfo.type = targetList;
+            this.actor.updateOwnedItem(item, true);
         });
     }
 
@@ -200,7 +208,7 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             html.find('.saves-div').show();
             html.find('.skills-div').show();
         } else {
-            html.find('.show-on-edit').hide();
+            html.find('.show-on-edit:not(.hidable)').hide();
             html.find('.hide-on-edit').show();
             html.find('input').css('background', 'none');
             if (html.find('.saves-div .hidable[data-hidable-attr="1"]').length == 0) {
@@ -224,6 +232,10 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         // Weapons
         const weapons = [];
 
+        const legendarys = [];
+        const reactions = [];
+        const lair = [];
+
         // Spellbook
         const spellbook = {};
 
@@ -246,6 +258,15 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
             }
 
             // Features
+            if (i.type !== "spell" && i.flags && i.flags.adnd5e && i.flags.adnd5e.itemInfo && i.flags.adnd5e.itemInfo.type) {
+                switch (i.flags.adnd5e.itemInfo.type) {
+                    case 'trait': features.push(i); break;
+                    case 'action': weapons.push(i); break;
+                    case 'legendary': legendarys.push(i); break;
+                    case 'reaction': reactions.push(i); break;
+                    case 'lair': lair.push(i); break;
+                }
+            }
             else if (i.type === "weapon") weapons.push(i);
             else if (i.type === "feat") features.push(i);
             else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.push(i);
@@ -255,6 +276,9 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
         actorData.features = features;
         actorData.spellbook = spellbook;
         actorData.weapons = weapons;
+        actorData.legendarys = legendarys;
+        actorData.reactions = reactions;
+        actorData.lair = lair;
     }
     
     toggleEditMoed() {
@@ -282,5 +306,14 @@ class BetterNPCActor5eSheet extends Actor5eSheet {
     }
 }
 
-// overwriting the default npc sheet
-CONFIG.Actor.sheetClass = BetterNPCActor5eSheet;
+Hooks.on('ready', (app) => {
+    if (game.data.version.split('.')[1] >= 2 && game.data.version.split('.')[2] >= 9) {
+        Actors.registerSheet("dnd5e", BetterNPCActor5eSheet, {
+            types: ["npc"],
+            makeDefault: true
+        });
+    } else {
+        // overwriting the default npc sheet
+        CONFIG.Actor.sheetClass = BetterNPCActor5eSheet;
+    }
+});

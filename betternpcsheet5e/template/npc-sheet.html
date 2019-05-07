@@ -116,73 +116,72 @@
                     {{/each}}
                 </div>
 
-                <!-- IMMUNITYS -->               
+                <!-- IMMUNITYS -->
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.di.value}}">
-                    <label for="data.traits.di">                        
+                    <label for="data.traits.di">
                         <a class="trait-selector" data-options="damageTypes">{{data.traits.di.label}}</a>
                     </label>
                     <ul class="traits-list">
-                    {{#each data.traits.di.selected as |v k|}}
+                        {{#each data.traits.di.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
-                    {{/each}}
+                        {{/each}}
                     </ul>
                 </div>
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dr.value}}">
-                    <label for="data.traits.dr">                        
+                    <label for="data.traits.dr">
                         <a class="trait-selector" data-options="damageTypes">{{data.traits.dr.label}}</a>
                     </label>
                     <ul class="traits-list">
-                    {{#each data.traits.dr.selected as |v k|}}
+                        {{#each data.traits.dr.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
-                    {{/each}}
+                        {{/each}}
                     </ul>
                 </div>
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dv.value}}">
-                    <label for="data.traits.dv">                        
+                    <label for="data.traits.dv">
                         <a class="trait-selector" data-options="damageTypes">{{data.traits.dv.label}}</a>
                     </label>
                     <ul class="traits-list">
-                    {{#each data.traits.dv.selected as |v k|}}
+                        {{#each data.traits.dv.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
-                    {{/each}}
+                        {{/each}}
                     </ul>
                 </div>
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.ci.value}}">
-                    <label for="data.traits.ci">                        
+                    <label for="data.traits.ci">
                         <a class="trait-selector" data-options="conditionTypes">{{data.traits.ci.label}}</a>
                     </label>
                     <ul class="traits-list">
-                    {{#each data.traits.ci.selected as |v k|}}
+                        {{#each data.traits.ci.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
-                    {{/each}}
+                        {{/each}}
                     </ul>
                 </div>
-                
-                
+
+
                 <!-- Others -->
                 <div class="flex-line hidable" data-hidable-attr="{{data.traits.perception.value}}">
-                    <label>{{data.traits.perception.label}} </label>
+                    <label><b>{{data.traits.perception.label}} </b></label>
                     <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.perception.value" data-dtype="{{data.traits.perception.type}}"
                            value="{{data.traits.perception.value}}" placeholder="Value" />
                 </div>
-                <div class="flex-line hidable" data-hidable-attr="{{data.traits.senses.value}}">
+                <div class="hidable" data-hidable-attr="{{data.traits.senses.value}}">
                     <label><b>{{data.traits.senses.label}} </b></label>
-                    <span class="hide-on-edit">{{data.traits.senses.value}}</span>
-                    <input class="npc-textinput-small show-on-edit" type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
+                    <input class="npc-textinput-small" type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
                            value="{{data.traits.senses.value}}" placeholder="None" />
                 </div>
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.languages.value}}">
-                    <label for="data.traits.languages">                        
+                    <label for="data.traits.languages">
                         <a class="trait-selector" data-options="languages">{{data.traits.languages.label}}</a>
                     </label>
                     <ul class="traits-list">
-                    {{#each data.traits.languages.selected as |v k|}}
+                        {{#each data.traits.languages.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
-                    {{/each}}
+                        {{/each}}
                     </ul>
                 </div>
                 <div class="flex-line">
@@ -214,7 +213,7 @@
             </div>
 
             <!-- FEATURES -->
-            <div class="body-tile" data-tile="features">
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.features}}" data-tile="features">
                 <div class="feature-list">
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     <h3>
@@ -231,37 +230,31 @@
                             <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
                             {{/if}}
                             <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-change-list show-on-edit" title="Move to different List"><i class="fas fa-bookmark"></i></a>
                             <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
                             <a class='npc-item-name' data-item-id="{{feature.id}}">{{feature.name}}</a>
+                            <div class="type-list" style="display:none">
+                                Move to different List:
+                                <ul>
+                                    <li><a data-value="action"><i class="ra ra-sword"></i> Action</a></li>
+                                    <li><a data-value="legendary"><i class="ra ra-crossed-axes"></i> Legendary Actions</a></li>
+                                    <li><a data-value="reaction"><i class="ra ra-spinning-sword"></i> Reactions</a></li>
+                                    <li><a data-value="lair"><i class="ra ra-tower"></i> Lair Action</a></li>
+                                </ul>
+                            </div>
                         </h4>
-                        <div class='item-description' {{#equals feature.name "Spellcasting"}} style="display:none;" {{/equals}}>
-                            <p>{{{feature.data.description.value}}}</p>
-                            <p>
-                                {{#unequals feature.data.featType.value "passive"}}
-                                {{#if feature.data.requirements.value}}<small class="npc-small">{{feature.data.requirements.label}}: {{feature.data.requirements.value}}</small>{{/if}}
-                                {{#if feature.data.ability.value}}<small class="npc-small">{{feature.data.ability.label}}: {{feature.data.ability.value}}</small>{{/if}}
-                                {{#if feature.data.target.value}}<small class="npc-small">{{feature.data.target.label}}: {{feature.data.target.value}}</small>{{/if}}
-                                {{#if feature.data.range.value}}<small class="npc-small">{{feature.data.range.label}}: {{feature.data.range.value}}</small>{{/if}}
-                                {{#if feature.data.time.value}}<small class="npc-small">{{feature.data.time.label}}: {{feature.data.time.value}}</small>{{/if}}
-                                {{#if feature.data.duration.value}}<small class="npc-small">{{feature.data.duration.label}}: {{feature.data.duration.value}}</small>{{/if}}
-                                {{#if feature.data.damage.value}}<small class="npc-small">{{feature.data.damage.label}}: {{feature.data.damage.value}} {{feature.data.damageType.value}}</small>{{/if}}
-                                {{#if feature.data.save.value}}<small class="npc-small">{{feature.data.save.label}}: {{feature.data.save.value}}</small>{{/if}}
-                                {{else}}
-                                {{/unequals}}
-                            </p>
-                        </div>
                     </div>
                     {{/each}}
                 </div>
             </div>
 
             <!-- WEAPONS -->
-            <div class="body-tile" data-tile="weapons">
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.weapons}}" data-tile="weapons">
                 <div class="weapon-list">
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     <h3>
                         <a class="item-control item-create npc-item-create" title="Create Item" data-type="weapon"><i class="fas fa-plus-circle"></i></a>
-                        <a class="body-tile-name" data-tile="weapons"> Weapons</a>
+                        <a class="body-tile-name" data-tile="weapons"> Actions</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     {{#each actor.weapons as |weapon sid|}}
@@ -273,33 +266,134 @@
                             <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
                             {{/if}}
                             <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-change-list show-on-edit" title="Move to different List"><i class="fas fa-bookmark"></i></a>
                             <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
                             <a class='npc-item-name' data-item-id="{{weapon.id}}">{{weapon.name}}</a>
+                            <div class="type-list" style="display:none">
+                                Move to different List:
+                                <ul>
+                                    <li><a data-value="trait"><i class="ra ra-helmet"></i> Feature</a></li>
+                                    <li><a data-value="legendary"><i class="ra ra-crossed-axes"></i> Legendary Actions</a></li>
+                                    <li><a data-value="reaction"><i class="ra ra-spinning-sword"></i> Reactions</a></li>
+                                    <li><a data-value="lair"><i class="ra ra-tower"></i> Lair Action</a></li>
+                                </ul>
+                            </div>
                         </h4>
-                        <div class='item-description'>
-                            <p>{{{weapon.data.description.value}}}</p>
-                            <p>
-                                {{#unequals weapon.data.featType.value "passive"}}
-                                {{#if weapon.data.requirements.value}}<small class="npc-small">{{weapon.data.requirements.label}}: {{weapon.data.requirements.value}}</small>{{/if}}
-                                {{#if weapon.data.ability.value}}<small class="npc-small">{{weapon.data.ability.label}}: {{weapon.data.ability.value}}</small>{{/if}}
-                                {{#if weapon.data.target.value}}<small class="npc-small">{{weapon.data.target.label}}: {{weapon.data.target.value}}</small>{{/if}}
-                                {{#if weapon.data.range.value}}<small class="npc-small">{{weapon.data.range.label}}: {{weapon.data.range.value}}</small>{{/if}}
-                                {{#if weapon.data.time.value}}<small class="npc-small">{{weapon.data.time.label}}: {{weapon.data.time.value}}</small>{{/if}}
-                                {{#if weapon.data.duration.value}}<small class="npc-small">{{weapon.data.duration.label}}: {{weapon.data.duration.value}}</small>{{/if}}
-                                {{#if weapon.data.damage.value}}<small class="npc-small">{{weapon.data.damage.label}}: {{weapon.data.damage.value}} {{weapon.data.damageType.value}}</small>{{/if}}
-                                {{#if weapon.data.damage2.value}}<small class="npc-small">{{weapon.data.damage2.label}}: {{weapon.data.damage2.value}} {{weapon.data.damage2Type.value}}</small>{{/if}}
-                                {{#if weapon.data.save.value}}<small class="npc-small">{{weapon.data.save.label}}: {{weapon.data.save.value}}</small>{{/if}}
-                                {{else}}
-                                {{/unequals}}
-                            </p>
-                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <!-- Legendary Actions -->
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.legendarys}}" data-tile="legendary-actions">
+                <div class="la-list">
+                    <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    <h3>
+                        <a class="item-control item-create npc-item-create" title="Create Item" data-type="feat"><i class="fas fa-plus-circle"></i></a>
+                        <a class="body-tile-name" data-tile="legendary-actions"> Legendary Actions</a>
+                    </h3>
+                    <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    {{#each actor.legendarys as |la sid|}}
+                    <div class="item" data-item-id="{{la.id}}">
+                        <h4 class='npc-item-header'>
+                            {{#if ../useWeaponIcons}}
+                            <img class="rollable" src="{{la.img}}" title="{{la.name}}" width="20" height="20" />
+                            {{else}}
+                            <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
+                            {{/if}}
+                            <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-change-list show-on-edit" title="Move to different List"><i class="fas fa-bookmark"></i></a>
+                            <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
+                            <a class='npc-item-name' data-item-id="{{la.id}}">{{la.name}}</a>
+                            <div class="type-list" style="display:none">
+                                Move to different List:
+                                <ul>
+                                    <li><a data-value="trait"><i class="ra ra-helmet"></i> Feature</a></li>
+                                    <li><a data-value="action"><i class="ra ra-sword"></i> Action</a></li>
+                                    <li><a data-value="reaction"><i class="ra ra-spinning-sword"></i> Reactions</a></li>
+                                    <li><a data-value="lair"><i class="ra ra-tower"></i> Lair Action</a></li>
+                                </ul>
+                            </div>
+                        </h4>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <!-- Reactions Actions -->
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.reactions}}" data-tile="reactions">
+                <div class="la-list">
+                    <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    <h3>
+                        <a class="item-control item-create npc-item-create" title="Create Item" data-type="feat"><i class="fas fa-plus-circle"></i></a>
+                        <a class="body-tile-name" data-tile="reactions"> Reaction</a>
+                    </h3>
+                    <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    {{#each actor.reactions as |reaction sid|}}
+                    <div class="item" data-item-id="{{reaction.id}}">
+                        <h4 class='npc-item-header'>
+                            {{#if ../useWeaponIcons}}
+                            <img class="rollable" src="{{reaction.img}}" title="{{reaction.name}}" width="20" height="20" />
+                            {{else}}
+                            <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
+                            {{/if}}
+                            <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-change-list show-on-edit" title="Move to different List"><i class="fas fa-bookmark"></i></a>
+                            <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
+                            <a class='npc-item-name' data-item-id="{{reaction.id}}">{{reaction.name}}</a>
+                            <div class="type-list" style="display:none">
+                                Move to different List:
+                                <ul>
+                                    <li><a data-value="trait"><i class="ra ra-helmet"></i> Feature</a></li>
+                                    <li><a data-value="action"><i class="ra ra-sword"></i> Action</a></li>
+                                    <li><a data-value="legendary"><i class="ra ra-crossed-axes"></i> Legendary Actions</a></li>
+                                    <li><a data-value="lair"><i class="ra ra-tower"></i> Lair Action</a></li>
+                                </ul>
+                            </div>
+                        </h4>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <!-- Lair Actions -->
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.lair}}" data-tile="features">
+                <div class="feature-list">
+                    <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    <h3>
+                        <a class="item-control item-create npc-item-create" title="Create Item" data-type="feat"><i class="fas fa-plus-circle"></i></a>
+                        <a class="body-tile-name" data-tile="features"> Lair Actions</a>
+                    </h3>
+                    <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    {{#each actor.lair as |feature sid|}}
+                    <div class="item" data-item-id="{{feature.id}}">
+                        <h4 class='npc-item-header'>
+                            {{#if ../useWeaponIcons}}
+                            <img class="rollable" src="{{feature.img}}" title="{{feature.name}}" width="20" height="20" />
+                            {{else}}
+                            <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
+                            {{/if}}
+                            <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-change-list show-on-edit" title="Move to different List"><i class="fas fa-bookmark"></i></a>
+                            <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
+                            <a class='npc-item-name' data-item-id="{{feature.id}}">{{feature.name}}</a>
+                            <div class="type-list" style="display:none">
+                                Move to different List:
+                                <ul>
+                                    <li><a data-value="trait"><i class="ra ra-helmet"></i> Feature</a></li>
+                                    <li><a data-value="action"><i class="ra ra-sword"></i> Action</a></li>
+                                    <li><a data-value="legendary"><i class="ra ra-crossed-axes"></i> Legendary Actions</a></li>
+                                    <li><a data-value="reaction"><i class="ra ra-spinning-sword"></i> Reactions</a></li>
+                                </ul>
+                            </div>
+                        </h4>
                     </div>
                     {{/each}}
                 </div>
             </div>
 
             <!-- SPELLS -->
-            <div class="body-tile spell-section" data-tile="spell{{lvl}}">
+            <div class="body-tile spell-section hidable show-on-edit" data-hidable-attr="{{actor.spellbook}}" data-tile="spell{{lvl}}">
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <h3>
                     <a class="item-control item-create npc-item-create" title="Create Spell" data-type="spell" data-level="0"><i class="fas fa-plus-circle"></i></a>
@@ -317,7 +411,7 @@
                     </select>
                 </div>
             </div>
-            
+
             {{#each actor.spellbook as |section lvl|}}
             <div class="body-tile spell-section" data-tile="spell{{lvl}}">
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
@@ -325,51 +419,37 @@
                     <a class="item-control item-create npc-item-create" title="Create Spell" data-type="spell" data-level="{{lvl}}"><i class="fas fa-plus-circle"></i></a>
                     <a class="body-tile-name" data-tile="spell{{lvl}}">{{section.label}} </a>
                     {{#unless section.isCantrip}}
-                        <span>&nbsp;- Spellslots:</span>
-                        <span class="spell-slots">
-                            <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0" />
-                        </span>
-                        <span class="flex0"> / </span>
-                        <span class="spell-max">
-                            <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0" />
-                        </span>
-                        <a class="spellslot-mod" data-mod="+" data-level="{{lvl}}" title="Add a spellslot">&#9650;</i></a>
-                        <a class="spellslot-mod" data-mod="-" data-level="{{lvl}}" title="Substract a spellslot">&#9660;</a>
+                    <span>&nbsp;- Spellslots:</span>
+                    <span class="spell-slots">
+                        <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0" />
+                    </span>
+                    <span class="flex0"> / </span>
+                    <span class="spell-max">
+                        <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0" />
+                    </span>
+                    <a class="spellslot-mod" data-mod="+" data-level="{{lvl}}" title="Add a spellslot">&#9650;</i></a>
+                    <a class="spellslot-mod" data-mod="-" data-level="{{lvl}}" title="Substract a spellslot">&#9660;</a>
                     {{/unless}}
                 </h3>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 {{#each section.spells as |spell i|}}
-                        <div class="item" data-item-id="{{spell.id}}">
-                            <h4 class='npc-item-header'>
-                                {{#if ../../useSpellIcons}}
-                                <img class="rollable" src="{{spell.img}}" title="{{spell.name}}" width="20" height="20" />
-                                {{else}}
-                                <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
-                                {{/if}}
-                                <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                                <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
-                                <a class='npc-item-name' data-item-id="{{spell.id}}">{{spell.name}}</a>
-                            </h4>
-                            <div class='item-description spell-description'>
-                                <p>{{{spell.data.description.value}}}</p>
-                                <p>
-                                    {{#if spell.data.ritual.value}}<small class="npc-small npc-bold">Ritual</small>{{/if}}
-                                    {{#if spell.data.concentration.value}}<small class="npc-small npc-bold">Concentration</small>{{/if}}
-                                    {{#if spell.data.school.value}}<small class="npc-small">{{spell.data.school.str}}</small>{{/if}}
-                                    {{#if spell.data.components.value}}<small class="npc-small">{{spell.data.components.label}}: {{spell.data.components.value}}</small>{{/if}}
-                                    {{#if spell.data.range.value}}<small class="npc-small">{{spell.data.range.label}}: {{spell.data.range.value}}</small>{{/if}}
-                                    {{#if spell.data.time.value}}<small class="npc-small">{{spell.data.time.label}}: {{spell.data.time.value}}</small>{{/if}}
-                                    {{#if spell.data.duration.value}}<small class="npc-small">{{spell.data.duration.label}}: {{spell.data.duration.value}}</small>{{/if}}
-                                    {{#if spell.data.damage.value}}<small class="npc-small">{{spell.data.damage.label}}: {{spell.data.damage.value}} {{spell.data.damageType.value}}</small>{{/if}}
-                                    {{#if spell.data.save.value}}<small class="npc-small">{{spell.data.save.label}}: {{spell.data.save.value}}</small>{{/if}}
-                                </p>
-                            </div>
-                        </div>
+                <div class="item" data-item-id="{{spell.id}}">
+                    <h4 class='npc-item-header'>
+                        {{#if ../../useSpellIcons}}
+                        <img class="rollable" src="{{spell.img}}" title="{{spell.name}}" width="20" height="20" />
+                        {{else}}
+                        <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
+                        {{/if}}
+                        <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        <a class='npc-item-name' data-item-id="{{spell.id}}">{{spell.name}}</a>
+                    </h4>
+                </div>
                 {{/each}}
             </div>
             {{/each}}
 
-                <!-- END -->
+            <!-- END -->
         </div>
             <div class="tab" data-tab="tab2" data-group="group1">
                 {{editor content=data.details.biography.value target="data.details.biography.value" button=true}}
