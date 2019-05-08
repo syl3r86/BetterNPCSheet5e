@@ -1,5 +1,5 @@
 .better-npc-sheet {
-    background-image: url('background.jpg');
+    background-image: url('../background.jpg');
     background-repeat: repeat;
     padding: 3px;
     height: auto;
@@ -16,7 +16,7 @@
 .header-left {
     max-width: 110px;
 }
-.better-npc-sheet label,.better-npc-sheet span  {
+.better-npc-sheet label {
     display: inline!important;
     margin-right: 3px;
 }
@@ -38,6 +38,10 @@
 }
 .base-attribs {
     float: left;
+}
+
+.npc-sheet .ability input {
+    margin-top: 0!important;
 }
 
 .body-tile h3 {
