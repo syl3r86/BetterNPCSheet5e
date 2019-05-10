@@ -1,10 +1,10 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.4
+ * @version 0.4.1
  */
 
 //let Actor5eSheet = CONFIG.Actor.sheetClass;
-class BetterNPCActor5eSheet extends CONFIG.Actor.sheetClass {
+class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             
     get template() {
         // adding the #equals and #unequals handlebars helper
@@ -224,7 +224,7 @@ class BetterNPCActor5eSheet extends CONFIG.Actor.sheetClass {
     * Organize and classify Items for NPC sheets
     * @private
     */
-    _prepareNPCItems(actorData) {
+    _prepareItems(actorData) {
 
         // Features
         const features = [];
@@ -271,6 +271,10 @@ class BetterNPCActor5eSheet extends CONFIG.Actor.sheetClass {
                         else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.push(i);
                     }
                 }
+            } else {
+                if (i.type === "weapon") weapons.push(i);
+                else if (i.type === "feat") features.push(i);
+                else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.push(i);
             }
         }
 
@@ -308,15 +312,7 @@ class BetterNPCActor5eSheet extends CONFIG.Actor.sheetClass {
     }
 }
 
-/*Hooks.on('ready', (app) => {
-    if (game.data.version.split('.')[1] >= 2 && game.data.version.split('.')[2] >= 9) {
-        Actors.registerSheet("dnd5e", BetterNPCActor5eSheet, {
-            types: ["npc"],
-            makeDefault: true
-        });
-    } else {
-        // overwriting the default npc sheet
-        CONFIG.Actor.sheetClass = BetterNPCActor5eSheet;
-    }
-});*/
-CONFIG.Actor.sheetClass = BetterNPCActor5eSheet;
+Actors.registerSheet("dnd5e", BetterNPCActor5eSheet, {
+    types: ["npc"],
+    makeDefault: true
+});
