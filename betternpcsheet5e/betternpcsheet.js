@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.4.1
+ * @version 0.4.2
  */
 
 //let Actor5eSheet = CONFIG.Actor.sheetClass;
@@ -16,13 +16,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             return (arg1 != arg2) ? options.fn(this) : options.inverse(this);
         });
 
-        const path = "public/systems/dnd5e/templates/actors/";
-        if (this.actor.data.type === "character") {
-            return path + "actor-sheet.html";
-        } else if (this.actor.data.type === "npc") {
-            return "public/modules/betternpcsheet5e/template/npc-sheet.html";
-        }
-        else throw "Unrecognized Actor type " + this.actor.data.type;
+        return "public/modules/betternpcsheet5e/template/npc-sheet.html";
     }
     
     getData() {
@@ -214,7 +208,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             if (html.find('.saves-div .hidable[data-hidable-attr="1"]').length == 0) {
                 html.find('.saves-div').hide();
             }
-            if (html.find('.skills-div .hidable[data-hidable-attr="1"]').length == 0) {
+            if (html.find('.skills-div .hidable[data-hidable-attr="1"], .skills-div .hidable[data-hidable-attr="0.5"], .skills-div .hidable[data-hidable-attr="2"]').length == 0) {
                 html.find('.skills-div').hide();
             }
         }
