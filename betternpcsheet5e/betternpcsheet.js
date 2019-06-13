@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.4.2
+ * @version 0.4.3
  */
 
 //let Actor5eSheet = CONFIG.Actor.sheetClass;
@@ -17,6 +17,15 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         });
 
         return "public/modules/betternpcsheet5e/template/npc-sheet.html";
+    }
+
+    static get defaultOptions() {
+        const options = super.defaultOptions;
+        mergeObject(options, {
+            width: 100,
+            height: 'auto'
+        });
+        return options;
     }
     
     getData() {
@@ -135,17 +144,21 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         // remove window padding
         $('.better-npc-sheet').parent().css('padding', '0');
 
-        // setting npcsheet width & height (here in case it gets overwritten in another modules css *cough sillvva cough*)
+        // setting npcsheet width & height
+
+        let columnCount = 2;
+        if (this.object.data.items.length > 10) {
+            columnCount = 3;
+        }
         let columnWidth = 290;
         let windowPadding = parseInt(html.parent().parent().css('padding-left')) + parseInt(html.parent().parent().css('padding-right'));
         let tilePadding = 18;
-        let windowWidth = windowPadding + (columnWidth * 3) + tilePadding + 20;
+        let windowWidth = windowPadding + (columnWidth * columnCount) + tilePadding + 20;
         this.options.width = windowWidth;
         this.options.height = 'auto';
-        let style = `width: ${windowWidth}px !important; max-height:80%;`;
-        let newStyle = html.parent().parent().attr('style').replace('height: 720px', 'height:auto') + style; // also setting height to auto
+        let style = `width: ${windowWidth}px !important; min-height:200px; min-width:${windowWidth}px;`;
+        let newStyle = html.parent().parent().attr('style') + style;
         html.parent().parent().attr('style', newStyle);
-        //html.find('.npc-sheet').css('min-width', columnWidth * 3);
         html.find('.body-tile').css('width', columnWidth);
 
 
@@ -160,7 +173,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             slotElement.trigger('submit');
         });
 
-        // list chaning logic:
+        // list changing logic:
         html.find('.item-change-list').click(ev => {
             let target = $(ev.target).parents('.item').find('.type-list');
             target.toggle(200);
@@ -180,6 +193,8 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             item.flags.adnd5e.itemInfo.type = targetList;
             this.actor.updateOwnedItem(item, true);
         });
+
+        // item creation
     }
 
     _applySettingsMode(editMode, html) {
@@ -280,7 +295,29 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         actorData.reactions = reactions;
         actorData.lair = lair;
     }
-    
+
+
+    _onItemCreate(event) {
+        event.preventDefault();
+
+        let itemType = $(event.target).parents('.body-tile').attr('data-tile');
+        let header = event.currentTarget;
+        let data = duplicate(header.dataset);
+        data.flags = {
+            'adnd5e': {
+                'itemInfo': {
+                    'type': itemType
+                }
+            }
+        }
+        data["name"] = `New ${itemType.capitalize()}`;
+        if (itemType === 'legendary' || itemType === 'lair') {
+            data["name"] += ' Action';
+        }
+
+        this.actor.createOwnedItem(data, true, { renderSheet: true });
+    }
+
     toggleEditMoed() {
         if (this.editMode == true) {
             for (let obj of html.find('.hidable')) {

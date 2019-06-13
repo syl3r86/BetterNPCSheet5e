@@ -213,12 +213,12 @@
             </div>
 
             <!-- FEATURES -->
-            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.features}}" data-tile="features">
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.features}}" data-tile="trait">
                 <div class="feature-list">
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     <h3>
                         <a class="item-control item-create npc-item-create" title="Create Item" data-type="feat"><i class="fas fa-plus-circle"></i></a>
-                        <a class="body-tile-name" data-tile="features"> Features</a>
+                        <a class="body-tile-name" data-tile="trait"> Features</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     {{#each actor.features as |feature sid|}}
@@ -249,12 +249,12 @@
             </div>
 
             <!-- WEAPONS -->
-            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.weapons}}" data-tile="weapons">
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.weapons}}" data-tile="action">
                 <div class="weapon-list">
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     <h3>
                         <a class="item-control item-create npc-item-create" title="Create Item" data-type="weapon"><i class="fas fa-plus-circle"></i></a>
-                        <a class="body-tile-name" data-tile="weapons"> Actions</a>
+                        <a class="body-tile-name" data-tile="action"> Actions</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     {{#each actor.weapons as |weapon sid|}}
@@ -285,12 +285,12 @@
             </div>
 
             <!-- Legendary Actions -->
-            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.legendarys}}" data-tile="legendary-actions">
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.legendarys}}" data-tile="legendary">
                 <div class="la-list">
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     <h3>
                         <a class="item-control item-create npc-item-create" title="Create Item" data-type="feat"><i class="fas fa-plus-circle"></i></a>
-                        <a class="body-tile-name" data-tile="legendary-actions"> Legendary Actions</a>
+                        <a class="body-tile-name" data-tile="legendary"> Legendary Actions</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     {{#each actor.legendarys as |la sid|}}
@@ -321,12 +321,12 @@
             </div>
 
             <!-- Reactions Actions -->
-            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.reactions}}" data-tile="reactions">
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.reactions}}" data-tile="reaction">
                 <div class="la-list">
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     <h3>
                         <a class="item-control item-create npc-item-create" title="Create Item" data-type="feat"><i class="fas fa-plus-circle"></i></a>
-                        <a class="body-tile-name" data-tile="reactions"> Reaction</a>
+                        <a class="body-tile-name" data-tile="reaction"> Reaction</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     {{#each actor.reactions as |reaction sid|}}
@@ -357,12 +357,12 @@
             </div>
 
             <!-- Lair Actions -->
-            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.lair}}" data-tile="features">
+            <div class="body-tile hidable show-on-edit" data-hidable-attr="{{actor.lair}}" data-tile="lair">
                 <div class="feature-list">
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     <h3>
                         <a class="item-control item-create npc-item-create" title="Create Item" data-type="feat"><i class="fas fa-plus-circle"></i></a>
-                        <a class="body-tile-name" data-tile="features"> Lair Actions</a>
+                        <a class="body-tile-name" data-tile="lair"> Lair Actions</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                     {{#each actor.lair as |feature sid|}}
