@@ -6,6 +6,11 @@
     overflow: auto !important;
 }
 
+.better-npc-sheet .sheet-profile {
+    object-fit: contain;
+    border:none;
+}
+
 .npc-header {
     height: 105px !important;
 }
