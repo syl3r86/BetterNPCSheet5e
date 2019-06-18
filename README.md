@@ -4,7 +4,7 @@ This module overwrites the default NPC sheet that comes shiped with the dnd5e sy
 
 ## Installation
 1. Download the [betternpcsheet5e.zip](https://github.com/syl3r86/BetterNPCSheet5e/raw/master/betternpcsheet5e.zip)
-2. Unzip it into FoundryVTT/public/modules
+2. Unzip it into FoundryVTT/resources/app/public/modules
 3. Restart Foundry if it was running.
 
 ![example](preview.jpg)
