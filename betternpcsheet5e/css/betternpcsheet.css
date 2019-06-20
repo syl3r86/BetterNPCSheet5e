@@ -1,3 +1,10 @@
+.better-npc-sheet-container {
+    min-width: 600px!important;
+    min-height: 300px!important;
+    /*max-width: 1180px!important;
+    max-height: 900px!important;*/
+}
+
 .better-npc-sheet {
     background-image: url('../background.jpg');
     background-repeat: repeat;
@@ -37,9 +44,10 @@
 }
 
 .body-tile {
-    display:inline-table;
-    height:auto;
+    display: inline-table;
+    height: auto;
     padding: 0 3px;
+    width: 290px;
 }
 .base-attribs {
     float: left;

@@ -16,14 +16,18 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             return (arg1 != arg2) ? options.fn(this) : options.inverse(this);
         });
 
+        const path = "public/systems/dnd5e/templates/actors/";
+        if (!game.user.isGM && this.actor.limited) return path + "limited-sheet.html";
         return "public/modules/betternpcsheet5e/template/npc-sheet.html";
     }
 
     static get defaultOptions() {
         const options = super.defaultOptions;
+
         mergeObject(options, {
-            width: 100,
-            height: 'auto'
+            classes: options.classes.concat(["dnd5e", "actor", "better-npc-sheet-container"]),
+            width: 600,
+            height: 500
         });
         return options;
     }
@@ -44,7 +48,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
     
     activateListeners(html) {
         super.activateListeners(html);
-
+        
         // only do stuff if its for npcs
         if (this.actor.data.type === "character") {
             return;
@@ -145,24 +149,20 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         $('.better-npc-sheet').parent().css('padding', '0');
 
         // setting npcsheet width & height
+        setTimeout(() => {
+            let columnCount = 2;
+            if (this.object.data.items.length > 10) {
+                columnCount = 3;
+            }
+            let style = html.parent().parent().attr('style');
+            console.log(style);
+            style = style.replace('width: 600px;', `width: ${columnCount * 300}px!important;`);
+            this.options.width = columnCount * 300;
+            console.log(style);
+            $(html.parent().parent()).attr('style', style);
+        }, 10);
 
-        let columnCount = 2;
-        if (this.object.data.items.length > 10) {
-            columnCount = 3;
-        }
-        let columnWidth = 290;
-        let windowPadding = parseInt(html.parent().parent().css('padding-left')) + parseInt(html.parent().parent().css('padding-right'));
-        let tilePadding = 18;
-        let windowWidth = windowPadding + (columnWidth * columnCount) + tilePadding + 20;
-        this.options.width = windowWidth;
-        this.options.height = 'auto';
-        let style = `width: ${windowWidth}px !important; min-height:200px; min-width:${windowWidth}px;`;
-        let newStyle = html.parent().parent().attr('style') + style;
-        html.parent().parent().attr('style', newStyle);
-        html.find('.body-tile').css('width', columnWidth);
-
-
-
+        
         // spellslot control buttons
         html.find('.spellslot-mod').click(ev => {
             let mod = event.target.getAttribute("data-mod");
