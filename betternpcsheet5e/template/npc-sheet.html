@@ -5,7 +5,7 @@
             <!-- IMAGE -->
             <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="100" width="100" data-edit="img" />
         </div>
-        <div class="header-right">
+        <div class="header-middle">
             <!-- NAME -->
             <h1 class="charname">
                 <input name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
@@ -25,12 +25,13 @@
             </div>
         </div>
 
-
-        <a class='editBtn' title='Edit'><i class="fas fa-cog"></i></a>
-        <nav class="tabs" data-group="group1">
-            <a class="item" data-tab="tab1">Attributes</a>
-            <a class="item" data-tab="tab2">Bio</a>
-        </nav>
+        <div class="header-right">
+            <a class='editBtn' title='Edit'><i class="fas fa-cog"></i></a>
+            <nav class="tabs" data-group="group1">
+                <a class="item" data-tab="tab1">Attributes</a>
+                <a class="item" data-tab="tab2">Bio</a>
+            </nav>        
+        </div>
     </header>
     <!-- BODY -->
     <section class="sheet-body npc-body">

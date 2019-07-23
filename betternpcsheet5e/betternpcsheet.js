@@ -25,9 +25,9 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         const options = super.defaultOptions;
 
         mergeObject(options, {
-            classes: options.classes.concat(["dnd5e", "actor", "better-npc-sheet-container"]),
+            classes: ["sheet","better-npc-sheet-container"],
             width: 600,
-            height: 500
+            height: 300
         });
         return options;
     }
@@ -148,17 +148,25 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         // remove window padding
         $('.better-npc-sheet').parent().css('padding', '0');
 
-        // setting npcsheet width & height
+        // setting npcsheet width & height 
         setTimeout(() => {
+            let style = html.parent().parent().attr('style');
+            console.log(style);
+
+            // change width
             let columnCount = 2;
             if (this.object.data.items.length > 10) {
                 columnCount = 3;
             }
-            let style = html.parent().parent().attr('style');
-            console.log(style);
-            style = style.replace('width: 600px;', `width: ${columnCount * 300}px!important;`);
-            this.options.width = columnCount * 300;
-            console.log(style);
+            let newWdith = columnCount * 300;
+            style = style.replace('width: 600px;', `width: ${newWdith}px;`);
+            this.position.width = newWdith;
+
+            //change height
+            let newHeight = $(html).outerHeight(true) + $(html.parent().parent().find('.window-header')).outerHeight(true);
+            style = style.replace('height: 300px;', `height: ${newHeight}px;`);
+            this.position.height = newHeight;
+
             $(html.parent().parent()).attr('style', style);
         }, 10);
 
