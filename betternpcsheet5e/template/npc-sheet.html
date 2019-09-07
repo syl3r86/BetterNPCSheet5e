@@ -96,9 +96,9 @@
                     <label style="font-weight:bold;">Saving Throws</label>
                     {{#each data.abilities as |ability id|}}
                     <div class="save flex-line hidable" data-hidable-attr="{{ability.proficient}}" data-ability="{{id}}">
-                        <a class="ability-proficiency show-on-edit flex" title="{{ability.hover}}">{{{ability.icon}}}</a>
-                        <a class="ability-name rollable flex">{{id}}</a>
-                        <span class="ability-save flex" title="Saving Throw">{{numberFormat ability.save decimals=0 sign=true}}</span>
+                        <a class="ability-proficiency show-on-edit " title="{{ability.hover}}">{{{ability.icon}}}</a>
+                        <a class="ability-name rollable ">{{id}}</a>
+                        <span class="ability-save " title="Saving Throw">{{numberFormat ability.save decimals=0 sign=true}}</span>
                         <input class='hidable-attr' type="hidden" name="data.abilities.{{id}}.proficient" value="{{ability.proficient}}" />
                     </div>
                     {{/each}}
@@ -108,10 +108,10 @@
                     <label style="font-weight:bold;">Skills</label>
                     {{#each data.skills as |skill s|}}
                     <div class="skill flex-line hidable" data-hidable-attr="{{skill.value}}" data-skill="{{s}}">
-                        <a class="skill-proficiency show-on-edit flex" title="{{skill.hover}}">{{{skill.icon}}}</a>
-                        <a class="skill-name rollable flex">{{skill.label}}</a>
-                        <span class="skill-mod flex">{{numberFormat skill.mod decimals=0 sign=true}}</span>
-                        <span class="skill-ability flex">({{skill.ability}})</span>
+                        <a class="skill-proficiency show-on-edit " title="{{skill.hover}}">{{{skill.icon}}}</a>
+                        <a class="skill-name rollable ">{{skill.label}}</a>
+                        <span class="skill-mod ">{{numberFormat skill.mod decimals=0 sign=true}}</span>
+                        <span class="skill-ability ">({{skill.ability}})</span>
                         <input class='hidable-attr' type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number" />
                     </div>
                     {{/each}}

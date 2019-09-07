@@ -10,6 +10,9 @@
     height: auto;
 }
 
+.better-npc-sheet .charname input {
+    width:100%;
+}
     .better-npc-sheet .sheet-profile {
         object-fit: contain;
         border: none;
