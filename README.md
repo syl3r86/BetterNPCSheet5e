@@ -1,12 +1,15 @@
 # Better NPC Sheet 5e
 
+> There has been a change to the repository that breaks the update functionality of Foundry. To get version 0.4.8 please reinstall the module with the link below or manually download and update the modules files in the apropiate folder. Sorry for the inconenience
+
 This module overwrites the default NPC sheet that comes shiped with the dnd5e system and brings it closer to the well known official template. To install it just download the .zip file and copy the contained folder into the public/modules folder of Foundry. After a restart of Foundry you'll have access to your npcs using this new sheet.
 
 ## Installation
-1. Download the [betternpcsheet5e.zip](https://github.com/syl3r86/BetterNPCSheet5e/raw/master/betternpcsheet5e.zip)
-2. Unzip it into FoundryVTT/resources/app/public/modules
-3. Restart Foundry if it was running.
-4. Enable the module in the Module Configuration
+1. Copy this link and use it in Foundrys Module Manager to install the Module
+
+    > https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/master/module.json
+    
+2. Enable the Module in your Worlds Module Settings
 
 ![example](preview.jpg)
 
