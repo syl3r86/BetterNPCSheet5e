@@ -150,7 +150,6 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         // setting npcsheet width & height 
         setTimeout(() => {
             let style = html.parent().parent().attr('style');
-            console.log(style);
 
             // change width
             let columnCount = 2;
@@ -193,7 +192,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         html.find('.type-list a').click(ev => {
             let targetList = ev.target.dataset.value
             let itemId = Number($(ev.target).parents('.item').attr('data-item-id'));
-            let item = this.actor.items.find(i => { return i.id === itemId });
+            let item = this.actor.data.items.find(i => { return i.id === itemId });
             if (!item.flags) item.flags = {};
             if (!item.flags.adnd5e) item.flags.adnd5e = {};
             if (!item.flags.adnd5e.itemInfo) item.flags.adnd5e.itemInfo = {};
