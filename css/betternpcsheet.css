@@ -4,7 +4,7 @@
 }
 
 .better-npc-sheet {
-    background-image: url('../background.jpg');
+    background-image: url("../../../systems/dnd5e/ui/parchment.jpg");
     background-repeat: repeat;
     padding: 3px;
     height: auto;
@@ -12,6 +12,7 @@
 
 .better-npc-sheet .charname input {
     width:100%;
+    height: auto;
 }
     .better-npc-sheet .sheet-profile {
         object-fit: contain;
@@ -144,7 +145,7 @@
     }
 
     .better-npc-sheet .sheet-divider-left {
-        border-left: 140px solid #922610;
+        border-left: 140px solid #782e22;
     }
 
     .better-npc-sheet .npc-textinput, .better-npc-sheet .size-selector {

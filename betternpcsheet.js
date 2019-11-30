@@ -2,10 +2,13 @@
  * @author Felix Müller aka syl3r86
  * @version 0.4.8
  */
+ 
+
+import { ActorSheet5eNPC } from "../../systems/dnd5e/module/actor/sheets/npc.js";
 
 //let Actor5eSheet = CONFIG.Actor.sheetClass;
 class BetterNPCActor5eSheet extends ActorSheet5eNPC {
-            
+								//  ActorSheet5eNPC
     get template() {
         // adding the #equals and #unequals handlebars helper
         Handlebars.registerHelper('equals', function (arg1, arg2, options) {
@@ -16,9 +19,9 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             return (arg1 != arg2) ? options.fn(this) : options.inverse(this);
         });
 
-        const path = "public/systems/dnd5e/templates/actors/";
+        const path = "systems/dnd5e/templates/actors/";
         if (!game.user.isGM && this.actor.limited) return path + "limited-sheet.html";
-        return "public/modules/betternpcsheet5e/template/npc-sheet.html";
+        return "modules/betternpcsheet5e/template/npc-sheet.html";
     }
 
     static get defaultOptions() {
@@ -251,6 +254,8 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         const reactions = [];
         const lair = [];
 
+        const loot = [];
+
         // Spellbook
         const spellbook = {};
 
@@ -262,14 +267,16 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                 let lvl = i.data.level.value || 0;
                 spellbook[lvl] = spellbook[lvl] || {
                     isCantrip: lvl === 0,
-                    label: CONFIG.spellLevels[lvl],
+                    label: CONFIG.DND5E.spellLevels[lvl],
                     spells: [],
                     uses: actorData.data.spells["spell" + lvl].value || 0,
                     slots: actorData.data.spells["spell" + lvl].max || 0
                 };
-                i.data.school.str = CONFIG.spellSchools[i.data.school.value];
+                //i.data.school.str = CONFIG.DND5E.spellSchools[i.data.school.value];
                 spellbook[lvl].spells.push(i);
+                continue;
             }
+
 
             // Features
             if (i.type !== "spell" && i.flags && i.flags.adnd5e && i.flags.adnd5e.itemInfo && i.flags.adnd5e.itemInfo.type) {
@@ -279,6 +286,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                     case 'legendary': legendarys.push(i); break;
                     case 'reaction': reactions.push(i); break;
                     case 'lair': lair.push(i); break;
+                    case 'loot': loot.push(i); break;
                     default: {
                         if (i.type === "weapon") weapons.push(i);
                         else if (i.type === "feat") features.push(i);
@@ -286,9 +294,17 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                     }
                 }
             } else {
+
+                // sorting via label
+                switch (i.labels.activation) {
+                    case "Legendary": legendarys.push(i); continue;
+                    case "Lair": lair.push(i); continue;
+                    case "Action": weapons.push(i); continue;
+                }
+
                 if (i.type === "weapon") weapons.push(i);
-                else if (i.type === "feat") features.push(i);
-                else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.push(i);
+                else if (i.type === "loot") loot.push(i);
+                else features.push(i);
             }
         }
 
@@ -299,6 +315,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         actorData.actor.legendarys = legendarys;
         actorData.actor.reactions = reactions;
         actorData.actor.lair = lair;
+        actorData.actor.loot = loot;
     }
 
 
