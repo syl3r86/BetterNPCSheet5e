@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.5.3
+ * @version 0.5.4
  */
  
 
@@ -203,7 +203,8 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             this.actor.updateOwnedItem(item, true);
         });
 
-        // item creation
+        // Rollable Health Formula
+        html.find(".npc-roll-hp").click(this._onRollHealthFormula.bind(this));
     }
 
     _applySettingsMode(editMode, html) {
