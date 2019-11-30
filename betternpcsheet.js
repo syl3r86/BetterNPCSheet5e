@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.4.8
+ * @version 0.5.0
  */
  
 

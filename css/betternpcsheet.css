@@ -10,6 +10,10 @@
     height: auto;
 }
 
+.better-npc-sheet ul {
+    list-style:none;
+}
+
 .better-npc-sheet .charname input {
     width:100%;
     height: auto;
