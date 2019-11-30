@@ -123,9 +123,8 @@
                 <!-- IMMUNITYS -->
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.di.value}}">
-                    <label for="data.traits.di">
-                        <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamImm"}}</a>
-                    </label>
+                    <label for="data.traits.di"></label>
+                    <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamImm"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.di.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -134,9 +133,8 @@
                 </div>
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dr.value}}">
-                    <label for="data.traits.dr">
-                        <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamRes"}}</a>
-                    </label>
+                    <label for="data.traits.dr"></label>
+                    <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamRes"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.dr.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -145,9 +143,8 @@
                 </div>
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dv.value}}">
-                    <label for="data.traits.dv">
-                        <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamVuln"}}</a>
-                    </label>
+                    <label for="data.traits.dv"></label>
+                    <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamVuln"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.dv.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -156,9 +153,8 @@
                 </div>
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.ci.value}}">
-                    <label for="data.traits.ci">
-                        <a class="trait-selector" data-options="conditionTypes">{{localize "DND5E.ConImm"}}</a>
-                    </label>
+                    <label for="data.traits.ci"></label>
+                    <a class="trait-selector" data-options="conditionTypes">{{localize "DND5E.ConImm"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.ci.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -179,9 +175,8 @@
                            value="{{data.traits.senses.value}}" placeholder="None" />
                 </div>
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.languages.value}}">
-                    <label for="data.traits.languages">
-                        <a class="trait-selector" data-options="languages">{{localize "DND5E.Languages"}}</a>
-                    </label>
+                    <label for="data.traits.languages"></label>
+                    <a class="trait-selector" data-options="languages">{{localize "DND5E.Languages"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.languages.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -226,15 +221,16 @@
                         <a class="body-tile-name" data-tile="trait"> Features</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    <ul>
                     {{#each actor.features as |feature sid|}}
-                    <div class="item" data-item-id="{{feature.id}}">
+                    <li class="item" data-item-id="{{feature.id}}">
                         <h4 class='npc-item-header'>
                             {{#if ../useWeaponIcons}}
                             <img class="rollable" src="{{feature.img}}" title="{{feature.name}}" width="20" height="20" />
                             {{else}}
                             <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
                             {{/if}}
-                            <a class="item-control item-edit show-on-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                             <a class="item-control item-change-list show-on-edit" title="Move to different List"><i class="fas fa-bookmark"></i></a>
                             <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
                             <a class='npc-item-name' data-item-id="{{feature.id}}">{{feature.name}}</a>
@@ -249,8 +245,9 @@
                                 </ul>
                             </div>
                         </h4>
-                    </div>
+                    </li>
                     {{/each}}
+                    </ul>
                 </div>
             </div>
 
@@ -263,8 +260,9 @@
                         <a class="body-tile-name" data-tile="action"> Actions</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    <ul>
                     {{#each actor.weapons as |weapon sid|}}
-                    <div class="item" data-item-id="{{weapon.id}}">
+                    <li class="item" data-item-id="{{weapon.id}}">
                         <h4 class='npc-item-header'>
                             {{#if ../useWeaponIcons}}
                             <img class="rollable" src="{{weapon.img}}" title="{{weapon.name}}" width="20" height="20" />
@@ -286,8 +284,9 @@
                                 </ul>
                             </div>
                         </h4>
-                    </div>
+                    </li>
                     {{/each}}
+                    </ul>                    
                 </div>
             </div>
 
@@ -300,8 +299,9 @@
                         <a class="body-tile-name" data-tile="legendary"> Legendary Actions</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    <ul>
                     {{#each actor.legendarys as |la sid|}}
-                    <div class="item" data-item-id="{{la.id}}">
+                    <li class="item" data-item-id="{{la.id}}">
                         <h4 class='npc-item-header'>
                             {{#if ../useWeaponIcons}}
                             <img class="rollable" src="{{la.img}}" title="{{la.name}}" width="20" height="20" />
@@ -323,8 +323,9 @@
                                 </ul>
                             </div>
                         </h4>
-                    </div>
+                    </li>
                     {{/each}}
+                    </ul>
                 </div>
             </div>
 
@@ -337,8 +338,9 @@
                         <a class="body-tile-name" data-tile="reaction"> Reaction</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    <ul>
                     {{#each actor.reactions as |reaction sid|}}
-                    <div class="item" data-item-id="{{reaction.id}}">
+                    <li class="item" data-item-id="{{reaction.id}}">
                         <h4 class='npc-item-header'>
                             {{#if ../useWeaponIcons}}
                             <img class="rollable" src="{{reaction.img}}" title="{{reaction.name}}" width="20" height="20" />
@@ -360,8 +362,9 @@
                                 </ul>
                             </div>
                         </h4>
-                    </div>
+                    </li>
                     {{/each}}
+                    </ul>
                 </div>
             </div>
 
@@ -374,8 +377,9 @@
                         <a class="body-tile-name" data-tile="lair"> Lair Actions</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    <ul>
                     {{#each actor.lair as |feature sid|}}
-                    <div class="item" data-item-id="{{feature.id}}">
+                    <li class="item" data-item-id="{{feature.id}}">
                         <h4 class='npc-item-header'>
                             {{#if ../useWeaponIcons}}
                             <img class="rollable" src="{{feature.img}}" title="{{feature.name}}" width="20" height="20" />
@@ -397,8 +401,9 @@
                                 </ul>
                             </div>
                         </h4>
-                    </div>
+                    </li>
                     {{/each}}
+                    </ul>
                 </div>
             </div>
 
@@ -442,8 +447,9 @@
                     {{/unless}}
                 </h3>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                <ul>   
                 {{#each section.spells as |spell i|}}
-                <div class="item" data-item-id="{{spell.id}}">
+                <li class="item" data-item-id="{{spell.id}}">
                     <h4 class='npc-item-header'>
                         {{#if ../../useSpellIcons}}
                         <img class="rollable" src="{{spell.img}}" title="{{spell.name}}" width="20" height="20" />
@@ -454,8 +460,9 @@
                         <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
                         <a class='npc-item-name' data-item-id="{{spell.id}}">{{spell.name}}</a>
                     </h4>
-                </div>
+                </li>
                 {{/each}}
+                </ul> 
             </div>
             {{/each}}
 
@@ -468,8 +475,9 @@
                         <a class="body-tile-name" data-tile="loot"> Loot</a>
                     </h3>
                     <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                    <ul>
                     {{#each actor.loot as |item sid|}}
-                    <div class="item" data-item-id="{{item.id}}">
+                    <li class="item" data-item-id="{{item.id}}">
                         <h4 class='npc-item-header'>
                             {{#if ../useWeaponIcons}}
                             <img class="rollable" src="{{item.img}}" title="{{item.name}}" width="20" height="20" />
@@ -491,8 +499,9 @@
                                 </ul>
                             </div>
                         </h4>
-                    </div>
+                    </li>
                     {{/each}}
+                    </ul>
                 </div>
             </div>
 
