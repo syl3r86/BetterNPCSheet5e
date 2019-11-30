@@ -9,6 +9,6 @@
 	"styles": ["/css/betternpcsheet.css", "css/rpg-awesome.css"],
 	"packs": [],
     "url": "https://github.com/syl3r86/BetterNPCSheet5e",
-    "manifest": "https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/master/module.json",
-    "download": "https://github.com/syl3r86/BetterNPCSheet5e/archive/master.zip"
+    "manifest": "https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/pre-0.4.0/module.json",
+    "download": "https://github.com/syl3r86/BetterNPCSheet5e/archive/pre-0.4.0.zip"
 }
