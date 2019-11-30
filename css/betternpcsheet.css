@@ -67,8 +67,6 @@
     }
 
     .better-npc-sheet .npc-body {
-        background-image: url('background.jpg');
-        background-repeat: repeat;
         overflow: visible !important;
         flex-wrap: wrap !important;
         flex-direction: row !important;
@@ -242,7 +240,6 @@
     }
 
         .better-npc-sheet .spellcasting-ability select {
-            background-image: url('background.jpg');
             height: 1.5em;
             margin-right: 5px;
             padding: 0;
