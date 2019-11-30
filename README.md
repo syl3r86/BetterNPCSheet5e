@@ -7,7 +7,7 @@ This module overwrites the default NPC sheet that comes shiped with the dnd5e sy
 ## Installation
 1. Copy this link and use it in Foundrys Module Manager to install the Module
 
-    > https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/master/module.json
+    > https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/pre-0.4.0/module.json
     
 2. Enable the Module in your Worlds Module Settings
 
