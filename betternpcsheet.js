@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.5.4
+ * @version 0.5.6
  */
  
 
@@ -265,7 +265,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             i.img = i.img || DEFAULT_TOKEN;
             // Spells
             if (i.type === "spell") {
-                let lvl = i.data.level.value || 0;
+                let lvl = i.data.level || 0;
                 spellbook[lvl] = spellbook[lvl] || {
                     isCantrip: lvl === 0,
                     label: CONFIG.DND5E.spellLevels[lvl],
