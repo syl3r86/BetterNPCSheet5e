@@ -46,7 +46,7 @@
                         <input class="npc-textinput-small flex" name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
                                data-dtype="{{data.attributes.ac.type}}" placeholder="10" />
                         <span class="flex0">(</span>
-                        <input class="npc-textinput-small flex" name="data.attributes.ac.formula" class="acformula" type="text" placeholder="Forumla"
+                        <input class="npc-textinput-small flex" name="data.attributes.ac.formula" class="acformula" type="text" placeholder="Formula"
                                value="{{data.attributes.ac.formula}}" />
                         <span class="flex0">)</span>
                     </div>
@@ -64,7 +64,7 @@
                         <input class="npc-textinput-small flex" name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
                                data-dtype="Number" placeholder="10" />
                         <span class="flex0">(</span>
-                        <input class="npc-textinput-small flex" name="data.attributes.hp.formula" class="hpformula" type="text" placeholder="Forumla"
+                        <input class="npc-textinput-small flex" name="data.attributes.hp.formula" class="hpformula" type="text" placeholder="Formula"
                                value="{{data.attributes.hp.formula}}" />
                         <a class="npc-roll-hp" title="Roll HP Formula"><i class="fas fa-dice-d20"></i></a>
                         <span class="flex0">)</span>
@@ -416,8 +416,8 @@
                 </h3>
                 <div class="form-group spellcasting-ability collapsable">
                     <label><h4>Spellcasting Ability</h4></label>
-                    <select name="data.attributes.spellcasting.value" data-type="String">
-                        {{#select data.attributes.spellcasting.value}}
+                    <select name="data.attributes.spellcasting" data-type="String">
+                        {{#select data.attributes.spellcasting}}
                         <option value="">None</option>
                         {{#each data.abilities as |abl a|}}
                         <option value="{{a}}">{{abl.label}}</option>
