@@ -122,7 +122,7 @@
 
                 <!-- IMMUNITYS -->
 
-                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.di.value}}">
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.di.value}}{{data.traits.di.custom}}">
                     <label for="data.traits.di"></label>
                     <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamImm"}}</a>
                     <ul class="traits-list">
@@ -132,7 +132,7 @@
                     </ul>
                 </div>
 
-                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dr.value}}">
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dr.value}}{{data.traits.dr.custom}}">
                     <label for="data.traits.dr"></label>
                     <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamRes"}}</a>
                     <ul class="traits-list">
@@ -142,7 +142,7 @@
                     </ul>
                 </div>
 
-                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dv.value}}">
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dv.value}}{{data.traits.dv.custom}}">
                     <label for="data.traits.dv"></label>
                     <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamVuln"}}</a>
                     <ul class="traits-list">
@@ -152,7 +152,7 @@
                     </ul>
                 </div>
 
-                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.ci.value}}">
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.ci.value}}{{data.traits.ci.custom}}">
                     <label for="data.traits.ci"></label>
                     <a class="trait-selector" data-options="conditionTypes">{{localize "DND5E.ConImm"}}</a>
                     <ul class="traits-list">
@@ -174,7 +174,7 @@
                     <input class="npc-textinput-small" type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
                            value="{{data.traits.senses.value}}" placeholder="None" />
                 </div>
-                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.languages.value}}">
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.languages.value}}{{data.traits.languages.custom}}">
                     <label for="data.traits.languages"></label>
                     <a class="trait-selector" data-options="languages">{{localize "DND5E.Languages"}}</a>
                     <ul class="traits-list">
