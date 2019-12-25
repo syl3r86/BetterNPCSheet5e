@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.5.8
+ * @version 0.6.0
  */
  
 
@@ -266,15 +266,32 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             // Spells
             if (i.type === "spell") {
                 let lvl = i.data.level || 0;
-                spellbook[lvl] = spellbook[lvl] || {
-                    isCantrip: lvl === 0,
-                    label: CONFIG.DND5E.spellLevels[lvl],
+                let section = lvl;
+                let sectionLabel = CONFIG.DND5E.spellLevels[lvl];
+                let isCantrip = lvl === 0 ? true : false;
+                switch (i.data.preparation.mode) {
+                    case 'always':
+                        section = 'always';
+                        sectionLabel = 'At Will';
+                        isCantrip = true; break;
+                    case 'innate':
+                        section = 'innate';
+                        sectionLabel = 'Innate Spellcasting';
+                        isCantrip = true; break;
+                    case 'pact':
+                        section = 'pact';
+                        sectionLabel = 'Pact';
+                        isCantrip = true; break;
+                }
+                spellbook[section] = spellbook[section] || {
+                    isCantrip: isCantrip,
+                    label: sectionLabel,
                     spells: [],
                     uses: actorData.data.spells["spell" + lvl].value || 0,
                     slots: actorData.data.spells["spell" + lvl].max || 0
                 };
                 //i.data.school.str = CONFIG.DND5E.spellSchools[i.data.school.value];
-                spellbook[lvl].spells.push(i);
+                spellbook[section].spells.push(i);
                 continue;
             }
 

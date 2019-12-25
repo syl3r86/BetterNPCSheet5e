@@ -459,6 +459,7 @@
                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                         <a class="item-control item-delete show-on-edit" title="Delete Item"><i class="fas fa-trash"></i></a>
                         <a class='npc-item-name' data-item-id="{{spell.id}}">{{spell.name}}</a>
+                        <b class='npc-item-uses hidable' data-hidable-attr="{{spell.data.uses}}" data-item-id="{{spell.id}}">({{spell.data.uses.value}}/{{spell.data.uses.max}})</b>
                     </h4>
                 </li>
                 {{/each}}
