@@ -169,10 +169,10 @@
                     <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.perception.value" data-dtype="{{data.traits.perception.type}}"
                            value="{{data.traits.perception.value}}" placeholder="Value" />
                 </div>
-                <div class="hidable" data-hidable-attr="{{data.traits.senses.value}}">
+                <div class="hidable" data-hidable-attr="{{data.traits.senses}}">
                     <label><b>{{localize "DND5E.Senses"}} </b></label>
-                    <input class="npc-textinput-small" type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
-                           value="{{data.traits.senses.value}}" placeholder="None" />
+                    <input class="npc-textinput-small" type="text" name="data.traits.senses" data-dtype="String"
+                           value="{{#if data.traits.senses.value}}{{data.traits.senses.value}}{{else}}{{data.traits.senses}}{{/if}}" placeholder="None" />
                 </div>
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.languages.value}}{{data.traits.languages.custom}}">
                     <label for="data.traits.languages"></label>
