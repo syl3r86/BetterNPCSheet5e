@@ -2,13 +2,20 @@
 	"name": "betternpcsheet5e",
 	"title": "Better NPC Sheet 5e",
 	"description": "This module will replace the default 5e NPC sheet with an improved version. No change to the underlying data is made.",
-	"version": "0.6.0",
+	"version": "0.6.1",
 	"author": "Felix aka syl3r86",
 	"systems": ["dnd5e", "dnd5eJP"],
 	"scripts": [],
     "esmodules": ["/betternpcsheet.js"],
 	"styles": ["/css/betternpcsheet.css", "css/rpg-awesome.css"],
 	"packs": [],
+    "languages": [
+        {
+          "lang": "en",
+          "name": "English",
+          "path": "lang/en.json"
+        }
+    ],
     "url": "https://github.com/syl3r86/BetterNPCSheet5e",
     "manifest": "https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/master/module.json",
     "download": "https://github.com/syl3r86/BetterNPCSheet5e/archive/master.zip",

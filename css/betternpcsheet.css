@@ -157,6 +157,12 @@
         border: none;
     }
 
+    .better-npc-sheet .npc-textinput {
+        min-width: 80px;
+    }
+
+        
+
     .better-npc-sheet .size-selector {
         background: none !important;
         border: none;
@@ -174,6 +180,7 @@
         font-size: 12px;
         max-width: 290px;
         height: 15px;
+        min-width: 24px;
     }
 
     .better-npc-sheet .flex-line {

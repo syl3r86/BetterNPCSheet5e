@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.6.0
+ * @version 0.6.1
  */
  
 
@@ -114,20 +114,25 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         // set dynamic input width
         let inputs = html.find('.npc-textinput,.npc-textinput-small');
         inputs.keyup(e => {
-            if (e.target.value != '') {
-                e.target.style.width = e.target.value.length + 1 + 'ch';
-            } else {
-                e.target.style.width = e.target.placeholder.length + 'ch';
-            }
+            let input = e.target;
+            let inputText = e.target.value || e.target.placeholder;
+            let prop = ["font-style", "font-variant", "font-weight", "font-size", "font-family"];
+            let font = "";
+            for (let x in prop)
+                font += window.getComputedStyle(input, null).getPropertyValue(prop[x]) + " ";
+
+            let element = document.createElement("canvas").getContext("2d");
+            element.font = font;
+            let txtWidth = element.measureText(inputText).width * 1.1 +1;
+
+            e.target.style.width = txtWidth + "px";
         });
+
         inputs.change(e => {
-            if (e.target.value != '') {
-                e.target.style.width = e.target.value.length + 1 + 'ch';
-            } else {
-                e.target.style.width = e.target.placeholder.length + 'ch';
-            }
+            inputs.trigger('keyup');
         });
-        inputs.trigger('change');
+
+        inputs.trigger('keyup');
 
         // adding toggle for item detail
         html.find('.npc-item-name').click(event => this._onItemSummary(event));
