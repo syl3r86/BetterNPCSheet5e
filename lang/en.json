@@ -14,14 +14,14 @@
     "DND5E.Reactions":"Reactions",
     "DND5E.Spellslots":"Spellslots",
     "DND5E.Loot":"Loot",
-    
+    "DND5E.Skills":"Skills",
+    "DND5E.Initative":"Initative",
     
     "BNPCSheet.MoveTT":"Move to different List",
     "BNPCSheet.SpellslotAdd":"Add a spellslot",
     "BNPCSheet.SpellslotSubstract":"Substract a spellslot",
     "BNPCSheet.RollHP":"Roll HP Formula",
     "BNPCSheet.PostChat":"Post to Chat",
-    
     
     "Item.Edit":"Edit Item",
     

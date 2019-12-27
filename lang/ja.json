@@ -1,0 +1,30 @@
+{
+    "DND5E.Name": "キャラクター名",
+    "DND5E.Alignment": "属性",
+    "DND5E.Source": "参照元",
+    "DND5E.Attribues": "能力",
+    "DND5E.SavingThrows": "ｾｰｳﾞｨﾝｸﾞ･ｽﾛｰ",
+    "DND5E.PassivePerception": "受動<知覚>",
+    "DND5E.ChallengeRating": "脅威度",
+    "DND5E.XP":"XP",
+    "DND5E.ProficiencyBonus":"習熟ﾎﾞｰﾅｽ",
+    "DND5E.SpellcastingAbility":"呪文発動能力値",
+    "DND5E.Actions":"アクション",
+    "DND5E.LairActs":"住処アクション",
+    "DND5E.Reactions":"リアクション",
+    "DND5E.Spellslots":"呪文スロット",
+    "DND5E.Loot":"持ち物",
+    "DND5E.Skills":"技能",
+    "DND5E.Initative":"ｲﾆｼｱﾁﾌﾞ",
+    
+    "BNPCSheet.MoveTT":"別の一覧に移動",
+    "BNPCSheet.SpellslotAdd":"＋呪文スロット",
+    "BNPCSheet.SpellslotSubstract":"ー呪文スロット",
+    "BNPCSheet.RollHP":"HPロール",
+    "BNPCSheet.PostChat":"チャットに出力",
+    
+    "Item.Edit":"アイテム編集",
+    
+    "Formula": "式",
+    "Edit":"編集"
+}

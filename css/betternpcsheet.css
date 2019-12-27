@@ -160,7 +160,6 @@
     .better-npc-sheet .npc-textinput {
         min-width: 80px;
     }
-
         
 
     .better-npc-sheet .size-selector {
@@ -169,6 +168,7 @@
         height: 22px;
         -webkit-appearance: none;
         appearance: none;
+        width: 85px;
     }
 
     .better-npc-sheet input[type=text] {
