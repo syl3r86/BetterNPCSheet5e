@@ -311,7 +311,8 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                 case 'lair': lair.push(i); break;
                 case 'loot': loot.push(i); break;
                 default: {
-                    switch (i.data.activation.type) {
+                    let type = getProperty(i, 'data.activation.type');
+                    switch (type) {
                         case "legendary": legendarys.push(i); continue;
                         case "lair": lair.push(i); continue;
                         case "action": weapons.push(i); continue;
