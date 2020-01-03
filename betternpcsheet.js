@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.6.1
+ * @version 0.6.4
  */
  
 
@@ -302,32 +302,26 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
 
             // Features
-            if (i.type !== "spell" && i.flags && i.flags.adnd5e && i.flags.adnd5e.itemInfo && i.flags.adnd5e.itemInfo.type) {
-                switch (i.flags.adnd5e.itemInfo.type) {
-                    case 'trait': features.push(i); break;
-                    case 'action': weapons.push(i); break;
-                    case 'legendary': legendarys.push(i); break;
-                    case 'reaction': reactions.push(i); break;
-                    case 'lair': lair.push(i); break;
-                    case 'loot': loot.push(i); break;
-                    default: {
-                        if (i.type === "weapon") weapons.push(i);
-                        else if (i.type === "feat") features.push(i);
-                        else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.push(i);
+            let flag = getProperty(i, 'flags.adnd5e.itemInfo.type');
+            switch (flag) {
+                case 'trait': features.push(i); break;
+                case 'action': weapons.push(i); break;
+                case 'legendary': legendarys.push(i); break;
+                case 'reaction': reactions.push(i); break;
+                case 'lair': lair.push(i); break;
+                case 'loot': loot.push(i); break;
+                default: {
+                    switch (i.data.activation.type) {
+                        case "legendary": legendarys.push(i); continue;
+                        case "lair": lair.push(i); continue;
+                        case "action": weapons.push(i); continue;
+                        default: {
+                            if (i.type === "weapon") weapons.push(i);
+                            else if (i.type === "feat") features.push(i);
+                            else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.push(i);
+                            }
+                        }
                     }
-                }
-            } else {
-
-                // sorting via label
-                switch (i.labels.activation) {
-                    case "Legendary": legendarys.push(i); continue;
-                    case "Lair": lair.push(i); continue;
-                    case "Action": weapons.push(i); continue;
-                }
-
-                if (i.type === "weapon") weapons.push(i);
-                else if (i.type === "loot") loot.push(i);
-                else features.push(i);
             }
         }
 
