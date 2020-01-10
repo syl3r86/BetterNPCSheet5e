@@ -1,6 +1,6 @@
 # Better NPC Sheet 5e
 
-> This version only works for Foundry v0.4.0 and up. To use the previous version please visit https://github.com/syl3r86/BetterNPCSheet5e/tree/pre-0.4.0
+> This version only works for Foundry v0.4.4 and up. To use the previous version please visit https://github.com/syl3r86/BetterNPCSheet5e/tree/pre-0.4.4
 
 This module overwrites the default NPC sheet that comes shiped with the dnd5e system and brings it closer to the well known official template. 
 
