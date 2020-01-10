@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.6.4
+ * @version 0.6.5
  */
  
 
@@ -199,13 +199,9 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
         html.find('.type-list a').click(ev => {
             let targetList = ev.target.dataset.value
-            let itemId = Number($(ev.target).parents('.item').attr('data-item-id'));
-            let item = this.actor.data.items.find(i => { return i.id === itemId });
-            if (!item.flags) item.flags = {};
-            if (!item.flags.adnd5e) item.flags.adnd5e = {};
-            if (!item.flags.adnd5e.itemInfo) item.flags.adnd5e.itemInfo = {};
-            item.flags.adnd5e.itemInfo.type = targetList;
-            this.actor.updateOwnedItem(item, true);
+            let itemId = $(ev.target).parents('.item').attr('data-item-id');
+            let item = this.actor.getOwnedItem(itemId);
+            item.update({ "flags.adnd5e.itemInfo.type": targetList });
         });
 
         // Rollable Health Formula
