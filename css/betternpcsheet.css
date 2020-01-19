@@ -15,12 +15,16 @@
 }
 
 .better-npc-sheet .charname input {
-    width:100%;
-    height: auto;
+    width:100%!important;
+    height: auto!important;
+    margin-left:0!important;
+    border-bottom: 2px solid #782e22!important;
 }
     .better-npc-sheet .sheet-profile {
         object-fit: contain;
         border: none;
+        width:100px;
+        height:100px!important;
     }
 
     .better-npc-sheet .npc-header {
@@ -173,6 +177,7 @@
 
     .better-npc-sheet input[type=text] {
         border: none;
+        margin-left:0;
     }
 
     .better-npc-sheet .npc-textinput-small {

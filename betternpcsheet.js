@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.6.5
+ * @version 0.6.6
  */
  
 
@@ -315,6 +315,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                         default: {
                             if (i.type === "weapon") weapons.push(i);
                             else if (i.type === "feat") features.push(i);
+                            else if (i.type === "loot") loot.push(i);
                             else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.push(i);
                             }
                         }
@@ -351,7 +352,7 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             data["name"] += ' Action';
         }
 
-        this.actor.createOwnedItem(data, true, { renderSheet: true });
+        this.actor.createOwnedItem(data, { renderSheet: true });
     }
 
     toggleEditMoed() {

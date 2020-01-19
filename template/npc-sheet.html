@@ -3,12 +3,12 @@
     <header class="sheet-header npc-header">
         <div class="header-left">
             <!-- IMAGE -->
-            <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="100" width="100" data-edit="img" />
+            <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
         </div>
         <div class="header-middle">
             <!-- NAME -->
             <h1 class="charname">
-                <input name="name" type="text" value="{{actor.name}}" placeholder="{{ localize "DND5E.Name" }}" />
+                <input class="name-input" name="name" type="text" value="{{actor.name}}" placeholder="{{ localize "DND5E.Name" }}" />
             </h1>
             <!-- DETAILS -->
             <div class="">
@@ -71,8 +71,8 @@
                     </div>
                     <div class="flex-line">
                         <label class="flex">{{ localize "DND5E.Speed" }}</label>
-                        <input class="npc-textinput-small flex" name="data.attributes.speed.value" type="text" value="{{data.attributes.speed.value}}"
-                               data-dtype="{{data.attributes.speed.type}}" placeholder="0" />
+                        <input class="npc-textinput-small flex" name="data.attributes.speed.value" type="text" value="{{data.attributes.speed.value}}" placeholder="30 ft." />
+                        <input class="npc-textinput-small flex" name="data.attributes.speed.special" type="text" value="{{data.attributes.speed.special}}" placeholder="Special Movement" />
                     </div>
                 </div>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
