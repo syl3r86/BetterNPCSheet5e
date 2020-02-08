@@ -16,7 +16,7 @@
 
 .better-npc-sheet .charname input {
     width:100%!important;
-    height: auto!important;
+    height: 1.3em!important;
     margin-left:0!important;
     border-bottom: 2px solid #782e22!important;
 }
@@ -132,6 +132,7 @@
 
     .better-npc-sheet .ability input {
         margin-top: 0 !important;
+        max-width: 23px;
     }
 
     .better-npc-sheet .body-tile h3 {
@@ -178,6 +179,11 @@
     .better-npc-sheet input[type=text] {
         border: none;
         margin-left:0;
+        background:none;
+    }
+
+    .better-npc-sheet .white-input {
+        background:white!important;
     }
 
     .better-npc-sheet .npc-textinput-small {

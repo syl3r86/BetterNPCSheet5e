@@ -1,13 +1,13 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.6.6
+ * @version 0.6.7
  */
  
 
 import { ActorSheet5eNPC } from "../../systems/dnd5e/module/actor/sheets/npc.js";
 
 //let Actor5eSheet = CONFIG.Actor.sheetClass;
-class BetterNPCActor5eSheet extends ActorSheet5eNPC {
+export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 								//  ActorSheet5eNPC
     get template() {
         // adding the #equals and #unequals handlebars helper
@@ -224,13 +224,13 @@ class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         if (editMode) {
             html.find('.show-on-edit').show();
             html.find('.hide-on-edit').hide();
-            html.find('input').css('background', 'white');
+            html.find('input').addClass('white-input');//.css('background', 'white');
             html.find('.saves-div').show();
             html.find('.skills-div').show();
         } else {
             html.find('.show-on-edit:not(.hidable)').hide();
             html.find('.hide-on-edit').show();
-            html.find('input').css('background', 'none');
+            html.find('input').removeClass('white-input');//.css('background', 'none');
             if (html.find('.saves-div .hidable[data-hidable-attr="1"]').length == 0) {
                 html.find('.saves-div').hide();
             }
