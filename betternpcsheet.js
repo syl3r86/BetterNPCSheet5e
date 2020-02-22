@@ -30,7 +30,8 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         mergeObject(options, {
             classes: ["sheet","better-npc-sheet-container"],
             width: 600,
-            height: 300
+            height: 300,
+            blockFavTab: true
         });
         return options;
     }
