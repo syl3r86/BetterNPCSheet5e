@@ -44,7 +44,7 @@
                     <div class="flex-line">
                         <label>{{ localize "DND5E.ArmorClass" }} </label>
                         <input class="npc-textinput-small flex" name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
-                               data-dtype="{{data.attributes.ac.type}}" placeholder="10" />
+                               data-dtype="Number" placeholder="10" />
                         <span class="flex0">(</span>
                         <input class="npc-textinput-small flex" name="data.attributes.ac.formula" class="acformula" type="text" placeholder="{{ localize "Formula" }}"
                                value="{{data.attributes.ac.formula}}" />
@@ -53,7 +53,7 @@
                     <div class="flex-line">
                         <label>{{ localize "DND5E.Initative" }}</label>
                         <input class="npc-textinput-small flex" name="data.attributes.init.value" type="text" placeholder="0"
-                               data-dtype="{{data.attributes.init.type}}"
+                               data-dtype="Number"
                                value="{{numberFormat data.attributes.init.value decimals=0 sign=true}}" />
                     </div>
                     <div class="flex-line">
