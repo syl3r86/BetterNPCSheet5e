@@ -1,6 +1,6 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.6.7
+ * @version 0.7.0
  */
  
 
@@ -48,10 +48,19 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         data['useSpellIcons'] = this.useSpellIcons;
         return data;
     }
+
     
+    render(...args) {
+        if (this.supressRender) {
+            return;
+        } else {
+            return super.render(...args);
+        }
+    }
+
     activateListeners(html) {
         super.activateListeners(html);
-        
+
         // only do stuff if its for npcs
         if (this.actor.data.type === "character") {
             return;
@@ -124,7 +133,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
             let element = document.createElement("canvas").getContext("2d");
             element.font = font;
-            let txtWidth = element.measureText(inputText).width * 1.1 +1;
+            let txtWidth = element.measureText(inputText).width * 1.1 + 1;
 
             e.target.style.width = txtWidth + "px";
         });
@@ -138,6 +147,17 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         // adding toggle for item detail
         html.find('.npc-item-name').click(event => this._onItemSummary(event));
 
+        this.saveState = false;
+        setTimeout(() => {
+            for (let element of html.find('.npc-item-name')) {
+                let item = this.actor.getOwnedItem($(element).parents('.item').data("item-id"));
+                if (hasProperty(item, 'data.flags.betternpcsheet5e.showItemSummary') && item.data.flags.betternpcsheet5e.showItemSummary) {
+                    $(element).trigger('click');
+                }
+            }
+            this.saveState = true;
+        }, 100);
+            
 
         html.find('.body-tile-name').click(e => {
             let target = e.target.getAttribute('data-tile');
@@ -207,6 +227,22 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
         // Rollable Health Formula
         html.find(".npc-roll-hp").click(this._onRollHealthFormula.bind(this));
+
+    }
+
+    async _onItemSummary(event) {
+        super._onItemSummary(event);
+        if (this.saveState !== false) {
+            let li = $(event.currentTarget).parents(".item");
+            let item = this.actor.getOwnedItem(li.data("item-id"));
+            let showItemSummary = true;
+            if (hasProperty(item, 'data.flags.betternpcsheet5e.showItemSummary')) {
+                showItemSummary = !item.data.flags.betternpcsheet5e.showItemSummary;
+            }
+            this.supressRender = true;
+            await item.setFlag('betternpcsheet5e', 'showItemSummary', showItemSummary);
+            this.supressRender = false;
+        }
     }
 
     _applySettingsMode(editMode, html) {
@@ -265,8 +301,19 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         // Iterate through items, allocating to containers
         for (let i of actorData.items) {
             i.img = i.img || DEFAULT_TOKEN;
+
+
             // Spells
             if (i.type === "spell") {
+
+
+                if (!hasProperty(i, 'flags.betternpcsheet5e')) {
+                    i.flags.betternpcsheet5e = {};
+                }
+                if (!hasProperty(i, 'flags.betternpcsheet5e.showItemSummary')) {
+                    i.flags.betternpcsheet5e.showItemSummary = game.settings.get("betternpcsheet5e", "expandSpells");
+                }
+
                 let lvl = i.data.level || 0;
                 let section = lvl;
                 let sectionLabel = CONFIG.DND5E.spellLevels[lvl];
@@ -285,12 +332,20 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                         sectionLabel = 'Pact';
                         isCantrip = true; break;
                 }
+                let uses = {
+                    value: 0,
+                    max:0
+                }
+                if (!isCantrip) {
+                    uses.value = actorData.data.spells["spell" + lvl].value;
+                    uses.max = actorData.data.spells["spell" + lvl].max;
+                }
                 spellbook[section] = spellbook[section] || {
                     isCantrip: isCantrip,
                     label: sectionLabel,
                     spells: [],
-                    uses: actorData.data.spells["spell" + lvl].value || 0,
-                    slots: actorData.data.spells["spell" + lvl].max || 0
+                    uses: uses.value,
+                    slots: uses.max
                 };
                 //i.data.school.str = CONFIG.DND5E.spellSchools[i.data.school.value];
                 spellbook[section].spells.push(i);
@@ -321,6 +376,65 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                             }
                         }
                     }
+            }
+        }
+
+        let expandItem = game.settings.get("betternpcsheet5e", "expandFeats");
+        for (let i of features) {
+            if (!hasProperty(i, 'flags.betternpcsheet5e')) {
+                i.flags.betternpcsheet5e = {};
+            }
+            if (!hasProperty(i, 'flags.betternpcsheet5e.showItemSummary')) {
+                i.flags.betternpcsheet5e.showItemSummary = expandItem;
+            }
+        }
+        expandItem = game.settings.get("betternpcsheet5e", "expandAttacks");
+        for (let i of weapons) {
+            if (!hasProperty(i, 'flags.betternpcsheet5e')) {
+                i.flags.betternpcsheet5e = {};
+            }
+            if (!hasProperty(i, 'flags.betternpcsheet5e.showItemSummary')) {
+                i.flags.betternpcsheet5e.showItemSummary = expandItem;
+            }
+        }
+
+        expandItem = game.settings.get("betternpcsheet5e", "expandReactions");
+        for (let i of reactions) {
+            if (!hasProperty(i, 'flags.betternpcsheet5e')) {
+                i.flags.betternpcsheet5e = {};
+            }
+            if (!hasProperty(i, 'flags.betternpcsheet5e.showItemSummary')) {
+                i.flags.betternpcsheet5e.showItemSummary = expandItem;
+            }
+        }
+
+        expandItem = game.settings.get("betternpcsheet5e", "expandLegendary");
+        for (let i of legendarys) {
+            if (!hasProperty(i, 'flags.betternpcsheet5e')) {
+                i.flags.betternpcsheet5e = {};
+            }
+            if (!hasProperty(i, 'flags.betternpcsheet5e.showItemSummary')) {
+                i.flags.betternpcsheet5e.showItemSummary = expandItem;
+            }
+        }
+
+        expandItem = game.settings.get("betternpcsheet5e", "expandLair");
+        for (let i of lair) {
+            if (!hasProperty(i, 'flags.betternpcsheet5e')) {
+                i.flags.betternpcsheet5e = {};
+            }
+            if (!hasProperty(i, 'flags.betternpcsheet5e.showItemSummary')) {
+                i.flags.betternpcsheet5e.showItemSummary = expandItem;
+            }
+        }
+
+        expandItem = game.settings.get("betternpcsheet5e", "expandLoot");
+        for (let i of loot) {
+            if (!hasProperty(i, 'flags.betternpcsheet5e')) {
+                i.flags.betternpcsheet5e = {};
+            }
+            if (!hasProperty(i, 'flags.betternpcsheet5e.showItemSummary')) {
+                i.flags.betternpcsheet5e.showItemSummary = expandItem;
             }
         }
 
@@ -384,4 +498,63 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 Actors.registerSheet("dnd5e", BetterNPCActor5eSheet, {
     types: ["npc"],
     makeDefault: true
+});
+
+Hooks.on('ready',()=> {
+    game.settings.register("betternpcsheet5e", "expandFeats", {
+        name: game.i18n.localize("BNPCSheet.featSetting"),
+        hint: game.i18n.localize("BNPCSheet.featSettingHelp"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
+    game.settings.register("betternpcsheet5e", "expandAttacks", {
+        name: game.i18n.localize("BNPCSheet.attackSetting"),
+        hint: game.i18n.localize("BNPCSheet.attackSettingHelp"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
+    game.settings.register("betternpcsheet5e", "expandReactions", {
+        name: game.i18n.localize("BNPCSheet.reactionSetting"),
+        hint: game.i18n.localize("BNPCSheet.reactionSettingHelp"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
+    game.settings.register("betternpcsheet5e", "expandLegendary", {
+        name: game.i18n.localize("BNPCSheet.legendarySetting"),
+        hint: game.i18n.localize("BNPCSheet.legendarySettingHelp"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
+    game.settings.register("betternpcsheet5e", "expandLair", {
+        name: game.i18n.localize("BNPCSheet.lairSetting"),
+        hint: game.i18n.localize("BNPCSheet.lairSettingHelp"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
+    game.settings.register("betternpcsheet5e", "expandSpells", {
+        name: game.i18n.localize("BNPCSheet.spellsSetting"),
+        hint: game.i18n.localize("BNPCSheet.spellsSettingHelp"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
+    game.settings.register("betternpcsheet5e", "expandLoot", {
+        name: game.i18n.localize("BNPCSheet.lootSetting"),
+        hint: game.i18n.localize("BNPCSheet.lootSettingHelp"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
 });

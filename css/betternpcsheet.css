@@ -115,15 +115,11 @@
     margin: 0;
 }
 
-.better-npc-sheet .tag {
-  float: left;
-  margin: 0 2px 2px 0;
-  padding: 0 3px;
-  font-size: 10px;
-  line-height: 16px;
-  border: 1px solid #999;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.05);
+.better-npc-sheet .item-summary {
+    flex: 0 0 100%;
+    font-size:12px;
+    line-height:16px;
+    padding: 0.25em 0.5em;
 }
 
 .better-npc-sheet .base-attribs {

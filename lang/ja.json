@@ -23,6 +23,21 @@
     "BNPCSheet.RollHP":"HPロール",
     "BNPCSheet.PostChat":"チャットに出力",
     
+    "BNPCSheet.featSetting":"Expand Features",
+    "BNPCSheet.featSettingHelp":"Always expand feature descriptions on sheet opening",
+    "BNPCSheet.attackSetting":"Expand Attacks",
+    "BNPCSheet.attackSettingHelp":"Always expand attack descriptions on sheet opening",
+    "BNPCSheet.reactionSetting":"Expand Reactions",
+    "BNPCSheet.reactionSettingHelp":"Always expand reaction descriptions on sheet opening",
+    "BNPCSheet.legendarySetting":"Expand Legendary Actions",
+    "BNPCSheet.legendarySettingHelp":"Always expand legendary action descriptions on sheet opening",
+    "BNPCSheet.lairSetting":"Expand Lair Actions",
+    "BNPCSheet.lairSettingHelp":"Always expand lair action descriptions on sheet opening",
+    "BNPCSheet.spellsSetting":"Expand Spells",
+    "BNPCSheet.spellsSettingHelp":"Always expand spell descriptios on sheet opening",
+    "BNPCSheet.lootSetting":"Expand Loot",
+    "BNPCSheet.lootSettingHelp":"Always expand loot descriptions on sheet opening",
+    
     "Item.Edit":"アイテム編集",
     
     "Formula": "式",
