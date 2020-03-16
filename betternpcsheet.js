@@ -148,15 +148,13 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         html.find('.npc-item-name').click(event => this._onItemSummary(event));
 
         this.saveState = false;
-        setTimeout(() => {
-            for (let element of html.find('.npc-item-name')) {
-                let item = this.actor.getOwnedItem($(element).parents('.item').data("item-id"));
-                if (hasProperty(item, 'data.flags.betternpcsheet5e.showItemSummary') && item.data.flags.betternpcsheet5e.showItemSummary) {
-                    $(element).trigger('click');
-                }
+        for (let element of html.find('.npc-item-name')) {
+            let item = this.actor.getOwnedItem($(element).parents('.item').data("item-id"));
+            if (hasProperty(item, 'data.flags.betternpcsheet5e.showItemSummary') && item.data.flags.betternpcsheet5e.showItemSummary) {
+                $(element).trigger('click');
             }
-            this.saveState = true;
-        }, 100);
+        }
+        this.saveState = true;
             
 
         html.find('.body-tile-name').click(e => {
