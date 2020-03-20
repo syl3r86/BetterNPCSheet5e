@@ -1,5 +1,5 @@
-github: syl3r86
-custom: ["paypal.me/syl3r86"]
+.github export-ignore
+FUNDING.yml export-ignore
 betternpcsheet5e export-ignore
 
 .gitattributes export-ignore
