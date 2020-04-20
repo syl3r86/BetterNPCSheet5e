@@ -34,6 +34,7 @@
 
     .better-npc-sheet .header-left, .better-npc-sheet .header-middle, .better-npc-sheet .header-right {
         display: inline-block;
+        flex:auto;
     }
 
     .better-npc-sheet .header-left, .better-npc-sheet .header-right {
@@ -129,6 +130,8 @@
     .better-npc-sheet .ability input {
         margin-top: 0 !important;
         max-width: 23px;
+        padding: 1px;
+        min-width:0;
     }
 
     .better-npc-sheet .body-tile h3 {
@@ -208,6 +211,7 @@
     .better-npc-sheet .ability, .better-npc-sheet .save, .better-npc-sheet .skill {
         display: inline-blocK;
         text-align: center;
+        flex:auto;
     }
 
         .better-npc-sheet .ability h4 {

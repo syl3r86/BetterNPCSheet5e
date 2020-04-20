@@ -300,6 +300,8 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         for (let i of actorData.items) {
             i.img = i.img || DEFAULT_TOKEN;
 
+            i.hasUses = i.data.uses && (i.data.uses.max > 0);
+            i.isOnCooldown = i.data.recharge && !!i.data.recharge.value && (i.data.recharge.charged === false);
 
             // Spells
             if (i.type === "spell") {
@@ -437,35 +439,51 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         }
 
         // Assign the items
-        actorData.actor.features = features;
+        let sections = [
+            { label: game.i18n.localize('DND5E.Features'), name: 'feat', isFeat: true, items: features },
+            { label: game.i18n.localize('DND5E.Actions'), name: 'action', isAction: true, items: weapons },
+            { label: game.i18n.localize('DND5E.LegAct'), name: 'legendary', isLegendary: true, items: legendarys },
+            { label: game.i18n.localize('DND5E.Reactions'), name: 'reaction', isReaction: true, items: reactions },
+            { label: game.i18n.localize('DND5E.LairActs'), name: 'lair', isLair: true, items: lair },
+            { label: game.i18n.localize('DND5E.Loot'), name: 'loot', isLoot: true, items: loot }
+        ];
         actorData.actor.spellbook = spellbook;
+        actorData.actor.sections = sections;
+        /*
+        actorData.actor.features = features;
         actorData.actor.weapons = weapons;
         actorData.actor.legendarys = legendarys;
         actorData.actor.reactions = reactions;
         actorData.actor.lair = lair;
-        actorData.actor.loot = loot;
+        actorData.actor.loot = loot;*/
     }
 
 
     _onItemCreate(event) {
         event.preventDefault();
 
-        let itemType = $(event.target).parents('.body-tile').attr('data-tile');
+        let itemTypeLabel = $(event.target).parents('.body-tile').attr('data-tile');
         let header = event.currentTarget;
-        let data = duplicate(header.dataset);
-        data.flags = {
-            'adnd5e': {
-                'itemInfo': {
-                    'type': itemType
+        let itemType = $(event.currentTarget).parents('.body-tile').children('.npc-item-create').attr('data-type');
+        console.log(header.dataset.type);
+        let data = {};
+        data = {
+            type: header.dataset.type,
+            data: {},
+            flags: {
+                'adnd5e': {
+                    'itemInfo': {
+                        'type': itemTypeLabel
+                    }
                 }
             }
         }
-        data["name"] = `New ${itemType.capitalize()}`;
-        if (itemType === 'legendary' || itemType === 'lair') {
+        data["name"] = `New ${itemTypeLabel.capitalize()}`;
+        if (itemTypeLabel === 'legendary' || itemTypeLabel === 'lair') {
             data["name"] += ' Action';
         }
-
-        this.actor.createOwnedItem(data, { renderSheet: true });
+        console.log(data);
+        this.actor.createOwnedItem(data); // , { renderSheet: true } adding that back in once the core functionality has been fixed
     }
 
     toggleEditMoed() {
@@ -496,6 +514,10 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 Actors.registerSheet("dnd5e", BetterNPCActor5eSheet, {
     types: ["npc"],
     makeDefault: true
+});
+
+Hooks.on('init', () => {
+    loadTemplates(['modules/betternpcsheet5e/template/section.hbs']);
 });
 
 Hooks.on('ready',()=> {
