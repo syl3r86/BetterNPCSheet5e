@@ -1,0 +1,6 @@
+v0.7.2
+  - Changed the auto resizing when opening the sheet
+    - it will now only resize on the initial opening of the sheet
+    - the sheet will now remember the width and height upon closing and restore them upon reopening
+  - rewrote and fixed some css issues
+  - added caster level support
