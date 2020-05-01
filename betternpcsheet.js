@@ -212,7 +212,6 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
     render(force = false, options = {}) {
         if (force) {
-            console.log(this.object.data.flags);
             let newWidth = getProperty(this.object.data.flags, 'betterNpcSheet.sheet.width');
             let newHeight = getProperty(this.object.data.flags, 'betterNpcSheet.sheet.height');
 
@@ -228,8 +227,6 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             this.position.width = newWidth;
             this.position.height = newHeight;
         }
-        console.log(this);
-        console.log(this.position);
         return super.render(force,options);
     }
 
