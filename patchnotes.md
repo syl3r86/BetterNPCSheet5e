@@ -11,3 +11,6 @@ v0.7.2
   
 v0.7.3
  - fixed max spell slots to be overwritable
+
+v0.7.4
+ - added korean and spanish translation files that were missing for some reason
