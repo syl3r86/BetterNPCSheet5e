@@ -11,7 +11,7 @@
                 <input class="name-input" name="name" type="text" value="{{actor.name}}" placeholder="{{ localize "DND5E.Name" }}" />
             </h1>
             <!-- DETAILS -->
-            <div class="">
+            <div class="details">
                 <select class="size-selector" name="data.traits.size" title="Size">
                     {{#select data.traits.size}}
                     {{#each config.actorSizes as |label size|}}
@@ -218,22 +218,28 @@
             {{/each}}
 
             <!-- SPELLS -->
-            <div class="body-tile spell-section hidable show-on-edit" data-hidable-attr="{{actor.spellbook}}" data-tile="spell{{lvl}}">
+            <div class="body-tile spell-section " data-hidable-attr="{{actor.spellbook}}" data-tile="spell{{lvl}}">
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <h3>
                     <a class="item-control item-create npc-item-create" title="Create Spell" data-type="spell" data-level="0"><i class="fas fa-plus-circle"></i></a>
                     <a class="body-tile-name" data-tile="spell0" data-target="collapsable"> {{ localize "DND5E.Spellbook" }}</a>
                 </h3>
-                <div class="form-group spellcasting-ability collapsable">
-                    <label><h4>{{ localize "DND5E.SpellcastingAbility" }}</h4></label>
-                    <select name="data.attributes.spellcasting" data-type="String">
-                        {{#select data.attributes.spellcasting}}
-                        <option value="">{{ localize "DND5E.None" }}</option>
-                        {{#each data.abilities as |abl a|}}
-                        <option value="{{a}}">{{abl.label}}</option>
-                        {{/each}}
-                        {{/select}}
-                    </select>
+                <div class="spellcasting-settings">
+                    <div class="flexline">
+                        Caster Level
+                        <input class="spellcasting-level npc-textinput-small" type="text" name="data.details.spellLevel" value="{{data.details.spellLevel}}" data-dtype="Number" placeholder="0"/>
+                    </div>
+                    <div class="flexline">
+                        {{ localize "DND5E.SpellcastingAbility" }}
+                        <select name="data.attributes.spellcasting" data-type="String">
+                            {{#select data.attributes.spellcasting}}
+                                <option value="">{{ localize "DND5E.None" }}</option>
+                                {{#each data.abilities as |abl a|}}
+                                <option value="{{a}}">{{abl.label}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
                 </div>
             </div>
 

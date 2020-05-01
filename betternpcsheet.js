@@ -38,6 +38,9 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
     
     getData() {
         const data = super.getData();
+
+        data.config = CONFIG.DND5E;
+
         // setting to display either the Icon of the item (true) or a generic d20 icon (false)
         this.useFeatIcons = false;
         this.useWeaponIcons = false;
@@ -173,28 +176,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
         // remove window padding
         $('.better-npc-sheet').parent().css('padding', '0');
-
-        // setting npcsheet width & height 
-        setTimeout(() => {
-            let style = html.parent().parent().attr('style');
-
-            // change width
-            let columnCount = 2;
-            if (this.object.data.items.length > 10) {
-                columnCount = 3;
-            }
-            let newWdith = columnCount * 300;
-            style = style.replace('width: 600px;', `width: ${newWdith}px;`);
-            this.position.width = newWdith;
-
-            //change height
-            let newHeight = $(html).outerHeight(true) + $(html.parent().parent().find('.window-header')).outerHeight(true);
-            style = style.replace('height: 300px;', `height: ${newHeight}px;`);
-            this.position.height = newHeight;
-
-            $(html.parent().parent()).attr('style', style);
-        }, 10);
-
+        
         
         // spellslot control buttons
         html.find('.spellslot-mod').click(ev => {
@@ -226,6 +208,34 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         // Rollable Health Formula
         html.find(".npc-roll-hp").click(this._onRollHealthFormula.bind(this));
 
+    }
+
+    render(force = false, options = {}) {
+        if (force) {
+            console.log(this.object.data.flags);
+            let newWidth = getProperty(this.object.data.flags, 'betterNpcSheet.sheet.width');
+            let newHeight = getProperty(this.object.data.flags, 'betterNpcSheet.sheet.height');
+
+            if (newWidth === undefined || newHeight === undefined) {
+                let columnCount = 2;
+                if (this.object.data.items.length > 10) {
+                    columnCount = 3;
+                }
+                newWidth = columnCount * 300;
+                newHeight = columnCount * 300;
+            }
+
+            this.position.width = newWidth;
+            this.position.height = newHeight;
+        }
+        console.log(this);
+        console.log(this.position);
+        return super.render(force,options);
+    }
+
+    async close() {        
+        this.object.update({ 'flags.betterNpcSheet.sheet.height': this.position.height, 'flags.betterNpcSheet.sheet.width': this.position.width });
+        super.close();
     }
 
     async _onItemSummary(event) {

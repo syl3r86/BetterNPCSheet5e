@@ -1,105 +1,150 @@
 .better-npc-sheet-container {
-    min-width: 600px;
-    min-height: 300px;
+  min-width: 600px;
+  min-height: 300px;
 }
-
-.better-npc-sheet {
-    background-image: url("../../../systems/dnd5e/ui/parchment.jpg");
-    background-repeat: repeat;
-    padding: 3px;
-    height: auto;
+.better-npc-sheet-container .better-npc-sheet {
+  background-image: url("../../../systems/dnd5e/ui/parchment.jpg");
+  background-repeat: repeat;
+  padding: 3px;
+  height: auto;
 }
-
-.better-npc-sheet ul {
-    list-style:none;
+.better-npc-sheet-container .better-npc-sheet ul {
+  list-style: none;
 }
-
-.better-npc-sheet .charname input {
-    width:100%!important;
-    height: 1.3em!important;
-    margin-left:0!important;
-    border-bottom: 2px solid #782e22!important;
+.better-npc-sheet-container .better-npc-sheet label {
+  display: inline !important;
+  margin-right: 3px;
 }
-    .better-npc-sheet .sheet-profile {
-        object-fit: contain;
-        border: none;
-        width:100px;
-        height:100px!important;
-    }
-
-    .better-npc-sheet .npc-header {
-        height: 105px;
-        display: flex;
-    }
-
-    .better-npc-sheet .header-left, .better-npc-sheet .header-middle, .better-npc-sheet .header-right {
-        display: inline-block;
-        flex:auto;
-    }
-
-    .better-npc-sheet .header-left, .better-npc-sheet .header-right {
-        margin: 0 5px;
-    }
-
-    .better-npc-sheet .header-middle {
-        flex-grow: 40;
-    }
-
-    .better-npc-sheet .editBtn {
-        display: inline-block;
-        margin: 4px 10px;
-        font-size: 30px;
-        padding-left: 10px;
-    }
-
-    .better-npc-sheet .npc-header .tabs {
-        display: block;
-        /*position: relative;*/
-        right: 4px;
-        top: 57px;
-        max-width: 65px;
-        text-align: right;
-    }
-
-        .better-npc-sheet .npc-header .tabs a {
-            margin: 3px;
-            width: 100%;
-            border: 1px solid black;
-            border-radius: 3px;
-            display: block;
-        }
-
-
-    .better-npc-sheet label {
-        display: inline !important;
-        margin-right: 3px;
-    }
-
-    .better-npc-sheet .npc-body {
-        overflow: visible !important;
-        flex-wrap: wrap !important;
-        flex-direction: row !important;
-        height: calc(100% - 104px) !important;
-        display: block !important;
-        font-size: 12px;
-    }
-
-    .better-npc-sheet .body-tile {
-        display: inline-table;
-        height: auto;
-        padding: 0 3px;
-        width: 290px;
-    }
-
-    .better-npc-sheet .rollable {
-        cursor: pointer;
-    }
-
-        .better-npc-sheet .rollable:hover {
-            text-shadow: 0 0 8px red;
-        }
-
-.better-npc-sheet .tag {
+.better-npc-sheet-container .better-npc-sheet .editor {
+  height: 600px;
+  overflow: auto;
+}
+.better-npc-sheet-container .better-npc-sheet .rollable {
+  cursor: pointer;
+}
+.better-npc-sheet-container .better-npc-sheet .rollable:hover {
+  text-shadow: 0 0 8px red;
+}
+.better-npc-sheet-container .better-npc-sheet .flex-line {
+  display: flex;
+}
+.better-npc-sheet-container .better-npc-sheet .flex-line label {
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 5px;
+  font-size: 12px;
+}
+.better-npc-sheet-container .better-npc-sheet .flex-line span {
+  display: inline !important;
+}
+.better-npc-sheet-container .better-npc-sheet input[type=text] {
+  border: none;
+  margin-left: 0;
+  background: none;
+}
+.better-npc-sheet-container .better-npc-sheet .white-input {
+  background: white!important;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-textinput-small {
+  font-weight: normal;
+  font-size: 12px;
+  max-width: 290px;
+  height: 15px;
+  min-width: 24px;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-textinput,
+.better-npc-sheet-container .better-npc-sheet .size-selector {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif !important;
+  color: #222;
+  font-size: 20px;
+  border: none;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-textinput {
+  min-width: 80px;
+}
+.better-npc-sheet-container .better-npc-sheet .size-selector {
+  background: none !important;
+  border: none;
+  height: 22px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 85px;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header {
+  height: 105px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header .header-left {
+  display: inline-block;
+  flex: auto;
+  margin: 0 5px;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header .header-middle {
+  display: inline-block;
+  flex: auto;
+  flex-grow: 40;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header .header-middle .details {
+  line-height: 25px;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header .header-middle .details select,
+.better-npc-sheet-container .better-npc-sheet .npc-header .header-middle .details input {
+  display: inline;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header .header-right {
+  display: inline-block;
+  flex: auto;
+  margin: 0 5px;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header .header-right .editBtn {
+  display: inline-block;
+  margin: 4px 10px;
+  font-size: 30px;
+  padding-left: 10px;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header .header-right .tabs {
+  display: block;
+  /*position: relative;*/
+  right: 4px;
+  top: 57px;
+  max-width: 65px;
+  text-align: right;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header .header-right .tabs a {
+  margin: 3px;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 3px;
+  display: block;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-header .charname input {
+  width: 100%!important;
+  height: 1.3em !important;
+  margin-left: 0!important;
+  border-bottom: 2px solid #782e22 !important;
+}
+.better-npc-sheet-container .better-npc-sheet .sheet-profile {
+  object-fit: contain;
+  border: none;
+  width: 100px;
+  height: 100px!important;
+}
+.better-npc-sheet-container .better-npc-sheet .sheet-divider,
+.better-npc-sheet-container .better-npc-sheet .sheet-divider-left {
+  display: inline-block;
+  width: 140px;
+  border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent;
+  margin: 0 0;
+}
+.better-npc-sheet-container .better-npc-sheet .sheet-divider {
+  border-right: 140px solid #922610;
+}
+.better-npc-sheet-container .better-npc-sheet .sheet-divider-left {
+  border-left: 140px solid #782e22;
+}
+.better-npc-sheet-container .better-npc-sheet .tag {
   float: left;
   margin: 0 2px 2px 0;
   padding: 0 3px;
@@ -109,199 +154,104 @@
   border-radius: 3px;
   background: rgba(0, 0, 0, 0.05);
 }
-
-.better-npc-sheet .item-buttons button {
-    font-size: 10px;
-    line-height: 12px;
-    margin: 0;
+.better-npc-sheet-container .better-npc-sheet .npc-body {
+  overflow: visible !important;
+  flex-wrap: wrap !important;
+  flex-direction: row !important;
+  height: calc(100% - 104px) !important;
+  display: block !important;
+  font-size: 12px;
 }
-
-.better-npc-sheet .item-summary {
-    flex: 0 0 100%;
-    font-size:12px;
-    line-height:16px;
-    padding: 0.25em 0.5em;
+.better-npc-sheet-container .better-npc-sheet .npc-body .base-attribs {
+  float: left;
 }
-
-.better-npc-sheet .base-attribs {
-    float: left;
+.better-npc-sheet-container .better-npc-sheet .npc-body .base-attribs .ability {
+  display: inline-blocK;
+  text-align: center;
+  flex: auto;
 }
-
-    .better-npc-sheet .ability input {
-        margin-top: 0 !important;
-        max-width: 23px;
-        padding: 1px;
-        min-width:0;
-    }
-
-    .better-npc-sheet .body-tile h3 {
-        margin: 0 0 -3px 0;
-    }
-
-    .better-npc-sheet .sheet-divider, .better-npc-sheet .sheet-divider-left {
-        display: inline-block;
-        width: 140px;
-        border-bottom: 2px solid transparent;
-        border-top: 2px solid transparent;
-        margin: 0 0;
-    }
-
-    .better-npc-sheet .sheet-divider {
-        border-right: 140px solid #922610;
-    }
-
-    .better-npc-sheet .sheet-divider-left {
-        border-left: 140px solid #782e22;
-    }
-
-    .better-npc-sheet .npc-textinput, .better-npc-sheet .size-selector {
-        font-family: "Nodesto", "Signika", "Palatino Linotype", serif !important;
-        color: #222;
-        font-size: 20px;
-        border: none;
-    }
-
-    .better-npc-sheet .npc-textinput {
-        min-width: 80px;
-    }
-        
-
-    .better-npc-sheet .size-selector {
-        background: none !important;
-        border: none;
-        height: 22px;
-        -webkit-appearance: none;
-        appearance: none;
-        width: 85px;
-    }
-
-    .better-npc-sheet input[type=text] {
-        border: none;
-        margin-left:0;
-        background:none;
-    }
-
-    .better-npc-sheet .white-input {
-        background:white!important;
-    }
-
-    .better-npc-sheet .npc-textinput-small {
-        font-weight: normal;
-        font-size: 12px;
-        max-width: 290px;
-        height: 15px;
-        min-width: 24px;
-    }
-
-    .better-npc-sheet .flex-line {
-        display: flex;
-    }
-
-        .better-npc-sheet .flex-line label {
-            font-weight: bold;
-            font-size: 15px;
-            margin-right: 5px;
-            font-size: 12px;
-        }
-
-        .better-npc-sheet .flex-line span {
-            display: inline !important;
-        }
-
-    .better-npc-sheet .ability, .better-npc-sheet .save, .better-npc-sheet .skill {
-        display: inline-blocK;
-        text-align: center;
-        flex:auto;
-    }
-
-        .better-npc-sheet .ability h4 {
-            text-transform: capitalize;
-        }
-
-    .better-npc-sheet .npc-item-header {
-        margin-top: 2px;
-        margin-bottom: 0px;
-    }
-
-    .better-npc-sheet .noc-item-header img {
-        vertical-align: middle;
-    }
-
-    .better-npc-sheet .npc-item-name {
-        font-weight: bold;
-        display: inline !important;
-        width: 100%;
-    }
-
-    .better-npc-sheet .npc-item-create {
-        margin: 0 1ch;
-    }
-
-    .better-npc-sheet .npc-bold {
-        font-weight: bold;
-    }
-
-    .better-npc-sheet .npc-small {
-        text-transform: capitalize;
-    }
-
-        .better-npc-sheet .npc-small + .better-npc-sheet .npc-small :before {
-            content: ', ';
-        }
-
-        .better-npc-sheet .npc-small:before {
-            content: ", ";
-        }
-
-        .better-npc-sheet .npc-small:nth-child(1):before {
-            content: '';
-        }
-
-    .better-npc-sheet .spellcasting-ability {
-        margin-bottom: 0;
-    }
-
-        .better-npc-sheet .spellcasting-ability select {
-            height: 1.5em;
-            margin-right: 5px;
-            padding: 0;
-        }
-
-    .better-npc-sheet .editor {
-        height: 600px;
-        overflow: auto;
-    }
-
-    .better-npc-sheet .spell-slots {
-        margin-left: 5px;
-    }
-
-    .better-npc-sheet .spellslot-mod {
-        margin: 0 2px;
-        opacity: 0.3;
-    }
-
-        .better-npc-sheet .spellslot-mod:hover {
-            opacity: 1;
-        }
-
-    .better-npc-sheet .spellslot-input {
-        font-size: 13px !important;
-        width: 16px !important;
-        min-width: 16px;
-        text-align: center;
-    }
-
-    .better-npc-sheet .traits-list {
-        list-style: none;
-        padding-left: 0;
-        margin: 0;
-    }
-
-    .better-npc-sheet .trait-selector {
-        font-weight: bold;
-    }
-
-    .better-npc-sheet .item-summary {
-        display: inline-block;
-    }
+.better-npc-sheet-container .better-npc-sheet .npc-body .base-attribs .ability input {
+  margin-top: 0 !important;
+  max-width: 23px;
+  padding: 1px;
+  min-width: 0;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .base-attribs .ability h4 {
+  text-transform: capitalize;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .base-attribs .save,
+.better-npc-sheet-container .better-npc-sheet .npc-body .base-attribs .skill {
+  display: inline-blocK;
+  text-align: center;
+  flex: auto;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .base-attribs .traits-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .base-attribs .trait-selector {
+  font-weight: bold;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .body-tile {
+  display: inline-table;
+  height: auto;
+  padding: 0 3px;
+  width: 290px;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .body-tile h3 {
+  margin: 0 0 -3px 0;
+  font-weight: bold;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .npc-item-create {
+  margin: 0 1ch;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .item .npc-item-header {
+  margin-top: 2px;
+  margin-bottom: 0px;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .item .npc-item-header .npc-item-name {
+  font-weight: bold;
+  display: inline !important;
+  width: 100%;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .item .item-summary {
+  flex: 0 0 100%;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0.25em 0.5em;
+  display: inline-block;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .item .item-buttons button {
+  font-size: 10px;
+  line-height: 12px;
+  margin: 0;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spellcasting-settings {
+  margin-top: 5px;
+  margin-bottom: 0;
+  width: 100%;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spellcasting-settings input,
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spellcasting-settings select {
+  flex-grow: 1;
+  height: 1.5em;
+  margin-left: 5px;
+  padding: 0;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spell-slots {
+  margin-left: 5px;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spellslot-input {
+  font-size: 13px !important;
+  width: 16px !important;
+  min-width: 16px;
+  text-align: center;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spellslot-mod {
+  margin: 0 2px;
+  opacity: 0.3;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spellslot-mod:hover {
+  opacity: 1;
+}

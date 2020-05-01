@@ -1,0 +1,294 @@
+.better-npc-sheet-container {
+    min-width: 600px;
+    min-height: 300px;
+    
+    .better-npc-sheet {
+        background-image: url("../../../systems/dnd5e/ui/parchment.jpg");
+        background-repeat: repeat;
+        padding: 3px;
+        height: auto;
+        
+        ul {
+            list-style:none;
+        }
+        
+        label {
+            display: inline !important;
+            margin-right: 3px;
+        }
+        .editor {
+            height: 600px;
+            overflow: auto;
+        }
+        .rollable {
+            cursor: pointer;
+            &:hover {
+                text-shadow: 0 0 8px red;
+            }
+        }
+        
+        .flex-line {
+            display: flex;
+            label {
+                font-weight: bold;
+                font-size: 15px;
+                margin-right: 5px;
+                font-size: 12px;
+            }
+            span {
+                display: inline !important;
+            }
+        }
+        
+        input[type=text] {
+            border: none;
+            margin-left:0;
+            background:none;
+        }
+        .white-input {
+            background:white!important;
+        }
+
+        .npc-textinput-small {
+            font-weight: normal;
+            font-size: 12px;
+            max-width: 290px;
+            height: 15px;
+            min-width: 24px;
+        }
+        
+        .npc-textinput, .size-selector {
+            font-family: "Nodesto", "Signika", "Palatino Linotype", serif !important;
+            color: #222;
+            font-size: 20px;
+            border: none;
+        }
+        .npc-textinput {
+            min-width: 80px;
+        }
+        .size-selector {
+            background: none !important;
+            border: none;
+            height: 22px;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 85px;
+        }
+        
+        .npc-header {
+            height: 105px;
+            display: flex;
+            flex-wrap: nowrap;
+            
+            .header-left {
+                display: inline-block;
+                flex:auto;
+                margin: 0 5px;
+            } 
+            
+            .header-middle {
+                display: inline-block;
+                flex:auto;
+                flex-grow: 40;
+                
+                .details {
+                    line-height: 25px;
+                    select, input {
+                        display: inline;
+                    }
+                }
+            } 
+            
+            .header-right {
+                display: inline-block;
+                flex:auto;
+                margin: 0 5px;
+                
+                .editBtn {
+                    display: inline-block;
+                    margin: 4px 10px;
+                    font-size: 30px;
+                    padding-left: 10px;
+                }
+                
+                .tabs {                    
+                    display: block;
+                    /*position: relative;*/
+                    right: 4px;
+                    top: 57px;
+                    max-width: 65px;
+                    text-align: right;
+                    
+                    a {
+                        margin: 3px;
+                        width: 100%;
+                        border: 1px solid black;
+                        border-radius: 3px;
+                        display: block;
+                    }
+                }
+            }
+            
+            
+            .charname {
+                input {
+                    width:100%!important;
+                    height: 1.3em!important;
+                    margin-left:0!important;
+                    border-bottom: 2px solid #782e22!important;
+                }
+            }
+        }
+        
+        .sheet-profile {
+            object-fit: contain;
+            border: none;
+            width:100px;
+            height:100px!important;
+        }
+        
+        .sheet-divider, .sheet-divider-left {
+            display: inline-block;
+            width: 140px;
+            border-bottom: 2px solid transparent;
+            border-top: 2px solid transparent;
+            margin: 0 0;
+        }
+        .sheet-divider{
+            border-right: 140px solid #922610;
+        }
+        .sheet-divider-left {
+            border-left: 140px solid #782e22;
+        }
+        
+        .tag {
+            float: left;
+            margin: 0 2px 2px 0;
+            padding: 0 3px;
+            font-size: 10px;
+            line-height: 16px;
+            border: 1px solid #999;
+            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .npc-body {
+            overflow: visible !important;
+            flex-wrap: wrap !important;
+            flex-direction: row !important;
+            height: calc(100% - 104px) !important;
+            display: block !important;
+            font-size: 12px;
+            
+            .base-attribs {
+                float: left;
+                
+                .ability {
+                    display: inline-blocK;
+                    text-align: center;
+                    flex:auto;
+                    
+                    input {
+                        margin-top: 0 !important;
+                        max-width: 23px;
+                        padding: 1px;
+                        min-width:0;
+                    }
+                    
+                    h4 {
+                        text-transform: capitalize;
+                    }
+                }
+                
+                .save, .skill {
+                    display: inline-blocK;
+                    text-align: center;
+                    flex:auto;
+                }
+                
+                .traits-list {
+                    list-style: none;
+                    padding-left: 0;
+                    margin: 0;
+                }
+
+                .trait-selector {
+                    font-weight: bold;
+                }
+                
+            }
+            
+            .body-tile {
+                display: inline-table;
+                height: auto;
+                padding: 0 3px;
+                width: 290px;
+                
+                h3 {
+                    margin: 0 0 -3px 0;
+                    font-weight: bold;
+                }
+                
+                .npc-item-create {
+                    margin: 0 1ch;
+                }
+                
+                .item {
+                    .npc-item-header {
+                        margin-top: 2px;
+                        margin-bottom: 0px;
+                        
+                        .npc-item-name {
+                            font-weight: bold;
+                            display: inline !important;
+                            width: 100%;
+                        }
+                    }
+                    .item-summary {
+                        flex: 0 0 100%;
+                        font-size:12px;
+                        line-height:16px;
+                        padding: 0.25em 0.5em;
+                        display: inline-block;
+                    }
+                    .item-buttons button {
+                        font-size: 10px;
+                        line-height: 12px;
+                        margin: 0;
+                    }
+                }
+            }
+            
+            .spell-section {
+                .spellcasting-settings {
+                    margin-top: 5px;
+                    margin-bottom: 0;
+                    width: 100%;
+                    input, select {
+                        flex-grow: 1;
+                        height: 1.5em;
+                        margin-left: 5px;
+                        padding: 0;
+                    }
+                }
+                .spell-slots {
+                    margin-left: 5px;
+                }
+                .spellslot-input {
+                    font-size: 13px !important;
+                    width: 16px !important;
+                    min-width: 16px;
+                    text-align: center;
+                }
+                .spellslot-mod {
+                    margin: 0 2px;
+                    opacity: 0.3;
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+    
