@@ -8,3 +8,5 @@ v0.7.2
     - the sheet will now remember the width and height upon closing and restore them upon reopening
   - rewrote and fixed some css issues
   - added caster level support
+v0.7.3
+ - fixed max spell slots to be overwritable
