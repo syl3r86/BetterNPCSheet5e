@@ -33,7 +33,7 @@
     ],
     "url": "https://github.com/syl3r86/BetterNPCSheet5e",
     "manifest": "https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/master/module.json",
-    "download": "https://github.com/syl3r86/BetterNPCSheet5e/archive/master.zip",
+    "download": "https://github.com/syl3r86/BetterNPCSheet5e/archive/v0.7.2.zip",
     "minimumCoreVersion": "0.5.5",
     "compatibleCoreVersion": "0.5.5"
 }
