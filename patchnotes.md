@@ -11,3 +11,7 @@ v0.7.2
   
 v0.7.3
  - fixed max spell slots to be overwritable
+
+v0.7.4
+ - fixed a bug that caused unnessesary rerenders when toggling item descriptions
+ - imrpoved fonzsize
