@@ -52,14 +52,6 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         return data;
     }
 
-    
-    render(...args) {
-        if (this.supressRender) {
-            return;
-        } else {
-            return super.render(...args);
-        }
-    }
 
     activateListeners(html) {
         super.activateListeners(html);
@@ -148,7 +140,9 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         inputs.trigger('keyup');
 
         // adding toggle for item detail
-        html.find('.npc-item-name').click(event => this._onItemSummary(event));
+        html.find('.npc-item-name').click(event => {
+            this._onItemSummary(event)
+        });
 
         this.saveState = false;
         for (let element of html.find('.npc-item-name')) {
@@ -211,6 +205,10 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
     }
 
     render(force = false, options = {}) {
+        if (this.supressRender) {
+            return;
+        }
+
         if (force) {
             let newWidth = getProperty(this.object.data.flags, 'betterNpcSheet.sheet.width');
             let newHeight = getProperty(this.object.data.flags, 'betterNpcSheet.sheet.height');

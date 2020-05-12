@@ -30,9 +30,8 @@
 }
 .better-npc-sheet-container .better-npc-sheet .flex-line label {
   font-weight: bold;
-  font-size: 15px;
   margin-right: 5px;
-  font-size: 12px;
+  font-size: 1em;
 }
 .better-npc-sheet-container .better-npc-sheet .flex-line span {
   display: inline !important;
@@ -47,7 +46,7 @@
 }
 .better-npc-sheet-container .better-npc-sheet .npc-textinput-small {
   font-weight: normal;
-  font-size: 12px;
+  font-size: 1em;
   max-width: 290px;
   height: 15px;
   min-width: 24px;
@@ -56,7 +55,7 @@
 .better-npc-sheet-container .better-npc-sheet .size-selector {
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif !important;
   color: #222;
-  font-size: 20px;
+  font-size: 1.3em;
   border: none;
 }
 .better-npc-sheet-container .better-npc-sheet .npc-textinput {
@@ -100,7 +99,7 @@
 .better-npc-sheet-container .better-npc-sheet .npc-header .header-right .editBtn {
   display: inline-block;
   margin: 4px 10px;
-  font-size: 30px;
+  font-size: 2em;
   padding-left: 10px;
 }
 .better-npc-sheet-container .better-npc-sheet .npc-header .header-right .tabs {
@@ -148,7 +147,7 @@
   float: left;
   margin: 0 2px 2px 0;
   padding: 0 3px;
-  font-size: 10px;
+  font-size: 1em;
   line-height: 16px;
   border: 1px solid #999;
   border-radius: 3px;
@@ -160,7 +159,7 @@
   flex-direction: row !important;
   height: calc(100% - 104px) !important;
   display: block !important;
-  font-size: 12px;
+  font-size: 1em;
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .base-attribs {
   float: left;
@@ -217,14 +216,14 @@
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .item .item-summary {
   flex: 0 0 100%;
-  font-size: 12px;
+  font-size: 1em;
   line-height: 16px;
   padding: 0.25em 0.5em;
   display: inline-block;
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .item .item-buttons button {
   font-size: 10px;
-  line-height: 12px;
+  line-height: 1em;
   margin: 0;
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spellcasting-settings {
@@ -243,7 +242,7 @@
   margin-left: 5px;
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spellslot-input {
-  font-size: 13px !important;
+  font-size: 1em !important;
   width: 16px !important;
   min-width: 16px;
   text-align: center;
