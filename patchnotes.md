@@ -15,3 +15,6 @@ v0.7.3
 v0.7.5
  - fixed a bug that caused unnessesary rerenders when toggling item descriptions
  - imrpoved fonzsize
+
+v0.7.6
+ - changed korean translation from kr to ko
