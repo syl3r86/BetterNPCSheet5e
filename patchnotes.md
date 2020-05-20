@@ -18,3 +18,9 @@ v0.7.5
 
 v0.7.6
  - changed korean translation from kr to ko
+
+v0.7.7
+ - fixed some minor bugs
+ 
+v0.7.8
+ - fixed a bug that prevented the module from working in dnd5e 0.90
