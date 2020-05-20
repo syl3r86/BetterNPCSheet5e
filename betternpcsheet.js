@@ -1,10 +1,9 @@
 /**
  * @author Felix Müller aka syl3r86
- * @version 0.7.0
  */
  
 
-import { ActorSheet5eNPC } from "../../systems/dnd5e/module/actor/sheets/npc.js";
+import ActorSheet5eNPC from "../../systems/dnd5e/module/actor/sheets/npc.js";
 
 //let Actor5eSheet = CONFIG.Actor.sheetClass;
 export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
