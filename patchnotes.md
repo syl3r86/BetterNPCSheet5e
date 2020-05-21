@@ -24,3 +24,6 @@ v0.7.7
  
 v0.7.8
  - fixed a bug that prevented the module from working in dnd5e 0.90
+ 
+ v0.7.9
+ - fixed a bug that displayed the wrong value for skills
