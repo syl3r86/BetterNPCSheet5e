@@ -27,3 +27,14 @@ v0.7.8
  
  v0.7.9
  - fixed a bug that displayed the wrong value for skills
+
+v0.8.0 - the bugfix galore edition
+ - new Feature: you can now drag and drop items between the different categorys to quickly change where they are displayed.
+  - the extra little button is still available to do that the old fashioned way
+ - new Feature: added a default spell dc display to the spellbook
+ - fixed an issue in the selector apps for languages and damagetype immunities, vulnerabilities etc.
+ - fixed an issue that newly created items had the wrong item type
+ - fixed the width of the health input box
+ - fixed the drag and drop default behavior to once again let the user drag out items, either onto the macrobar or into the item directory
+ - fixed a bug in overwriting the default maximum spellslots with a custom value
+ 
