@@ -121,7 +121,7 @@
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.di.value}}{{data.traits.di.custom}}">
                     <label for="data.traits.di"></label>
-                    <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamImm"}}</a>
+                    <a class="trait-selector" data-options="damageTypes" data-target="data.traits.di">{{localize "DND5E.DamImm"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.di.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -131,7 +131,7 @@
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dr.value}}{{data.traits.dr.custom}}">
                     <label for="data.traits.dr"></label>
-                    <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamRes"}}</a>
+                    <a class="trait-selector" data-options="damageTypes" data-target="data.traits.dr">{{localize "DND5E.DamRes"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.dr.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -141,7 +141,7 @@
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.dv.value}}{{data.traits.dv.custom}}">
                     <label for="data.traits.dv"></label>
-                    <a class="trait-selector" data-options="damageTypes">{{localize "DND5E.DamVuln"}}</a>
+                    <a class="trait-selector" data-options="damageTypes" data-target="data.traits.dv">{{localize "DND5E.DamVuln"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.dv.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -151,7 +151,7 @@
 
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.ci.value}}{{data.traits.ci.custom}}">
                     <label for="data.traits.ci"></label>
-                    <a class="trait-selector" data-options="conditionTypes">{{localize "DND5E.ConImm"}}</a>
+                    <a class="trait-selector" data-options="conditionTypes" data-target="data.traits.ci">{{localize "DND5E.ConImm"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.ci.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -173,7 +173,7 @@
                 </div>
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.languages.value}}{{data.traits.languages.custom}}">
                     <label for="data.traits.languages"></label>
-                    <a class="trait-selector" data-options="languages">{{localize "DND5E.Languages"}}</a>
+                    <a class="trait-selector" data-options="languages" data-target="data.traits.languages">{{localize "DND5E.Languages"}}</a>
                     <ul class="traits-list">
                         {{#each data.traits.languages.selected as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
@@ -240,6 +240,9 @@
                             {{/select}}
                         </select>
                     </div>
+                    <div class="flexline">
+                        Default Spellcasting DC: {{data.attributes.spelldc}}
+                    </div>
                 </div>
             </div>
 
@@ -252,18 +255,27 @@
                     {{#unless section.isCantrip}}
                     <span>&nbsp;- {{ localize "DND5E.Spellslots" }}:</span>
                     <span class="spell-slots">
-                        <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0" />
+                        <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses.value}}" placeholder="0" />
                     </span>
                     <span class="flex0"> / </span>
-                    <span class="spell-max">
-                        <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0" />
+                    <span class="spell-max" data-level="spell{{lvl}}">
+                        {{#if section.uses.override}}
+                            <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.override" value="{{section.uses.override}}" data-dtype="Number" placeholder="0" />
+                        {{else}}
+                            <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.max" value="{{section.uses.max}}" data-dtype="Number" placeholder="0" readonly/>
+                            {{#if ../editable}}
+                            <a class="slot-max-override" title="{{localize 'DND5E.SpellProgOverride'}}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            {{/if}}
+                        {{/if}}
                     </span>
                     <a class="spellslot-mod" data-mod="+" data-level="{{lvl}}" title="{{ localize "BNPCSheet.SpellslotAdd" }}">&#9650;</i></a>
                     <a class="spellslot-mod" data-mod="-" data-level="{{lvl}}" title="{{ localize "BNPCSheet.SpellslotSubstract" }}">&#9660;</a>
                     {{/unless}}
                 </h3>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
-                <ul>   
+                <ul class="item-list">   
                 {{#each section.spells as |spell i|}}
                 <li class="item" data-item-id="{{spell._id}}">
                     <h4 class='npc-item-header'>

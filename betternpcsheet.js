@@ -127,7 +127,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
             let element = document.createElement("canvas").getContext("2d");
             element.font = font;
-            let txtWidth = element.measureText(inputText).width * 1.1 + 1;
+            let txtWidth = element.measureText(inputText).width * 1.1 + 5;
 
             e.target.style.width = txtWidth + "px";
         });
@@ -230,6 +230,27 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
     async close() {        
         this.object.update({ 'flags.betterNpcSheet.sheet.height': this.position.height, 'flags.betterNpcSheet.sheet.width': this.position.width });
         super.close();
+    }
+
+    async _onSpellSlotOverride(event) {
+        let span = event.currentTarget.parentElement;
+        let level = span.dataset.level;
+        let override = this.actor.data.data.spells[level].override || this.actor.data.data.spells[level].max;
+        let input = $(span).children('.spellslot-input');
+        input.attr('name', `data.spells.${level}.override`);
+        input.attr('readonly', false);
+
+        $(span).children('.slot-max-override').remove();
+        /*
+        input.type = "text";
+        input.value = override;
+        input.placeholder = span.dataset.slots;
+        input.dataset.dtype = "Number";
+
+        // Replace the HTML
+        const parent = span.parentElement;
+        parent.removeChild(span);
+        parent.appendChild(input);*/
     }
 
     async _onItemSummary(event) {
@@ -343,13 +364,13 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                 if (!isCantrip) {
                     uses.value = actorData.data.spells["spell" + lvl].value;
                     uses.max = actorData.data.spells["spell" + lvl].max;
+                    if (actorData.data.spells["spell" + lvl].override) uses.override = actorData.data.spells["spell" + lvl].override;
                 }
                 spellbook[section] = spellbook[section] || {
                     isCantrip: isCantrip,
                     label: sectionLabel,
                     spells: [],
-                    uses: uses.value,
-                    slots: uses.max
+                    uses: uses
                 };
                 //i.data.school.str = CONFIG.DND5E.spellSchools[i.data.school.value];
                 spellbook[section].spells.push(i);
@@ -360,7 +381,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             // Features
             let flag = getProperty(i, 'flags.adnd5e.itemInfo.type');
             switch (flag) {
-                case 'trait': features.push(i); break;
+                case 'feat': features.push(i); break;
                 case 'action': weapons.push(i); break;
                 case 'legendary': legendarys.push(i); break;
                 case 'reaction': reactions.push(i); break;
@@ -444,24 +465,32 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
         // Assign the items
         let sections = [
-            { label: game.i18n.localize('DND5E.Features'), name: 'feat', isFeat: true, items: features },
-            { label: game.i18n.localize('DND5E.Actions'), name: 'action', isAction: true, items: weapons },
-            { label: game.i18n.localize('DND5E.LegAct'), name: 'legendary', isLegendary: true, items: legendarys },
-            { label: game.i18n.localize('DND5E.Reactions'), name: 'reaction', isReaction: true, items: reactions },
-            { label: game.i18n.localize('DND5E.LairActs'), name: 'lair', isLair: true, items: lair },
-            { label: game.i18n.localize('DND5E.Loot'), name: 'loot', isLoot: true, items: loot }
+            { label: game.i18n.localize('DND5E.Features'), name: 'feat', type:'feat', isFeat: true, items: features },
+            { label: game.i18n.localize('DND5E.Actions'), name: 'action', type: 'weapon', isAction: true, items: weapons },
+            { label: game.i18n.localize('DND5E.LegAct'), name: 'legendary', type: 'feat', isLegendary: true, items: legendarys },
+            { label: game.i18n.localize('DND5E.Reactions'), name: 'reaction', type: 'feat', isReaction: true, items: reactions },
+            { label: game.i18n.localize('DND5E.LairActs'), name: 'lair', type: 'feat', isLair: true, items: lair },
+            { label: game.i18n.localize('DND5E.Loot'), name: 'loot', type: 'loot', isLoot: true, items: loot }
         ];
         actorData.actor.spellbook = spellbook;
         actorData.actor.sections = sections;
-        /*
-        actorData.actor.features = features;
-        actorData.actor.weapons = weapons;
-        actorData.actor.legendarys = legendarys;
-        actorData.actor.reactions = reactions;
-        actorData.actor.lair = lair;
-        actorData.actor.loot = loot;*/
     }
 
+    async _onDropItem(event, data) {
+        let typeFlag = data.data.flags ?.adnd5e ?.itemInfo ?.type;
+        let targetTile = $(event.toElement).parents('.body-tile');
+        let targetType = targetTile.length > 0 ? targetTile[0].dataset.tile : '';
+        if (data.actorId !== this.object.id) {
+            super._onDropItem(event, data);
+        } else {
+            if (targetType && targetType.indexOf('spell') === -1 && targetType !== typeFlag) {
+                let item = this.actor.getOwnedItem(data.data._id);
+                item.update({ 'flags.adnd5e.itemInfo.type': targetType });
+            } else {
+                super._onDropItem(event, data);
+            }
+        }
+    }
 
     _onItemCreate(event) {
         event.preventDefault();
@@ -469,7 +498,6 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         let itemTypeLabel = $(event.target).parents('.body-tile').attr('data-tile');
         let header = event.currentTarget;
         let itemType = $(event.currentTarget).parents('.body-tile').children('.npc-item-create').attr('data-type');
-        console.log(header.dataset.type);
         let data = {};
         data = {
             type: header.dataset.type,
@@ -486,8 +514,67 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         if (itemTypeLabel === 'legendary' || itemTypeLabel === 'lair') {
             data["name"] += ' Action';
         }
-        console.log(data);
         this.actor.createOwnedItem(data); // , { renderSheet: true } adding that back in once the core functionality has been fixed
+    }
+
+    _onSortItem(event, itemData) {
+        // TODO - for now, don't allow sorting for Token Actor ovrrides
+        if (this.actor.isToken) return;
+
+        // Get the drag source and its siblings
+        const source = this.actor.getOwnedItem(itemData._id);
+        const siblings = this._getSortSiblings(source);
+        // Get the drop target
+        const dropTarget = event.target.closest(".item");
+        const targetId = dropTarget ? dropTarget.dataset.itemId : null;
+        const target = siblings.find(s => s.data._id === targetId);
+        
+        // Perform the sort
+        const sortUpdates = SortingHelpers.performIntegerSort(source, { target: target, siblings });
+        const updateData = sortUpdates.map(u => {
+            const update = u.update;
+            update._id = u.target.data._id;
+            return update;
+        });
+
+        // Perform the update
+        return this.actor.updateEmbeddedEntity("OwnedItem", updateData);
+    }
+
+    _getSortSiblings(source) {
+        if (source.data.type === 'spell') {
+            return super._getSortSiblings(source);
+        }
+
+        let sourceType = this._getItemType(source);
+
+        return this.actor.items.filter(i => {
+            let type = this._getItemType(i);
+            return (sourceType === type) && (i.data._id !== source.data._id)
+        });
+    }
+
+    _getItemType(item) {
+        if (item.data.type === 'spell') {
+            return 'spell'
+        }
+        let sourceType = getProperty(item.data, 'flags.adnd5e.itemInfo.type');
+        if (sourceType === undefined) {
+            let activationType = getProperty(item.data, 'data.activation.type');
+            switch (activationType) {
+                case "legendary": sourceType = "legendary";
+                case "lair": sourceType = "lair";
+                case "action": sourceType = "action";
+                case "reaction": sourceType = "reaction";
+                default: {
+                    if (item.data.type === "weapon") sourceType = "action";
+                    else if (item.data.type === "feat") sourceType = "feat";
+                    else if (item.data.type === "loot") sourceType = "loot";
+                    else if (["equipment", "consumable", "tool", "backpack"].includes(item.data.type)) sourceType = "feat";
+                }
+            }
+        }
+        return sourceType;
     }
 
     toggleEditMoed() {

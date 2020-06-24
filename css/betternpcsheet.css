@@ -201,6 +201,7 @@
 .better-npc-sheet-container .better-npc-sheet .npc-body .body-tile h3 {
   margin: 0 0 -3px 0;
   font-weight: bold;
+  align-items: baseline;
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .npc-item-create {
   margin: 0 1ch;
@@ -253,4 +254,20 @@
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .spellslot-mod:hover {
   opacity: 1;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .slot-max-override {
+  color: grey;
+  font-size: 0.8em;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .slot-max-override:hover {
+  color: black;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section .slot-max-override i {
+  font-weight: normal;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section input:read-only {
+  color: grey;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .spell-section input:read-only:focus {
+  box-shadow: none;
 }
