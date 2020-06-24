@@ -30,7 +30,7 @@ v0.7.8
 
 v0.8.0 - the bugfix galore edition
  - new Feature: you can now drag and drop items between the different categorys to quickly change where they are displayed.
-  - the extra little button is still available to do that the old fashioned way
+    - the extra little button is still available to do that the old fashioned way
  - new Feature: added a default spell dc display to the spellbook
  - fixed an issue in the selector apps for languages and damagetype immunities, vulnerabilities etc.
  - fixed an issue that newly created items had the wrong item type
