@@ -1,3 +1,6 @@
+## v0.8.1
+ - fixed a bug when attempting to drag a new item onto the sheet
+
 ## v0.8.0 - the bugfix galore edition
  - new Feature: you can now drag and drop items between the different categorys to quickly change where they are displayed.
     - the extra little button is still available to do that the old fashioned way
