@@ -477,18 +477,18 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
     }
 
     async _onDropItem(event, data) {
+        if (data.actorId !== this.object.id || data.data === undefined) {
+            return super._onDropItem(event, data);
+        }
         let typeFlag = data.data.flags ?.adnd5e ?.itemInfo ?.type;
         let targetTile = $(event.toElement).parents('.body-tile');
         let targetType = targetTile.length > 0 ? targetTile[0].dataset.tile : '';
-        if (data.actorId !== this.object.id) {
-            super._onDropItem(event, data);
+        
+        if (targetType && targetType.indexOf('spell') === -1 && targetType !== typeFlag) {
+            let item = this.actor.getOwnedItem(data.data._id);
+            item.update({ 'flags.adnd5e.itemInfo.type': targetType });
         } else {
-            if (targetType && targetType.indexOf('spell') === -1 && targetType !== typeFlag) {
-                let item = this.actor.getOwnedItem(data.data._id);
-                item.update({ 'flags.adnd5e.itemInfo.type': targetType });
-            } else {
-                super._onDropItem(event, data);
-            }
+            super._onDropItem(event, data);
         }
     }
 
