@@ -1,3 +1,6 @@
+## v0.8.2
+ - fixed compability with dnd5e v0.94
+
 ## v0.8.1
  - fixed a bug when attempting to drag a new item onto the sheet
 
