@@ -34,6 +34,6 @@
     "url": "https://github.com/syl3r86/BetterNPCSheet5e",
     "manifest": "https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/master/module.json",
     "download": "https://github.com/syl3r86/BetterNPCSheet5e/archive/v0.8.2.zip",
-    "minimumCoreVersion": "0.6.3",
-    "compatibleCoreVersion": "0.6.4"
+    "minimumCoreVersion": "0.7.0",
+    "compatibleCoreVersion": "0.7.0"
 }
