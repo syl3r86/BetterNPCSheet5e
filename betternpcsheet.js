@@ -199,7 +199,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         });
 
         // Rollable Health Formula
-        html.find(".npc-roll-hp").click(this._onRollHealthFormula.bind(this));
+        html.find(".npc-roll-hp").click(this._onRollHPFormula.bind(this));
 
     }
 
