@@ -1,3 +1,6 @@
+## v0.8.3
+ - minor module.json change
+
 ## v0.8.2
  - fixed compability with dnd5e v0.94
 
