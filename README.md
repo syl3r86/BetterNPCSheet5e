@@ -1,8 +1,10 @@
 # Better NPC Sheet 5e
 
-> This version only works for Foundry v0.4.4 and up. To use the previous version please visit https://github.com/syl3r86/BetterNPCSheet5e/tree/pre-0.4.4
-
 This module overwrites the default NPC sheet that comes shiped with the dnd5e system and brings it closer to the well known official template. 
+
+## If you're having trouble closing the sheet, make sure to have both this module AND dnd5e on the most recent versions.
+- better NPC sheet v0.8.3
+- dnd5e v0.94
 
 ## Installation
 1. Copy this link and use it in Foundrys Module Manager to install the Module
