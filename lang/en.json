@@ -15,7 +15,8 @@
     "DND5E.Spellslots":"Spellslots",
     "DND5E.Loot":"Loot",
     "DND5E.Skills":"Skills",
-    "DND5E.Initative":"Initative",
+    "DND5E.Initative":"Initiative",
+    "DND5E.Health":"Hit Points",
     
     "BNPCSheet.MoveTT":"Move to different List",
     "BNPCSheet.SpellslotAdd":"Add a spellslot",
