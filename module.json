@@ -9,7 +9,12 @@
     "esmodules": ["/betternpcsheet.js"],
     "styles": ["/css/betternpcsheet.css", "css/rpg-awesome.css"],
     "packs": [],
-    "languages": [
+    "languages": [        
+        {
+          "lang": "de",
+          "name": "German",
+          "path": "lang/de.json"
+        },
         {
           "lang": "en",
           "name": "English",
