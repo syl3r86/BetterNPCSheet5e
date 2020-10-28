@@ -1,3 +1,9 @@
+## v0.9
+ - fixed BetterRolls integration for BetterRolls 1.1.17
+ - added german translation, thanks to https://github.com/CarnVanBeck
+ - fixed issues when displaying static data from compendie
+ - added option to show item image instead of d20 symbol. no functionality changes
+
 ## v0.8.3
  - minor module.json change
 
