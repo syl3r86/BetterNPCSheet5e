@@ -40,14 +40,8 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
         data.config = CONFIG.DND5E;
 
-        // setting to display either the Icon of the item (true) or a generic d20 icon (false)
-        this.useFeatIcons = false;
-        this.useWeaponIcons = false;
-        this.useSpellIcons = false;
 
-        data['useFeatIcons'] = this.useFeatIcons;
-        data['useWeaponIcons'] = this.useWeaponIcons;
-        data['useSpellIcons'] = this.useSpellIcons;
+        data['useIcons'] = game.settings.get("betternpcsheet5e", "useIcons");
         return data;
     }
 
@@ -59,61 +53,6 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         if (this.actor.data.type === "character") {
             return;
         }
-
-        // rebind roll function
-        html.find('.item .rollable').click(event => this._onItemRoll(event));
-
-
-        // register settings
-        game.settings.register("BetterNPCSheet", this.object.data._id, {
-            name: "Settings specific to NPC display",
-            hint: "Settings to exclude packs from loading",
-            default: "",
-            type: String,
-            scope: 'user',
-            onChange: settings => {
-                this.settings = JSON.parse(settings);
-            }
-        });
-        // load settings from container
-        let settings = game.settings.get("BetterNPCSheet", this.object.data._id);
-        if (settings == '') { // if settings are empty create the settings data
-            console.log("NPC Settings | Creating settings");
-            settings = {};
-            for (let item of this.object.data.items) {
-                if (item.type == 'spell') {
-                    let target = `.item[data-item-id=${item.id}] .item-description`;
-                    settings[target] = false;
-                }
-            }
-            settings.editMode = false;
-            game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(settings));
-        } else {
-            settings = JSON.parse(settings);
-        }
-        // apply them
-        console.log("NPC Settings | Loading settings");
-        for (let key in settings) {
-            let target = html.find(key);
-            if (settings[key] == true) {
-                target.show();
-            } else {
-                target.hide();
-            }
-        }
-        this.settings = settings;
-
-
-
-        // hide elements that are part of the edit mode or empty
-        this._applySettingsMode(this.settings.editMode, html);
-
-        // toggle edit mode button event
-        html.find('.editBtn').click(e => {
-            this.settings.editMode = !this.settings.editMode;
-            game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(this.settings));
-            this._applySettingsMode(this.settings.editMode, html);
-        });
 
         // set dynamic input width
         let inputs = html.find('.npc-textinput,.npc-textinput-small');
@@ -138,69 +77,79 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
         inputs.trigger('keyup');
 
+
         // adding toggle for item detail
         html.find('.npc-item-name').click(event => {
             this._onItemSummary(event)
         });
-
-        this.saveState = false;
-        for (let element of html.find('.npc-item-name')) {
-            let item = this.actor.getOwnedItem($(element).parents('.item').data("item-id"));
-            if (hasProperty(item, 'data.flags.betternpcsheet5e.showItemSummary') && item.data.flags.betternpcsheet5e.showItemSummary) {
-                $(element).trigger('click');
-            }
-        }
-        this.saveState = true;
-            
-
+        
+        // make categorys colapsable
         html.find('.body-tile-name').click(e => {
             let target = e.target.getAttribute('data-tile');
             let collapsTarget = e.target.getAttribute('data-target') || 'item';
             let targetTile = `.body-tile[data-tile=${target}] .${collapsTarget}`;
-            if (this.settings[targetTile] === undefined || this.settings[targetTile] === true) {
-                html.find(targetTile).hide(100);
-                this.settings[targetTile] = false;
-            } else {
-                html.find(targetTile).show(100);
-                this.settings[targetTile] = true;
-            }
-            game.settings.set('BetterNPCSheet', this.object.data._id, JSON.stringify(this.settings));
+            html.find(targetTile).toggle(100);
         });
 
         // remove window padding
         $('.better-npc-sheet').parent().css('padding', '0');
-        
-        
-        // spellslot control buttons
-        html.find('.spellslot-mod').click(ev => {
-            let mod = event.target.getAttribute("data-mod");
-            let level = event.target.getAttribute("data-level");
-            let slotElement = $(html.find(`input[name="data.spells.spell${level}.value"]`));
-            let newValue = mod == '+' ? Number(slotElement.val()) + 1 : Number(slotElement.val()) - 1;
-            slotElement.val(newValue >= 0 ? newValue : 0);
-            slotElement.trigger('submit');
-        });
 
-        // list changing logic:
-        html.find('.item-change-list').click(ev => {
-            let target = $(ev.target).parents('.item').find('.type-list');
-            target.toggle(200);
-        });
-        html.find('.npc-item-name').contextmenu(ev => {
-            let target = $(ev.target).parents('.item').find('.type-list');
-            target.toggle(200);
-        });
 
-        html.find('.type-list a').click(ev => {
-            let targetList = ev.target.dataset.value
-            let itemId = $(ev.target).parents('.item').attr('data-item-id');
-            let item = this.actor.getOwnedItem(itemId);
-            item.update({ "flags.adnd5e.itemInfo.type": targetList });
-        });
+        if (this.isEditable) {
+            // rebind roll function
+            html.find('.item .rollable').click(event => this._onItemRoll(event));
 
-        // Rollable Health Formula
-        html.find(".npc-roll-hp").click(this._onRollHPFormula.bind(this));
+            // spellslot control buttons
+            html.find('.spellslot-mod').click(ev => {
+                let mod = event.target.getAttribute("data-mod");
+                let level = event.target.getAttribute("data-level");
+                let slotElement = $(html.find(`input[name="data.spells.spell${level}.value"]`));
+                let newValue = mod == '+' ? Number(slotElement.val()) + 1 : Number(slotElement.val()) - 1;
+                slotElement.val(newValue >= 0 ? newValue : 0);
+                slotElement.trigger('submit');
+            });
 
+            // list changing logic:
+            html.find('.item-change-list').click(ev => {
+                let target = $(ev.target).parents('.item').find('.type-list');
+                target.toggle(200);
+            });
+            html.find('.npc-item-name').contextmenu(ev => {
+                let target = $(ev.target).parents('.item').find('.type-list');
+                target.toggle(200);
+            });
+
+            html.find('.type-list a').click(ev => {
+                let targetList = ev.target.dataset.value
+                let itemId = $(ev.target).parents('.item').attr('data-item-id');
+                let item = this.actor.getOwnedItem(itemId);
+                item.update({ "flags.adnd5e.itemInfo.type": targetList });
+            });
+
+            // Rollable Health Formula
+            html.find(".npc-roll-hp").click(this._onRollHPFormula.bind(this));
+
+
+            // toggle edit mode button event
+            this.editMode = this.object.data.flags.betterNpcSheet?.editMode;
+            this._applySettingsMode(this.editMode, html);
+
+            html.find('.editBtn').click(e => {
+                this.object.update({ 'flags.betterNpcSheet.editMode': !this.editMode });
+            });
+
+            // apply saved item detail display state
+            this.saveState = false;
+            for (let element of html.find('.npc-item-name')) {
+                let item = this.actor.getOwnedItem($(element).parents('.item').data("item-id"));
+                if (hasProperty(item, 'data.flags.betternpcsheet5e.showItemSummary') && item.data.flags.betternpcsheet5e.showItemSummary) {
+                    $(element).trigger('click');
+                }
+            }
+            this.saveState = true;
+        } else {
+            this._applySettingsMode(false, html);
+        }     
     }
 
     render(force = false, options = {}) {
@@ -228,34 +177,25 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
     }
 
     async close() {        
-        this.object.update({ 'flags.betterNpcSheet.sheet.height': this.position.height, 'flags.betterNpcSheet.sheet.width': this.position.width });
+        if (this.isEditable) {
+            this.object.update({ 'flags.betterNpcSheet.sheet.height': this.position.height, 'flags.betterNpcSheet.sheet.width': this.position.width });
+        }
         super.close();
     }
 
     async _onSpellSlotOverride(event) {
         let span = event.currentTarget.parentElement;
         let level = span.dataset.level;
-        let override = this.actor.data.data.spells[level].override || this.actor.data.data.spells[level].max;
         let input = $(span).children('.spellslot-input');
         input.attr('name', `data.spells.${level}.override`);
         input.attr('readonly', false);
 
         $(span).children('.slot-max-override').remove();
-        /*
-        input.type = "text";
-        input.value = override;
-        input.placeholder = span.dataset.slots;
-        input.dataset.dtype = "Number";
-
-        // Replace the HTML
-        const parent = span.parentElement;
-        parent.removeChild(span);
-        parent.appendChild(input);*/
     }
 
     async _onItemSummary(event) {
         super._onItemSummary(event);
-        if (this.saveState !== false) {
+        if (this.isEditable && this.saveState !== false) {
             let li = $(event.currentTarget).parents(".item");
             let item = this.actor.getOwnedItem(li.data("item-id"));
             let showItemSummary = true;
@@ -270,6 +210,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
     _applySettingsMode(editMode, html) {
         let hidable = html.find('.hidable');
+        console.log(editMode, html);
         for (let obj of hidable) {
             let data = obj.getAttribute('data-hidable-attr');
             if (data == '' || data == 0) {
@@ -282,6 +223,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             //let hidableAttr = obj.getElementsByClassName('.hidable-attr');
         }
         if (editMode) {
+            console.log('in edit mode');
             html.find('.show-on-edit').show();
             html.find('.hide-on-edit').hide();
             html.find('input').addClass('white-input');//.css('background', 'white');
@@ -464,13 +406,14 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         }
 
         // Assign the items
+        let useIcons = game.settings.get("betternpcsheet5e", "useIcons");
         let sections = [
-            { label: game.i18n.localize('DND5E.Features'), name: 'feat', type:'feat', isFeat: true, items: features },
-            { label: game.i18n.localize('DND5E.Actions'), name: 'action', type: 'weapon', isAction: true, items: weapons },
-            { label: game.i18n.localize('DND5E.LegAct'), name: 'legendary', type: 'feat', isLegendary: true, items: legendarys },
-            { label: game.i18n.localize('DND5E.Reactions'), name: 'reaction', type: 'feat', isReaction: true, items: reactions },
-            { label: game.i18n.localize('DND5E.LairActs'), name: 'lair', type: 'feat', isLair: true, items: lair },
-            { label: game.i18n.localize('DND5E.Loot'), name: 'loot', type: 'loot', isLoot: true, items: loot }
+            { label: game.i18n.localize('DND5E.Features'), name: 'feat', type: 'feat', isFeat: true, items: features, useIcons: useIcons },
+            { label: game.i18n.localize('BNPCSheet.Actions'), name: 'action', type: 'weapon', isAction: true, items: weapons, useIcons: useIcons },
+            { label: game.i18n.localize('DND5E.LegAct'), name: 'legendary', type: 'feat', isLegendary: true, items: legendarys, useIcons: useIcons },
+            { label: game.i18n.localize('BNPCSheet.Reactions'), name: 'reaction', type: 'feat', isReaction: true, items: reactions, useIcons: useIcons },
+            { label: game.i18n.localize('BNPCSheet.LairActs'), name: 'lair', type: 'feat', isLair: true, items: lair, useIcons: useIcons },
+            { label: game.i18n.localize('BNPCSheet.Loot'), name: 'loot', type: 'loot', isLoot: true, items: loot, useIcons: useIcons }
         ];
         actorData.actor.spellbook = spellbook;
         actorData.actor.sections = sections;
@@ -576,30 +519,6 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         }
         return sourceType;
     }
-
-    toggleEditMoed() {
-        if (this.editMode == true) {
-            for (let obj of html.find('.hidable')) {
-                if (obj.querySelector('.hidable-attr') != undefined &&
-                    (obj.querySelector('.hidable-attr').value == '' || obj.querySelector('.hidable-attr').value == 0)) {
-                    obj.style.display = "none";
-                }
-            }
-            html.find('.show-on-edit').hide(100);
-            html.find('.hide-on-edit').show(100);
-            this.editMode = false;
-        } else {
-            for (let obj of html.find('.hidable')) {
-                if (obj.querySelector('.hidable-attr') != undefined &&
-                    (obj.querySelector('.hidable-attr').value == '' || obj.querySelector('.hidable-attr').value == 0)) {
-                    obj.style.display = "inline-block";
-                }
-            }
-            html.find('.show-on-edit').show(100);
-            html.find('.hide-on-edit').hide(100);
-            this.editMode = true;
-        }
-    }
 }
 
 Actors.registerSheet("dnd5e", BetterNPCActor5eSheet, {
@@ -611,7 +530,28 @@ Hooks.on('init', () => {
     loadTemplates(['modules/betternpcsheet5e/template/section.hbs']);
 });
 
-Hooks.on('ready',()=> {
+Hooks.on('ready', () => {
+
+    if (window.BetterRolls) {
+        //window.BetterRolls.hooks.addActorSheet("BetterNPCActor5eSheet");
+        window.BetterRolls.hooks.registerActorSheet("BetterNPCActor5eSheet", ".item .npc-item-name", ".item-summary", {
+            itemButton: '.item .rollable',
+            abilityButton: ".ability h4.ability-name.rollable",
+            checkButton: ".ability div span.ability-mod",
+            saveButton: ".saves-div .save .rollable"
+        });
+
+    }
+
+    game.settings.register("betternpcsheet5e", "useIcons", {
+        name: game.i18n.localize("BNPCSheet.useIcons"),
+        hint: game.i18n.localize("BNPCSheet.useIconsHelp"),
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+    });
+
     game.settings.register("betternpcsheet5e", "expandFeats", {
         name: game.i18n.localize("BNPCSheet.featSetting"),
         hint: game.i18n.localize("BNPCSheet.featSettingHelp"),

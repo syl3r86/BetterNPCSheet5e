@@ -5,17 +5,19 @@
             <a class="item-control item-create npc-item-create" title="Create Item" data-type="{{section.type}}"><i class="fas fa-plus-circle"></i></a>
             <a class="body-tile-name" data-tile="{{section.name}}"> {{section.label}}</a>
         </h3>
+                {{#if section.useIcons}}
         <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                {{/if}}                
         <ul class="item-list">
         {{#each section.items as |item sid|}}
         <li class="item" data-item-id="{{item._id}}" draggable="true">
             <h4 class='npc-item-header'>
-                {{#if ../useWeaponIcons}}
+                {{#if ../section.useIcons}}
                 <img class="rollable" src="{{item.img}}" title="{{item.name}}" width="20" height="20" />
                 {{else}}
                 <a class="rollable" title="{{localize "BNPCSheet.PostChat"}}"><i class="fas fa-dice-d20"></i></a>
-                {{/if}}
-                <a class="item-control item-edit" title="{{ localize "Item.Edit" }}"><i class="fas fa-edit"></i></a>
+                {{/if}}                
+                <a class="item-control item-edit show-on-edit" title="{{ localize "BNPCSheet.ItemEdit" }}"><i class="fas fa-edit"></i></a>
                 <a class="item-control item-change-list show-on-edit" title="{{ localize "BNPCSheet.MoveTT" }}"><i class="fas fa-bookmark"></i></a>
                 <a class="item-control item-delete show-on-edit" title="{{ localize "ITEM.Delete" }}"><i class="fas fa-trash"></i></a>
                 <a class='npc-item-name' data-item-id="{{feature._id}}">{{item.name}}</a>
@@ -33,11 +35,11 @@
                     {{ localize "BNPCSheet.MoveTT" }}:
                     <ul>
                         {{#if ../isFeat}}       {{else}}<li><a data-value="feat"><i class="ra ra-helmet"></i> {{ localize "DND5E.Features" }}</a></li>{{/if}}
-                        {{#if ../isAction}}     {{else}}<li><a data-value="action"><i class="ra ra-sword"></i> {{ localize "DND5E.Actions" }}</a></li>{{/if}}
+                        {{#if ../isAction}}     {{else}}<li><a data-value="action"><i class="ra ra-sword"></i> {{ localize "BNPCSheet.Actions" }}</a></li>{{/if}}
                         {{#if ../isLegendary}}  {{else}}<li><a data-value="legendary"><i class="ra ra-crossed-axes"></i> {{ localize "DND5E.LegAct" }}</a></li>{{/if}}
-                        {{#if ../isReaction}}   {{else}}<li><a data-value="reaction"><i class="ra ra-spinning-sword"></i> {{ localize "DND5E.Reactions" }}</a></li>{{/if}}
-                        {{#if ../isLair}}       {{else}}<li><a data-value="lair"><i class="ra ra-tower"></i> {{ localize "DND5E.LairActs" }}</a></li>{{/if}}
-                        {{#if ../isLoot}}       {{else}}<li><a data-value="loot"><i class="fas fa-coins"></i> {{ localize "DND5E.Loot" }}</a></li>{{/if}}
+                        {{#if ../isReaction}}   {{else}}<li><a data-value="reaction"><i class="ra ra-spinning-sword"></i> {{ localize "BNPCSheet.Reactions" }}</a></li>{{/if}}
+                        {{#if ../isLair}}       {{else}}<li><a data-value="lair"><i class="ra ra-tower"></i> {{ localize "BNPCSheet.LairActs" }}</a></li>{{/if}}
+                        {{#if ../isLoot}}       {{else}}<li><a data-value="loot"><i class="fas fa-coins"></i> {{ localize "BNPCSheet.Loot" }}</a></li>{{/if}}
                     </ul>
                 </div>
             </h4>

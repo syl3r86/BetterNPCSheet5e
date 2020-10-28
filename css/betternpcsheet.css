@@ -215,6 +215,11 @@
   display: inline !important;
   width: 100%;
 }
+.better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .item .npc-item-header img {
+  border:none;
+  vertical-align: bottom;
+}
+
 .better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .item .item-summary {
   flex: 0 0 100%;
   font-size: 1em;

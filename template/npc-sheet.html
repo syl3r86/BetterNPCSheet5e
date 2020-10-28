@@ -26,9 +26,11 @@
         </div>
 
         <div class="header-right">
-            <a class='editBtn' title='{{ localize "Edit" }}'><i class="fas fa-cog"></i></a>
+            {{#if editable}}
+                <a class='editBtn' title='{{ localize "Edit" }}'><i class="fas fa-cog"></i></a>
+            {{/if}}
             <nav class="tabs" data-group="group1">
-                <a class="item" data-tab="tab1">{{ localize "DND5E.Attribues" }}</a>
+                <a class="item" data-tab="tab1">{{ localize "BNPCSheet.Attribues" }}</a>
                 <a class="item" data-tab="tab2">{{ localize "DND5E.Biography" }}</a>
             </nav>        
         </div>
@@ -51,13 +53,13 @@
                         <span class="flex0">)</span>
                     </div>
                     <div class="flex-line">
-                        <label>{{ localize "DND5E.Initative" }}</label>
+                        <label>{{ localize "BNPCSheet.Initative" }}</label>
                         <input class="npc-textinput-small flex" name="data.attributes.init.value" type="text" placeholder="0"
                                data-dtype="Number"
                                value="{{numberFormat data.attributes.init.value decimals=0 sign=true}}" />
                     </div>
                     <div class="flex-line">
-                        <label class="flex">{{ localize "DND5E.Health" }} </label>
+                        <label class="flex">{{ localize "DND5E.HitPoints" }} </label>
                         <input class="npc-textinput-small flex" name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
                                data-dtype="Number" placeholder="10" />
                         <span class="flex0">/</span>
@@ -93,7 +95,7 @@
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <!-- SAVING THROWS -->
                 <div class='saves-div'>
-                    <label style="font-weight:bold;">{{ localize "DND5E.SavingThrows" }}</label>
+                    <label style="font-weight:bold;">{{ localize "BNPCSheet.SavingThrows" }}</label>
                     {{#each data.abilities as |ability id|}}
                     <div class="save flex-line hidable" data-hidable-attr="{{ability.proficient}}" data-ability="{{id}}">
                         <input class='hidable-attr' type="hidden" name="data.abilities.{{id}}.proficient" value="{{ability.proficient}}" data-dtype="Number"/>
@@ -105,7 +107,7 @@
                 </div>
                 <!-- SKILLS -->
                 <div class='skills-div'>
-                    <label style="font-weight:bold;">{{ localize "DND5E.Skills" }}</label>
+                    <label style="font-weight:bold;">{{ localize "BNPCSheet.Skills" }}</label>
                     {{#each data.skills as |skill s|}}
                     <div class="skill flex-line hidable" data-hidable-attr="{{skill.value}}" data-skill="{{s}}">
                         <a class="skill-proficiency show-on-edit " title="{{skill.hover}}">{{{skill.icon}}}</a>
@@ -184,10 +186,10 @@
                     <label>{{localize "DND5E.ChallengeRating"}} </label>
                     
                     <input class="npc-textinput-small" name="data.details.cr" type="text" value="{{labels.cr}}" placeholder="1"/>
-                    <span>({{data.details.xp.value}} {{localize "DND5E.XP"}})</span>
+                    <span>({{data.details.xp.value}} {{localize "BNPCSheet.XP"}})</span>
                 </div>
                 <div class="flex-line">
-                    <label>{{localize "DND5E.ProficiencyBonus"}}</label>
+                    <label>{{localize "BNPCSheet.ProficiencyBonus"}}</label>
                     <span>{{numberFormat data.attributes.prof decimals=0 sign=true}}</span>
                 </div>
 
@@ -214,7 +216,7 @@
 
             <!-- Item Sections -->
             {{#each actor.sections as |section id|}}
-                {{> "modules/betternpcsheet5e/template/section.hbs" section=section}}
+                {{> "modules/betternpcsheet5e/template/section.hbs" section=section editable=editable}}
             {{/each}}
 
             <!-- SPELLS -->
@@ -230,7 +232,7 @@
                         <input class="spellcasting-level npc-textinput-small" type="text" name="data.details.spellLevel" value="{{data.details.spellLevel}}" data-dtype="Number" placeholder="0"/>
                     </div>
                     <div class="flexline">
-                        {{ localize "DND5E.SpellcastingAbility" }}
+                        {{ localize "BNPCSheet.SpellcastingAbility" }}
                         <select name="data.attributes.spellcasting" data-type="String">
                             {{#select data.attributes.spellcasting}}
                                 <option value="">{{ localize "DND5E.None" }}</option>
@@ -253,7 +255,7 @@
                     <a class="item-control item-create npc-item-create" title="{{ localize "BNPCSheet.CreateSpell" }}" data-type="spell" data-level="{{lvl}}"><i class="fas fa-plus-circle"></i></a>
                     <a class="body-tile-name" data-tile="spell{{lvl}}">{{section.label}} </a>
                     {{#unless section.isCantrip}}
-                    <span>&nbsp;- {{ localize "DND5E.Spellslots" }}:</span>
+                    <span>&nbsp;- {{ localize "BNPCSheet.Spellslots" }}:</span>
                     <span class="spell-slots">
                         <input class="spellslot-input" type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses.value}}" placeholder="0" />
                     </span>
@@ -270,8 +272,10 @@
                             {{/if}}
                         {{/if}}
                     </span>
-                    <a class="spellslot-mod" data-mod="+" data-level="{{lvl}}" title="{{ localize "BNPCSheet.SpellslotAdd" }}">&#9650;</i></a>
-                    <a class="spellslot-mod" data-mod="-" data-level="{{lvl}}" title="{{ localize "BNPCSheet.SpellslotSubstract" }}">&#9660;</a>
+                    {{#if ../editable}}
+                        <a class="spellslot-mod" data-mod="+" data-level="{{lvl}}" title="{{ localize "BNPCSheet.SpellslotAdd" }}">&#9650;</i></a>
+                        <a class="spellslot-mod" data-mod="-" data-level="{{lvl}}" title="{{ localize "BNPCSheet.SpellslotSubstract" }}">&#9660;</a>
+                    {{/if}}
                     {{/unless}}
                 </h3>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
@@ -279,12 +283,12 @@
                 {{#each section.spells as |spell i|}}
                 <li class="item" data-item-id="{{spell._id}}">
                     <h4 class='npc-item-header'>
-                        {{#if ../../useSpellIcons}}
+                        {{#if ../../useIcons}}
                         <img class="rollable" src="{{spell.img}}" title="{{spell.name}}" width="20" height="20" />
                         {{else}}
                         <a class="rollable" title="Post to Chat"><i class="fas fa-dice-d20"></i></a>
                         {{/if}}
-                        <a class="item-control item-edit" title="{{ localize "Item.Edit" }}"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-edit show-on-edit" title="{{ localize "BNPCSheet.ItemEdit" }}"><i class="fas fa-edit"></i></a>
                         <a class="item-control item-delete show-on-edit" title="{{ localize "ITEM.Delete" }}"><i class="fas fa-trash"></i></a>
                         <a class='npc-item-name' data-item-id="{{spell._id}}">{{spell.name}}</a>
                         <b class='npc-item-uses hidable' data-hidable-attr="{{spell.data.uses.max}}" data-item-id="{{spell._id}}">({{spell.data.uses.value}}/{{spell.data.uses.max}})</b>
