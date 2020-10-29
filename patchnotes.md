@@ -1,3 +1,6 @@
+## v0.9.1
+ - fixed a bug that led to a race condition when trying to enable Better Rolls. The modules shoudld now correctly work together
+
 ## v0.9
  - fixed BetterRolls integration for BetterRolls 1.1.17
  - added german translation, thanks to https://github.com/CarnVanBeck
