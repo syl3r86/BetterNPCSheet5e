@@ -531,17 +531,19 @@ Hooks.on('init', () => {
 });
 
 Hooks.on('ready', () => {
-
-    if (window.BetterRolls) {
-        //window.BetterRolls.hooks.addActorSheet("BetterNPCActor5eSheet");
-        window.BetterRolls.hooks.registerActorSheet("BetterNPCActor5eSheet", ".item .npc-item-name", ".item-summary", {
-            itemButton: '.item .rollable',
-            abilityButton: ".ability h4.ability-name.rollable",
-            checkButton: ".ability div span.ability-mod",
-            saveButton: ".saves-div .save .rollable"
-        });
-
-    }
+    window.setTimeout(() => {
+        if (window.BetterRolls) {
+            console.log('BetterNPCSheet - Registering Better Rolls');
+            //window.BetterRolls.hooks.addActorSheet("BetterNPCActor5eSheet");
+            window.BetterRolls.hooks.registerActorSheet("BetterNPCActor5eSheet", ".item .npc-item-name", ".item-summary", {
+                itemButton: '.item .rollable',
+                abilityButton: ".ability h4.ability-name.rollable",
+                checkButton: ".ability div span.ability-mod",
+                saveButton: ".saves-div .save .rollable"
+            });
+        }
+    }, 2000);
+    
 
     game.settings.register("betternpcsheet5e", "useIcons", {
         name: game.i18n.localize("BNPCSheet.useIcons"),
