@@ -1,5 +1,5 @@
 /**
- * @author Felix Müller aka syl3r86
+ * @author Felix MÃ¼ller aka syl3r86
  */
  
 
@@ -346,15 +346,15 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                 switch (i.data.preparation.mode) {
                     case 'always':
                         section = 'always';
-                        sectionLabel = 'At Will';
+                        sectionLabel = game.i18n.localize('BNPCSheet.atWill');
                         isCantrip = true; break;
                     case 'innate':
                         section = 'innate';
-                        sectionLabel = 'Innate Spellcasting';
+                        sectionLabel = game.i18n.localize('BNPCSheet.innateSpellcasting');
                         isCantrip = true; break;
                     case 'pact':
                         section = 'pact';
-                        sectionLabel = 'Pact';
+                        sectionLabel = game.i18n.localize('BNPCSheet.pact');
                         isCantrip = true; break;
                 }
                 let uses = {
