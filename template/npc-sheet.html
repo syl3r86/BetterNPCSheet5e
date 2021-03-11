@@ -226,7 +226,7 @@
                 </h3>
                 <div class="spellcasting-settings">
                     <div class="flexline">
-                        Caster Level
+                        {{ localize "BNPCSheet.casterLevel" }}
                         <input class="spellcasting-level npc-textinput-small" type="text" name="data.details.spellLevel" value="{{data.details.spellLevel}}" data-dtype="Number" placeholder="0"/>
                     </div>
                     <div class="flexline">
@@ -241,7 +241,7 @@
                         </select>
                     </div>
                     <div class="flexline">
-                        Default Spellcasting DC: {{data.attributes.spelldc}}
+                        {{ localize "BNPCSheet.defaultSpellcastingDC" }}: {{data.attributes.spelldc}}
                     </div>
                 </div>
             </div>
