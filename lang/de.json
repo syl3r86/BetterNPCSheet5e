@@ -39,6 +39,12 @@
     "BNPCSheet.lootSetting":"Beute erweitern",
     "BNPCSheet.lootSettingHelp":"Immer die Beute Beschreibung beim Öffnen des Bogens erweitern.",
     
+    "BNPCSheet.casterLevel": "Zauberwirker Stufe",
+    "BNPCSheet.defaultSpellcastingDC": "Standard Zauberrettungswurf-SG",
+    "BNPCSheet.atWill": "Willentlich",
+    "BNPCSheet.innateSpellcasting": "Angeborenes Zauberwirken",
+    "BNPCSheet.pact": "Pakt Magie",
+    
     "Item.Edit":"Gegenstand bearbeiten",
     
     "Formula": "Formel",
