@@ -38,6 +38,12 @@
     "BNPCSheet.lootSetting":"Expand Loot",
     "BNPCSheet.lootSettingHelp":"Always expand loot descriptions on sheet opening",
     
+    "BNPCSheet.casterLevel": "Caster Level",
+    "BNPCSheet.defaultSpellcastingDC": "Default spellcasting DC",
+    "BNPCSheet.atWill": "At Will",
+    "BNPCSheet.innateSpellcasting": "Innate Spellcasting",
+    "BNPCSheet.pact": "Pact",
+    
     "Item.Edit":"Edit Item",
     
     "Formula": "Formula",
