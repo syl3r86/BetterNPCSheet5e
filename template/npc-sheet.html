@@ -71,10 +71,17 @@
                         <a class="npc-roll-hp" title="{{ localize "BNPCSheet.RollHP" }}"><i class="fas fa-dice-d20"></i></a>
                         <span class="flex0">)</span>
                     </div>
-                    <div class="flex-line">
-                        <label class="flex">{{ localize "DND5E.Speed" }}</label>
-                        <input class="npc-textinput-small flex" name="data.attributes.speed.value" type="text" value="{{data.attributes.speed.value}}" placeholder="30 ft." />
-                        <input class="npc-textinput-small flex" name="data.attributes.speed.special" type="text" value="{{data.attributes.speed.special}}" placeholder="Special Movement" />
+                    <div class="form-group-stacked hidable">
+                        <a class="config-button" data-action="movement"><b>{{
+                                localize "DND5E.Speed" }}</b></a>
+                        <ul class="traits-list">
+                            {{#if movement.primary}}
+                            <li class="tag">{{movement.primary}}</li>
+                            {{/if}}
+                            {{#if movement.special}}
+                            <li class="tag">{{movement.special}}</li>
+                            {{/if}}
+                        </ul>
                     </div>
                 </div>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
