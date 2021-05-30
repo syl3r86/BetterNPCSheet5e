@@ -3,8 +3,14 @@
 This module overwrites the default NPC sheet that comes shiped with the dnd5e system and brings it closer to the well known official template. 
 
 ## If you're having trouble closing the sheet, make sure to have both this module AND dnd5e on the most recent versions.
-- better NPC sheet v0.8.3
-- dnd5e v0.94
+- better NPC sheet v0.9.2
+- dnd5e v1.2.4
+
+## The current version of the module has been tested with the following versions of FoundryVTT:
+- 0.7.5
+- 0.7.9
+- 0.7.10
+
 
 ## Installation
 1. Copy this link and use it in Foundrys Module Manager to install the Module
