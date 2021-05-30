@@ -5,7 +5,6 @@
     "version": "0.9.1",
     "author": "Felix#6196",
     "systems": ["dnd5e"],
-    "scripts": [],
     "esmodules": ["/betternpcsheet.js"],
     "styles": ["/css/betternpcsheet.css", "css/rpg-awesome.css"],
     "packs": [],
@@ -36,9 +35,6 @@
           "path": "lang/de.json"
         }
     ],
-    "url": "https://github.com/syl3r86/BetterNPCSheet5e",
-    "manifest": "https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/master/module.json",
-    "download": "https://github.com/syl3r86/BetterNPCSheet5e/archive/master.zip",
     "minimumCoreVersion": "0.6.3",
-    "compatibleCoreVersion": "0.7.5"
+    "compatibleCoreVersion": "0.7.10"
 }
