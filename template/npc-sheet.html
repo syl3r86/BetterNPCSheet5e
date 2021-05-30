@@ -169,8 +169,10 @@
                         data-dtype="{{data.skills.prc.passive}}" value="{{data.skills.prc.passive}}"
                         placeholder="Value" />
                 </div>
-                <div class="hidable" data-hidable-attr="{{data.traits.senses}}">
-                    <label><b>{{localize "DND5E.Senses"}} </b></label>
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.senses}}">
+                    <label for="data.traits.senses"></label>
+                    <a class="trait-selector config-button" data-action="senses"><b>{{localize
+                            "DND5E.Senses"}}</b></a>
                     <ul class="traits-list">
                         {{#each senses as |v k|}}
                         <li class="tag {{k}}">{{v}}</li>
