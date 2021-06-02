@@ -51,8 +51,9 @@
   height: 15px;
   min-width: 24px;
 }
-.better-npc-sheet-container .better-npc-sheet .npc-textinput,
-.better-npc-sheet-container .better-npc-sheet .size-selector {
+.better-npc-sheet-container .better-npc-sheet .details .npc-textinput,
+.better-npc-sheet-container .better-npc-sheet .details .size-selector, 
+.better-npc-sheet-container .better-npc-sheet .details span{
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif !important;
   color: #222;
   font-size: 1.3em;
@@ -204,7 +205,8 @@
   align-items: baseline;
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .npc-item-create {
-  margin: 0 1ch;
+  margin: 0 1ch;  
+  flex-grow: 0;
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .body-tile .item .npc-item-header {
   margin-top: 2px;
@@ -275,4 +277,23 @@
 }
 .better-npc-sheet-container .better-npc-sheet .npc-body .spell-section input:read-only:focus {
   box-shadow: none;
+}
+.better-npc-sheet-container .better-npc-sheet .npc-body .effects-list .effect-header .item-image {
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+  flex-grow:0;
+}
+
+.better-npc-sheet-container .better-npc-sheet .npc-body .effects-list .effect-header h4{
+  flex-grow:1;
+}
+
+.better-npc-sheet-container .better-npc-sheet .npc-body .effects-list .effect-header .item-controls{
+  flex-grow:0;
+  min-width:42px;
+}
+
+.better-npc-sheet-container .better-npc-sheet .npc-body .effects-list .effect-extras{
+  font-size:12px;
 }

@@ -19,9 +19,9 @@
                     {{/each}}
                     {{/select}}
                 </select>
-                <input class="npc-textinput" name="data.details.type" type="text" value="{{data.details.type}}" placeholder="{{ localize "Type" }}" />
-                <input class="npc-textinput" name="data.details.alignment" type="text" value="{{data.details.alignment}}" placeholder="{{ localize "DND5E.Alignment" }}" />
-                <input class="npc-textinput" name="data.details.source" type="text" value="{{data.details.source}}" placeholder="{{ localize "DND5E.Source" }}" />
+                <span class="config-button" data-action="type" title="{{ localize 'DND5E.Type' }}">{{labels.type}}</span>
+                <input class="npc-textinput" name="data.details.alignment" type="text" value="{{data.details.alignment}}" title="{{ localize 'DND5E.Alignment' }}" placeholder="{{ localize 'DND5E.Alignment' }}" />
+                <input class="npc-textinput" name="data.details.source" type="text" value="{{data.details.source}}" title="{{ localize 'DND5E.Source' }}" placeholder="{{ localize 'DND5E.Source' }}" />
             </div>
         </div>
 
@@ -71,10 +71,17 @@
                         <a class="npc-roll-hp" title="{{ localize "BNPCSheet.RollHP" }}"><i class="fas fa-dice-d20"></i></a>
                         <span class="flex0">)</span>
                     </div>
-                    <div class="flex-line">
-                        <label class="flex">{{ localize "DND5E.Speed" }}</label>
-                        <input class="npc-textinput-small flex" name="data.attributes.speed.value" type="text" value="{{data.attributes.speed.value}}" placeholder="30 ft." />
-                        <input class="npc-textinput-small flex" name="data.attributes.speed.special" type="text" value="{{data.attributes.speed.special}}" placeholder="Special Movement" />
+                    <div class="form-group-stacked hidable">
+                        <a class="config-button" data-action="movement"><b>{{
+                                localize "DND5E.Speed" }}</b></a>
+                        <ul class="traits-list">
+                            {{#if movement.primary}}
+                            <li class="tag">{{movement.primary}}</li>
+                            {{/if}}
+                            {{#if movement.special}}
+                            <li class="tag">{{movement.special}}</li>
+                            {{/if}}
+                        </ul>
                     </div>
                 </div>
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
@@ -164,14 +171,20 @@
 
                 <!-- Others -->
                 <div class="flex-line hidable" data-hidable-attr="{{data.traits.perception.value}}">
-                    <label><b>{{localize "DND5E.PassivePerception"}} </b></label>
-                    <input class="npc-textinput-small hidable-attr" type="text" name="data.traits.perception.value" data-dtype="{{data.traits.perception.type}}"
-                           value="{{data.traits.perception.value}}" placeholder="Value" />
+                    <label><b>{{localize "BNPCSheet.PassivePerception"}} </b></label>
+                    <input class="npc-textinput-small hidable-attr" type="text" name="data.skills.prc.passive"
+                        data-dtype="{{data.skills.prc.passive}}" value="{{data.skills.prc.passive}}"
+                        placeholder="Value" />
                 </div>
-                <div class="hidable" data-hidable-attr="{{data.traits.senses}}">
-                    <label><b>{{localize "DND5E.Senses"}} </b></label>
-                    <input class="npc-textinput-small" type="text" name="data.traits.senses" data-dtype="String"
-                           value="{{#if data.traits.senses.value}}{{data.traits.senses.value}}{{else}}{{data.traits.senses}}{{/if}}" placeholder="None" />
+                <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.senses}}">
+                    <label for="data.traits.senses"></label>
+                    <a class="trait-selector config-button" data-action="senses"><b>{{localize
+                            "DND5E.Senses"}}</b></a>
+                    <ul class="traits-list">
+                        {{#each senses as |v k|}}
+                        <li class="tag {{k}}">{{v}}</li>
+                        {{/each}}
+                    </ul>
                 </div>
                 <div class="form-group-stacked hidable" data-hidable-attr="{{data.traits.languages.value}}{{data.traits.languages.custom}}">
                     <label for="data.traits.languages"></label>
@@ -220,7 +233,7 @@
             {{/each}}
 
             <!-- SPELLS -->
-            <div class="body-tile spell-section " data-hidable-attr="{{actor.spellbook}}" data-tile="spell{{lvl}}">
+            <div class="body-tile hidable spell-section " data-hidable-attr="{{actor.spellbook}}" data-tile="spell{{lvl}}">
                 <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
                 <h3>
                     <a class="item-control item-create npc-item-create" title="Create Spell" data-type="spell" data-level="0"><i class="fas fa-plus-circle"></i></a>
@@ -299,7 +312,54 @@
             </div>
             {{/each}}
 
-        
+            <!-- Active Effects -->
+            <div class="body-tile active-effects hidable" data-hidable-attr="{{effectCount}}">
+                <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                <h3>
+                    <a class="body-tile-name" data-tile="Active Effects"> Active Effects</a>
+                </h3>
+                <div class="sheet-divider"></div><div class="sheet-divider-left"></div>
+                <ol class="items-list effects-list">
+                    {{#each effects as |section sid|}}
+                        <li class="items-header flexrow" data-effect-type="{{section.type}}">
+                            <a class="effect-control npc-item-create" title="Create Item" data-action="create"><i class="fas fa-plus-circle"></i></a>
+                            
+                            <h3 class="item-name effect-name flexrow">{{localize section.label}}</h3>
+                            
+                        </li>
+                    
+                        <ol class="item-list">
+                        {{#each section.effects as |effect|}}
+                            <li class="item effect" data-effect-id="{{effect.id}}">
+                                <div class="npc-item-header effect-header flexrow">
+                                    <img class="item-image" src="{{effect.data.icon}}"/>
+                                    <h4>{{effect.data.label}}</h4>
+
+                                    <div class="item-controls effect-controls flexrow">
+                                        <a class="effect-control" data-action="toggle" title="{{localize 'DND5E.EffectToggle'}}">
+                                            <i class="fas {{#if effect.data.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
+                                        </a>
+                                        <a class="effect-control" data-action="edit" title="{{localize 'DND5E.EffectEdit'}}">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="effect-control" data-action="delete" title="{{localize 'DND5E.EffectDelete'}}">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="effect-extras flexrow">
+                                    <div class="effect-source">Source: {{effect.sourceName}}</div>
+                                    <div class="effect-duration">Duration: {{effect.duration.label}}</div>
+                                </div>
+                                
+                                
+                                
+                            </li>
+                        {{/each}}
+                        </ol>
+                    {{/each}}
+                    </ol>
+            </div>
             <!-- END -->
         </div>
             <div class="tab biography" data-tab="tab2" data-group="group1">

@@ -1,3 +1,11 @@
+## v0.10.0
+ - fixed senses and movement informations
+    - thanks @Paterno#1107 for contributing these
+ - fixed an issue that certain things were not hidden properly on new npcs
+ - made the whole spellbook section hidden when no spells exists for the npc
+ - added Active Effects Controlls
+ - fixed creature type display
+
 ## v0.9.1
  - fixed a bug that led to a race condition when trying to enable Better Rolls. The modules shoudld now correctly work together
 

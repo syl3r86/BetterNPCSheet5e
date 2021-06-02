@@ -1,13 +1,13 @@
 /**
- * @author Felix Müller aka syl3r86
+ * @author Felix Mï¿½ller aka syl3r86
  */
- 
+
 
 import ActorSheet5eNPC from "../../systems/dnd5e/module/actor/sheets/npc.js";
 
 //let Actor5eSheet = CONFIG.Actor.sheetClass;
 export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
-								//  ActorSheet5eNPC
+    //  ActorSheet5eNPC
     get template() {
         // adding the #equals and #unequals handlebars helper
         Handlebars.registerHelper('equals', function (arg1, arg2, options) {
@@ -27,14 +27,14 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         const options = super.defaultOptions;
 
         mergeObject(options, {
-            classes: ["sheet","better-npc-sheet-container"],
+            classes: ["sheet", "better-npc-sheet-container"],
             width: 600,
             height: 300,
             blockFavTab: true
         });
         return options;
     }
-    
+
     getData() {
         const data = super.getData();
 
@@ -42,6 +42,9 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
 
         data['useIcons'] = game.settings.get("betternpcsheet5e", "useIcons");
+        console.log(data);
+        console.log(data.effects);
+        data.effectCount = data.effects.inactive.effects.length + data.effects.passive.effects.length + data.effects.temporary.effects.length
         return data;
     }
 
@@ -82,7 +85,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         html.find('.npc-item-name').click(event => {
             this._onItemSummary(event)
         });
-        
+
         // make categorys colapsable
         html.find('.body-tile-name').click(e => {
             let target = e.target.getAttribute('data-tile');
@@ -132,6 +135,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
             // toggle edit mode button event
             this.editMode = this.object.data.flags.betterNpcSheet?.editMode;
+            if(this.editMode === undefined) this.editMode = false;
             this._applySettingsMode(this.editMode, html);
 
             html.find('.editBtn').click(e => {
@@ -149,7 +153,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             this.saveState = true;
         } else {
             this._applySettingsMode(false, html);
-        }     
+        }
     }
 
     render(force = false, options = {}) {
@@ -173,10 +177,10 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             this.position.width = newWidth;
             this.position.height = newHeight;
         }
-        return super.render(force,options);
+        return super.render(force, options);
     }
 
-    async close() {        
+    async close() {
         if (this.isEditable) {
             this.object.update({ 'flags.betterNpcSheet.sheet.height': this.position.height, 'flags.betterNpcSheet.sheet.width': this.position.width });
         }
@@ -210,7 +214,6 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
     _applySettingsMode(editMode, html) {
         let hidable = html.find('.hidable');
-        console.log(editMode, html);
         for (let obj of hidable) {
             let data = obj.getAttribute('data-hidable-attr');
             if (data == '' || data == 0) {
@@ -241,7 +244,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             }
         }
     }
-    
+
     /**
     * Organize and classify Items for NPC sheets
     * @private
@@ -301,7 +304,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                 }
                 let uses = {
                     value: 0,
-                    max:0
+                    max: 0
                 }
                 if (!isCantrip) {
                     uses.value = actorData.data.spells["spell" + lvl].value;
@@ -340,9 +343,9 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
                             else if (i.type === "feat") features.push(i);
                             else if (i.type === "loot") loot.push(i);
                             else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.push(i);
-                            }
                         }
                     }
+                }
             }
         }
 
@@ -415,7 +418,11 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             { label: game.i18n.localize('BNPCSheet.LairActs'), name: 'lair', type: 'feat', isLair: true, items: lair, useIcons: useIcons },
             { label: game.i18n.localize('BNPCSheet.Loot'), name: 'loot', type: 'loot', isLoot: true, items: loot, useIcons: useIcons }
         ];
-        actorData.actor.spellbook = spellbook;
+        if(Object.keys(spellbook).length === 0) {
+            actorData.actor.spellbook = 0;
+        } else {
+            actorData.actor.spellbook = spellbook;
+        }
         actorData.actor.sections = sections;
     }
 
@@ -423,10 +430,10 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         if (data.actorId !== this.object.id || data.data === undefined) {
             return super._onDropItem(event, data);
         }
-        let typeFlag = data.data.flags ?.adnd5e ?.itemInfo ?.type;
+        let typeFlag = data.data.flags?.adnd5e?.itemInfo?.type;
         let targetTile = $(event.toElement).parents('.body-tile');
         let targetType = targetTile.length > 0 ? targetTile[0].dataset.tile : '';
-        
+
         if (targetType && targetType.indexOf('spell') === -1 && targetType !== typeFlag) {
             let item = this.actor.getOwnedItem(data.data._id);
             item.update({ 'flags.adnd5e.itemInfo.type': targetType });
@@ -471,7 +478,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         const dropTarget = event.target.closest(".item");
         const targetId = dropTarget ? dropTarget.dataset.itemId : null;
         const target = siblings.find(s => s.data._id === targetId);
-        
+
         // Perform the sort
         const sortUpdates = SortingHelpers.performIntegerSort(source, { target: target, siblings });
         const updateData = sortUpdates.map(u => {
@@ -534,16 +541,16 @@ Hooks.on('ready', () => {
     window.setTimeout(() => {
         if (window.BetterRolls) {
             console.log('BetterNPCSheet - Registering Better Rolls');
-            //window.BetterRolls.hooks.addActorSheet("BetterNPCActor5eSheet");
-            window.BetterRolls.hooks.registerActorSheet("BetterNPCActor5eSheet", ".item .npc-item-name", ".item-summary", {
-                itemButton: '.item .rollable',
-                abilityButton: ".ability h4.ability-name.rollable",
-                checkButton: ".ability div span.ability-mod",
-                saveButton: ".saves-div .save .rollable"
-            });
+            window.BetterRolls.hooks.addActorSheet("BetterNPCActor5eSheet");
+            // window.BetterRolls.hooks.registerActorSheet("BetterNPCActor5eSheet", ".item .npc-item-name", ".item-summary", {
+            //     itemButton: '.item .rollable',
+            //     abilityButton: ".ability h4.ability-name.rollable",
+            //     checkButton: ".ability div span.ability-mod",
+            //     saveButton: ".saves-div .save .rollable"
+            // });
         }
     }, 2000);
-    
+
 
     game.settings.register("betternpcsheet5e", "useIcons", {
         name: game.i18n.localize("BNPCSheet.useIcons"),
