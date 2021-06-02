@@ -1,5 +1,5 @@
 /**
- * @author Felix M�ller aka syl3r86
+ * @author Felix Müller aka syl3r86
  */
 
 
