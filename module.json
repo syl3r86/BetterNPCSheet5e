@@ -37,7 +37,7 @@
     ],
 	"url": "https://github.com/Dinopaterno22/BetterNPCSheet5e",
     "manifest": "https://raw.githubusercontent.com/syl3r86/BetterNPCSheet5e/master/module.json",
-    "download": "https://github.com/syl3r86/BetterNPCSheet5e/archive/master.zip",
+    "download": "https://github.com/syl3r86/BetterNPCSheet5e/archive/v0.10.1.zip",
     "minimumCoreVersion": "0.8.0",
     "compatibleCoreVersion": "0.8.6"
 }
