@@ -268,7 +268,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
 
         // Iterate through items, allocating to containers
         for (let i of actorData.items) {
-            i.img = i.img || DEFAULT_TOKEN;
+            i.img = i.img || CONST.DEFAULT_TOKEN;
 
             i.hasUses = i.data.uses && (i.data.uses.max > 0);
             i.isOnCooldown = i.data.recharge && !!i.data.recharge.value && (i.data.recharge.charged === false);
