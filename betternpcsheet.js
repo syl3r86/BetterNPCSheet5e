@@ -125,7 +125,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             html.find('.type-list a').click(ev => {
                 let targetList = ev.target.dataset.value
                 let itemId = $(ev.target).parents('.item').attr('data-item-id');
-                let item = this.actor.getOwnedItem(itemId);
+                let item = this.actor.items.get(itemId);
                 item.update({ "flags.adnd5e.itemInfo.type": targetList });
             });
 
@@ -145,7 +145,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
             // apply saved item detail display state
             this.saveState = false;
             for (let element of html.find('.npc-item-name')) {
-                let item = this.actor.getOwnedItem($(element).parents('.item').data("item-id"));
+                let item = this.actor.items.get($(element).parents('.item').data("item-id"));
                 if (hasProperty(item, 'data.flags.betternpcsheet5e.showItemSummary') && item.data.flags.betternpcsheet5e.showItemSummary) {
                     $(element).trigger('click');
                 }
@@ -201,7 +201,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         super._onItemSummary(event);
         if (this.isEditable && this.saveState !== false) {
             let li = $(event.currentTarget).parents(".item");
-            let item = this.actor.getOwnedItem(li.data("item-id"));
+            let item = this.actor.items.get(li.data("item-id"));
             let showItemSummary = true;
             if (hasProperty(item, 'data.flags.betternpcsheet5e.showItemSummary')) {
                 showItemSummary = !item.data.flags.betternpcsheet5e.showItemSummary;
@@ -435,7 +435,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         let targetType = targetTile.length > 0 ? targetTile[0].dataset.tile : '';
 
         if (targetType && targetType.indexOf('spell') === -1 && targetType !== typeFlag) {
-            let item = this.actor.getOwnedItem(data.data._id);
+            let item = this.actor.items.get(data.data._id);
             item.update({ 'flags.adnd5e.itemInfo.type': targetType });
         } else {
             super._onDropItem(event, data);
@@ -472,7 +472,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         if (this.actor.isToken) return;
 
         // Get the drag source and its siblings
-        const source = this.actor.getOwnedItem(itemData._id);
+        const source = this.actor.items.get(itemData._id);
         const siblings = this._getSortSiblings(source);
         // Get the drop target
         const dropTarget = event.target.closest(".item");
@@ -488,7 +488,7 @@ export class BetterNPCActor5eSheet extends ActorSheet5eNPC {
         });
 
         // Perform the update
-        return this.actor.updateEmbeddedEntity("OwnedItem", updateData);
+        return this.actor.updateEmbeddedDocuments("Item", updateData);
     }
 
     _getSortSiblings(source) {
