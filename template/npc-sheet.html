@@ -51,6 +51,9 @@
                         <input class="npc-textinput-small flex" name="data.attributes.ac.formula" class="acformula" type="text" placeholder="{{ localize "Formula" }}"
                                value="{{data.attributes.ac.formula}}" />
                         <span class="flex0">)</span>
+                        {{#if editable}}
+		                    <a class="config-button show-on-edit" data-action="armor" title="Configure Armor"><i class="fas fa-cog"></i></a>
+            		    {{/if}}
                     </div>
                     <div class="flex-line">
                         <label>{{ localize "BNPCSheet.Initative" }}</label>
@@ -117,11 +120,11 @@
                     <label style="font-weight:bold;">{{ localize "BNPCSheet.Skills" }}</label>
                     {{#each data.skills as |skill s|}}
                     <div class="skill flex-line hidable" data-hidable-attr="{{skill.value}}" data-skill="{{s}}">
+                        <input class='hidable-attr' type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number" />
                         <a class="skill-proficiency show-on-edit " title="{{skill.hover}}">{{{skill.icon}}}</a>
                         <a class="skill-name rollable ">{{skill.label}}</a>
                         <span class="skill-mod ">{{numberFormat skill.total decimals=0 sign=true}}</span>
                         <span class="skill-ability ">({{skill.ability}})</span>
-                        <input class='hidable-attr' type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number" />
                     </div>
                     {{/each}}
                 </div>
